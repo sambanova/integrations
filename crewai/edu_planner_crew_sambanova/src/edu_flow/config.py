@@ -49,7 +49,7 @@ DEFAULT_MODEL: str = PROVIDER_CONFIGS[DEFAULT_PROVIDER]['models'][6]
 # LLM configuration settings
 LLM_CONFIGS: Dict[str, Dict[str, Optional[str]]] = {
     provider: {
-        'model': f"{config['model_prefix']}{config['models'][6]}",
+        'model': f'{config["model_prefix"]}{config["models"][6]}',
         'api_key': os.getenv(config['api_key_env']),
         'base_url': config['base_url'],
     }
