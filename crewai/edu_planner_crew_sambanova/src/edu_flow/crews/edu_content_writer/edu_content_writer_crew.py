@@ -8,10 +8,11 @@ working together to create, edit, and review educational content.
 import os
 from typing import Any, Dict, List
 
-from crewai import Agent, Crew, Process, Task
-from crewai.project import CrewBase, agent, crew, task
 from src.edu_flow.config import EDU_FLOW_INPUT_VARIABLES
 from src.edu_flow.llm_config import llm
+
+from crewai import Agent, Crew, Process, Task
+from crewai.project import CrewBase, agent, crew, task
 
 
 @CrewBase
