@@ -10,9 +10,8 @@ and content creation phases.
 import os
 from typing import List
 
-from dotenv import load_dotenv
-
 from crewai.flow.flow import Flow, listen, start
+from dotenv import load_dotenv
 
 from .config import EDU_FLOW_INPUT_VARIABLES
 from .crews.edu_content_writer.edu_content_writer_crew import EduContentWriterCrew
