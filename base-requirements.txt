@@ -1,0 +1,57 @@
+# Core Libraries
+python-dotenv==1.0.1
+typing_extensions==4.12.2
+tzdata==2024.2
+zipp==3.21.0
+
+# Data Science & Visualization
+plotly==5.19.0
+tqdm>=4.66.3
+
+# Jupyter & IPython
+ipykernel==6.29.4
+traitlets==5.14.3
+widgetsnbextension==4.0.13
+nest_asyncio==1.6.0
+
+# Web & API Related
+streamlit==1.40.2
+starlette==0.46.1
+tornado==6.4.2
+uri-template==1.3.0
+urllib3==2.3.0
+webcolors==24.11.1
+webencodings==0.5.1
+websocket-client==1.8.0
+websockets==14.1
+
+# AI Frameworks
+crewai==0.100.1
+crewai-tools==0.0.1
+langchain-core==0.3.33
+langchain-community==0.3.16
+llama-index-core>=0.12.24.post1
+llama-index>=0.12.24
+llama-index-embeddings-openai>=0.3.1
+llama-index-indices-managed-llama-cloud>=0.6.9
+llama-index-readers-file>=0.4.6
+llama-index-embeddings-huggingface>=0.5.2
+llama-index-llms-sambanovasystems>=0.4.3
+llama-index-readers-docling>=0.3.2
+llama-index-node-parser-docling>=0.3.1
+llama-index-utils-workflow>=0.3.0
+llama-index-program-lmformatenforcer>=0.3.0
+instructor==1.7.7
+
+# Utilities & Miscellaneous
+Jinja2==3.1.4
+pre-commit==4.0.1
+tinycss2==1.4.0
+wcwidth==0.2.13
+wrapt==1.17.2
+yfinance==0.2.54
+
+# Type Checking & Enhancements
+ruff==0.6.9
+mypy==1.11.2
+types-python-dateutil==2.9.0.20241206
