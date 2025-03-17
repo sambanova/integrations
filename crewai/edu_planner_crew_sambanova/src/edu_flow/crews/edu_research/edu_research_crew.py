@@ -9,10 +9,11 @@ import os
 import sys
 from typing import Any, Dict, List
 
-from crewai import Agent, Crew, Process, Task
-from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import SerperDevTool
 from pydantic import BaseModel
+
+from crewai import Agent, Crew, Process, Task
+from crewai.project import CrewBase, agent, crew, task
 
 current_dir = os.getcwd()
 repo_dir = os.path.abspath(os.path.join(current_dir, '../..'))
