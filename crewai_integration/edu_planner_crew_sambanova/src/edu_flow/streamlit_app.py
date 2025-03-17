@@ -116,9 +116,9 @@ def run_edu_flow(
     provider_config = PROVIDER_CONFIGS[provider]
     api_key = os.getenv(provider_config['api_key_env'])
     if not api_key:
-        raise ValueError(f'Missing API key for {provider_config["display_name"]}')
+        raise ValueError(f"Missing API key for {provider_config['display_name']}")
 
-    model_name = f'{provider_config["model_prefix"]}{model}'
+    model_name = f"{provider_config['model_prefix']}{model}"
 
     LLM_CONFIG.clear()
     LLM_CONFIG.update(
