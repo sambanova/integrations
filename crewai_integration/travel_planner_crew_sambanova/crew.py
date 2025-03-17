@@ -2,13 +2,13 @@
 
 import typing
 
+from crewai import LLM, Agent, Crew, Process, Task
+from crewai.project import CrewBase, agent, crew, task
+
 # Import tools from crewai_tools
 # ScrapWebsiteTool: Extract content of wensite, https://docs.crewai.com/tools/scrapewebsitetool
 # SerperDevTool: Search Internet, https://docs.crewai.com/tools/serperdevtool
 from crewai_tools import ScrapeWebsiteTool, SerperDevTool
-
-from crewai import LLM, Agent, Crew, Process, Task
-from crewai.project import CrewBase, agent, crew, task
 
 # Change the model which you want to use below.
 # Currently, we use the Llama 3.1 70B model because it seems the most versatile.
