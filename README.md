@@ -19,6 +19,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | :---- | :---- | :---- | :---- |
 | **Agno** | Agentic-first library | Agno is a lightweight framework for building multi-modal AI agents | [Documentation](https://docs.agno.com/models/sambanova)  |
 | **AutoGen** | Agentic-first library | AutoGen is an open-source tool that defines agents, integrates LLMs, and handles task termination.  | [Demo code](./autogen/) |
+| **Browser Use** | Assistant tool | Browser Use is an open-source project enabling AI agents to control web browsers, facilitating tasks like automated web navigation and data extraction. | [Documentation](https://docs.browser-use.com/quickstart) |
 | **Camel** | Agentic-first library | Camel AI is an open-source framework for intelligent agents, and supports building, customizing, and deploying multi-agent systems.   | [Demo code](./camel/) |
 | **Cline** | Assistant tool | Cline is a coding assistant tool that streamlines workflows, offers account management features, and optimizes provider routing for developers. | [Documentation](https://docs.cline.bot/getting-started/getting-started-new-coders) |
 | **Continue** | Assistant tool | Continue is an open-source coding assistant platform to modify and optimize coding within IDE. | [Documentation](./continue) |
