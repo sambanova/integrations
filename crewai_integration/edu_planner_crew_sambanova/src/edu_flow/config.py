@@ -21,8 +21,6 @@ SAMBANOVA_MODELS: List[str] = [
     'Meta-Llama-3.2-1B-Instruct',
     'Meta-Llama-3.2-3B-Instruct',
     'QwQ-32B',
-    'LLama-3.2-11B-Vision-Instruct',
-    'LLama-3.2-90B-Vision-Instruct',
 ]
 
 # Provider-specific model configurations
