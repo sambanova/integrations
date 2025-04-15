@@ -11,17 +11,16 @@ from typing import Any, Dict, List, Optional
 
 # Available SambaNova models configuration
 SAMBANOVA_MODELS: List[str] = [
-    'Meta-Llama-3.1-70B-Instruct',
+    'Llama-4-Scout-17B-16E-Instruct',
+    'Llama-4-Scout-17B-16E-Instruct',
     'Meta-Llama-3.3-70B-Instruct',
     'DeepSeek-R1',
     'DeepSeek-R1-Distill-Llama-70B',
-    'Llama-3.1-Tulu-3-405B',
     'Meta-Llama-3.1-8B-Instruct',
     'Meta-Llama-3.1-405B-Instruct',
     'Meta-Llama-3.2-1B-Instruct',
     'Meta-Llama-3.2-3B-Instruct',
-    'Qwen2.5-Coder-32B-Insruct',
-    'Qwen2.5-72B-Instruct',
+    'QwQ-32B',
     'LLama-3.2-11B-Vision-Instruct',
     'LLama-3.2-90B-Vision-Instruct',
 ]
