@@ -85,12 +85,6 @@
       "apiKey": "<Your API Key>"
     }
   ],
-  "tabAutocompleteModel": {
-    "title": "Qwen2.5 Coder 32B",
-    "provider": "sambanova",
-    "model": "Qwen2.5-Coder-32B-Instruct",
-    "apiKey": "<Your API Key>"
-  },
   "contextProviders": [
     {
       "name": "code",
