@@ -47,7 +47,7 @@ This is a demonstration of how to use Sambanova's models as coding assistants le
 # Before you begin
 
 For this starter kit, you will need access to an SambaNova Cloud account or a SambaStudio Environment.
-> You can use a LLM of your choice, either from SambaNova Cloud or from SambaStudio, but is highly recommended to use Qwen2.5-Coder-32B-Instruct
+> You can use a LLM of your choice, either from SambaNova Cloud or from SambaStudio, but is highly recommended to use QwQ-32B
 
 ## Set up the account for using the LLM 
 
@@ -63,7 +63,7 @@ The next step sets you up to use one of the models available from SambaNova. It 
 
 To perform this setup, you must be a SambaNova customer with a SambaStudio account.
 
-1. Log in to SambaStudio and select the LLM to use (e,g. Bundle with Qwen2.5-Coder-32B-Instruct) and deploy an endpoint for inference. See the [SambaStudio endpoint documentation](https://docs.sambanova.ai/sambastudio/latest/endpoints.html).
+1. Log in to SambaStudio and select the LLM to use (e,g. Bundle with Meta-Llama-3.3-70B-Instruct) and deploy an endpoint for inference. See the [SambaStudio endpoint documentation](https://docs.sambanova.ai/sambastudio/latest/endpoints.html).
 
 2. Get your endpoint API authorization key. as shown [here](https://docs.sambanova.ai/sambastudio/latest/endpoints.html#_endpoint_api_keys).
 
@@ -84,23 +84,21 @@ After installing Continue you will need to do the basic setup
 You should set the ***Continue*** config.json file. press ⌘+l this will open a new ***Continue*** session, Click in the gear ⚙ top right button, the the json file will open, replace the contents of this file with the contents of the [config.json](config.json) provided file, and update the `apiKey` model fields with your SambaNovaCloud API Key
 
 This will add to ***Continue*** the following models
-   
-- `Qwen2.5-Coder-32B-Instruct`
+
+- `Llama-4-Scout-17B-16E-Instruct`
+- `Llama-4-Maverick-17B-128E-Instruct`
 - `Meta-Llama-3.3-70B-Instruct`
 - `DeepSeek-R1`
 - `DeepSeek-R1-Distill-Llama-70B`
 - `Meta-Llama-3.1-8B-Instruct`
-- `Meta-Llama-3.1-70B-Instruct`
 - `Meta-Llama-3.1-405B-Instruct`
-- `Llama-3.1-Tulu-3-405B`
 - `Llama-3.2-11B-Vision-Instruct`
 - `Llama-3.2-90B-Vision-Instruct`
 - `Meta-Llama-3.2-3B-Instruct`
 - `Meta-Llama-3.2-1B-Instruct`
-- `Qwen2.5-72B-Instruct`
-- `QwQ-32B-Preview`
+- `QwQ-32B`
 
-And will add `Qwen2.5-Coder-32B-Instruct` as tab autocompletion model.
+And will add `Meta-Llama-3.1-8B-Instruct` as tab autocompletion model.
 
 ### Add SambaStudio models
 

@@ -11,8 +11,8 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import ScrapeWebsiteTool, SerperDevTool
 
 # Change the model which you want to use below.
-# Currently, we use the Llama 3.1 70B model because it seems the most versatile.
-llm = LLM(model='sambanova/Meta-Llama-3.1-70B-Instruct')
+# Currently, we use the Llama 3.3 70B model because it seems the most versatile.
+llm = LLM(model='sambanova/Meta-Llama-3.3-70B-Instruct')
 
 
 @CrewBase

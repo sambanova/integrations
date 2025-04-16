@@ -2,14 +2,20 @@
   "models": [
     {
       "provider": "sambanova",
-      "title": "Qwen2.5 Coder 32B SambaNovaCloud",
-      "model": "Qwen2.5-Coder-32B-Instruct",
+      "title": "Llama4 Scout SambaNovaCloud",
+      "model": "Llama-4-Scout-17B-16E-Instruct",
       "apiKey": "<Your API Key>"
     },
     {
       "provider": "sambanova",
-      "title": "Llama3.3 70B SambaNovaCloud",
-      "model": "Meta-Llama-3.3-70B-Instruct",
+      "title": "Llama4 Maverick SambaNovaCloud",
+      "model": "Llama-4-Maverick-17B-128E-Instruct",
+      "apiKey": "<Your API Key>"
+    },
+    {
+      "provider": "sambanova",
+      "title": "DeepSeek V3 SambaNovaCloud",
+      "model": "DeepSeek-V3-0324",
       "apiKey": "<Your API Key>"
     },
     {
@@ -32,32 +38,8 @@
     },
     {
       "provider": "sambanova",
-      "title": "Llama3.1 70B SambaNovaCloud",
-      "model": "Meta-Llama-3.1-70B-Instruct",
-      "apiKey": "<Your API Key>"
-    },
-    {
-      "provider": "sambanova",
       "title": "Llama3.1 405B SambaNovaCloud",
       "model": "Meta-Llama-3.1-405B-Instruct",
-      "apiKey": "<Your API Key>"
-    },
-    {
-      "provider": "sambanova",
-      "title": "Llama3.1 Tulu 3 405B SambaNovaCloud",
-      "model": "Llama-3.1-Tulu-3-405B",
-      "apiKey": "<Your API Key>"
-    },
-    {
-      "provider": "sambanova",
-      "title": "Llama3.2 11B Vision SambaNovaCloud",
-      "model": "Llama-3.2-11B-Vision-Instruct",
-      "apiKey": "<Your API Key>"
-    },
-    {
-      "provider": "sambanova",
-      "title": "Llama3.2 90B Vision SambaNovaCloud",
-      "model": "Llama-3.2-90B-Vision-Instruct",
       "apiKey": "<Your API Key>"
     },
     {
@@ -74,21 +56,15 @@
     },
     {
       "provider": "sambanova",
-      "title": "Qwen2.5 72B SambaNovaCloud",
-      "model": "Qwen2.5-72B-Instruct",
-      "apiKey": "<Your API Key>"
-    },
-    {
-      "provider": "sambanova",
       "title": "QWQ 32B SambaNovaCloud",
-      "model": "QwQ-32B-Preview",
+      "model": "QwQ-32B",
       "apiKey": "<Your API Key>"
     }
   ],
   "tabAutocompleteModel": {
-    "title": "Qwen2.5 Coder 32B",
     "provider": "sambanova",
-    "model": "Qwen2.5-Coder-32B-Instruct",
+    "title": "Llama3.1 8B SambaNovaCloud",
+    "model": "Meta-Llama-3.1-8B-Instruct",
     "apiKey": "<Your API Key>"
   },
   "contextProviders": [
