@@ -10,9 +10,7 @@ This document demonstrates how to use [W&B Weave](https://weave-docs.wandb.ai/) 
 - Evaluation: Use custom or pre-built scorers alongside our comparison tools to systematically assess and enhance application performance.
 - Guardrails: Protect your application with pre- and post-safeguards for content moderation, prompt safety, and more.
 
-In order to use `Weave` @`SambaNova`, you need to set the environment variable `SAMBANOVA_API_KEY`: your API 
- for accessing the SambaNova Cloud. You can create your API 
- [here](https://cloud.sambanova.ai/apis).
+In order to use `Weave` @`SambaNova`, you need to set the environment variable `SAMBANOVA_API_KEY`: your API key for accessing the SambaNova Cloud. You can create your API key [here](https://cloud.sambanova.ai/apis).
 
 1. To get started, simply call `weave.init()` at the beginning of your script, with the project name as attribute.
 
@@ -42,7 +40,7 @@ pip install weave
 ```
 
 ## Notebooks
-The `Weave@SambaNova.ipynb` notebook show how to use `Weave` with `Sambanova` using the three connectors:
+The `Weave@SambaNova.ipynb` notebook shows how to use `Weave` with `Sambanova` using the three connectors:
 - SambaNova LangChain chat object.
 - LiteLLM.
 - OpenAI SDK.
