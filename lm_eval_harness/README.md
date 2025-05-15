@@ -40,7 +40,7 @@ pip install tqdm
 
 1. Copy the notebook `quickstart_eval.ipynb` into the cloned directory:
 ```bash
-mv /path/to/quickstart_eval.ipynb lm-eval-harness/
+mv /path/to/quickstart_eval.ipynb lm-evaluation-harness/
 cd lm-evaluation-harness
 ```
    
