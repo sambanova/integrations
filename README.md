@@ -15,7 +15,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 
 ## Integrations
 
-| Company | Type | Description | Access |
+| Company/Package | Type | Description | Access |
 | :---- | :---- | :---- | :---- |
 | **Agno** | Agentic-first library | Agno is a lightweight framework for building multi-modal AI agents | [Documentation](https://docs.agno.com/models/sambanova)  |
 | **AutoGen** | Agentic-first library | AutoGen is an open-source tool that defines agents, integrates LLMs, and handles task termination.  | [Demo code](./autogen/) |
