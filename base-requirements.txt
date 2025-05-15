@@ -46,7 +46,7 @@ llama-stack-client==0.2.6
 instructor==1.7.7
 
 # Utilities & Miscellaneous
-Jinja2==3.1.4
+Jinja2>=3.1.6
 pre-commit==4.0.1
 tinycss2==1.4.0
 wcwidth==0.2.13
