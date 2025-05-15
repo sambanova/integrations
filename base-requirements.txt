@@ -41,6 +41,8 @@ llama-index-readers-docling>=0.3.2
 llama-index-node-parser-docling>=0.3.1
 llama-index-utils-workflow>=0.3.0
 llama-index-program-lmformatenforcer>=0.3.0
+llama-stack==0.2.6
+llama-stack-client==0.2.6
 instructor==1.7.7
 
 # Utilities & Miscellaneous

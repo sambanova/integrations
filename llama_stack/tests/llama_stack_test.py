@@ -42,9 +42,9 @@ class TestLlamaStack(unittest.TestCase):
         LlamaStackClient using the LLAMA_STACK_PORT variable.
         """
         load_dotenv(override=True)
-        cls.client = LlamaStackClient(base_url=f"http://localhost:{os.environ['LLAMA_STACK_PORT']}")
-        cls.text_models = ['sambanova/Meta-Llama-3.3-70B-Instruct']
-        cls.vision_models = ['sambanova/Llama-3.2-11B-Vision-Instruct', 'sambanova/Llama-3.2-90B-Vision-Instruct']
+        cls.client = LlamaStackClient(base_url=f'http://localhost:{os.environ["LLAMA_STACK_PORT"]}')
+        cls.text_models = ['sambanova/Meta-Llama-3.3-70B-Instruct', 'Llama-4-Scout-17B-16E-Instruct']
+        cls.vision_models = ['Llama-4-Maverick-17B-128E-Instruct']
         cls.rag_model = 'sambanova/Meta-Llama-3.3-70B-Instruct'
         cls.tool_model = 'sambanova/Meta-Llama-3.3-70B-Instruct'
         cls.safety_models = ['meta-llama/Llama-Guard-3-8B']
@@ -267,11 +267,13 @@ class TestLlamaStack(unittest.TestCase):
             response = self.client.inference.chat_completion(
                 model_id=model_id,
                 messages=[
-                    {'role': 'user', 'content': {'type': 'image', 'image': {'url': {'uri': data_url}}}},
                     {
                         'role': 'user',
-                        'content': 'What does this image represent?',
-                    },
+                        'content': [
+                            {'type': 'image', 'image': {'url': {'uri': data_url}}},
+                            {'type': 'text', 'text': 'What does this image represent?'},
+                        ],
+                    }
                 ],
                 stream=stream,
             )
