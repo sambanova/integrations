@@ -2,7 +2,7 @@
 
 This document demonstrates how to use [LM Evaluation Harness]([https://weave-docs.wandb.ai/](https://github.com/EleutherAI/lm-evaluation-harness)) with [SambaNova](https://sambanova.ai/) as your fastest LLM provider of choice for open source models.  
 
-`lm-eval-harness` is a unified evaluation framework developed by EleutherAI for testing generative language models on a large number of different evaluation tasks.
+`lm-evaluation-harness` is a unified evaluation framework developed by EleutherAI for testing generative language models on a large number of different evaluation tasks.
 
 Features:
 
@@ -15,10 +15,10 @@ Features:
 ## Pre-requisites: 
 1. Create a [SambaNova Cloud](https://cloud.sambanova.ai/) account and get an API key.
 
-2. Clone the evaluation harness repo:
+2. Clone the `lm-evaluation-harness` repo:
 ```bash
 git clone https://github.com/EleutherAI/lm-eval-harness.git
-cd lm-eval-harness
+cd lm-evaluation-harness
 ```   
 
 3. Create and activate a virtual environment:
@@ -41,7 +41,7 @@ pip install tqdm
 1. Copy the notebook `quickstart_eval.ipynb` into the cloned directory:
 ```bash
 mv /path/to/quickstart_eval.ipynb lm-eval-harness/
-cd lm-eval-harness
+cd lm-evaluation-harness
 ```
    
 2. Open the notebook.
