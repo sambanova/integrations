@@ -17,6 +17,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 
 | Company | Type | Description | Access |
 | :---- | :---- | :---- | :---- |
+| **AgentOps** | Tracing and observability  | AgentOps offers session replay analytics, time-travel debugging, and API latency tracking, helping developers optimize performance and troubleshoot issues efficiently. | [Demo code](./agentops) |
 | **Agno** | Agentic-first library | Agno is a lightweight framework for building multi-modal AI agents | [Documentation](https://docs.agno.com/models/sambanova)  |
 | **AutoGen** | Agentic-first library | AutoGen is an open-source tool that defines agents, integrates LLMs, and handles task termination.  | [Demo code](./autogen/) |
 | **Browser Use** | Assistant tool | Browser Use is an open-source project enabling AI agents to control web browsers, facilitating tasks like automated web navigation and data extraction. | [Documentation](https://docs.browser-use.com/quickstart) |
@@ -31,8 +32,8 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **LangChain** | LLM framework | Langchain implements a standard interface for LLMs to simplify development, productization, and deployment. | [Documentation](https://python.langchain.com/docs/integrations/providers/sambanova/) |
 | **Langflow** | Low code framework | Langflow is a visual framework for building multi-agent and RAG applications. | [Documentation](https://docs.langflow.org/components-models#sambanova) |
 | **LlamaIndex** | LLM framework | LlamaIndex is an orchestration framework to rapidly deploy LLM applications. | [Demo code](./llamaindex) |
-| **Llama Stack** | LLM framework | Llama Stack provides modular APIs and tools to efficiently build and deploy AI applications, enabling tasks like inference, safety moderation, memory management, and autonomous agent creation using the Llama model family. | [Documentation](https://llama-stack.readthedocs.io/en/latest/distributions/self_hosted_distro/sambanova.html) |
 | **LiteLLM** | LLM framework | LiteLLM is an open-source Python library that provides a unified interface for accessing LLMs, translating inputs and mapping exceptions. | [Documentation](https://docs.litellm.ai/docs/providers/sambanova) |
+| **Llama Stack** | LLM framework  | Llama Stack standardizes the core building blocks that simplify AI application development. It codifies best practices across the Llama ecosystem. | [Demo code](./llama_stack/README.md) |
 | **Milvus** | Vector DB | Milvus is an open-source vector database from Milvus and can easily enable RAG applications. | [Demo code](./milvus) |
 | **Oumi** | LLM framework | Oumi is an open-source platform that streamlines the entire lifecycle of foundation models from data preparation and training to evaluation and deployment. | [Documentation](https://oumi.ai/docs/en/latest/api/oumi.inference.html#oumi.inference.SambanovaInferenceEngine) |
 | **Semantic Kernel** | Agentic-first library | Semantic Kernel is an open-source development tool to build agents and integrate them with the latest AI models into your codebase.  | [Demo code](./semantic_kernel) |
@@ -47,6 +48,7 @@ SambaNova AI Starter Kits are a collection of open-source examples and guides de
 ## API Documentation
 
 - Find more information about SambaNova Cloud [here](https://docs.sambanova.ai/cloud/docs/get-started/overview)
+- Find more information about SambaNova Integrations [here](https://docs.sambanova.ai/cloud/docs/integrations)
 
 **Note:** These Integrations code samples are provided "as-is," and are not production-ready or supported code. Bugfix/support will be on a best-effort basis only. Code may use third-party open-source software. You are responsible for performing due diligence per your organization policies for use in your applications.
 

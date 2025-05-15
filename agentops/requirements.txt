@@ -1,0 +1,4 @@
+agentops==0.4.11
+openai==1.66.3
+ipykernel==6.29.4
+python-dotenv==1.0.1
