@@ -15,7 +15,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 
 ## Integrations
 
-| Company | Type | Description | Access |
+| Company/Package | Type | Description | Access |
 | :---- | :---- | :---- | :---- |
 | **Agno** | Agentic-first library | Agno is a lightweight framework for building multi-modal AI agents | [Documentation](https://docs.agno.com/models/sambanova)  |
 | **AutoGen** | Agentic-first library | AutoGen is an open-source tool that defines agents, integrates LLMs, and handles task termination.  | [Demo code](./autogen/) |
@@ -33,6 +33,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **LlamaIndex** | LLM framework | LlamaIndex is an orchestration framework to rapidly deploy LLM applications. | [Demo code](./llamaindex) |
 | **LiteLLM** | LLM framework | LiteLLM is an open-source Python library that provides a unified interface for accessing LLMs, translating inputs and mapping exceptions. | [Documentation](https://docs.litellm.ai/docs/providers/sambanova) |
 | **Llama Stack** | LLM framework  | Llama Stack standardizes the core building blocks that simplify AI application development. It codifies best practices across the Llama ecosystem. | [Demo code](./llama_stack/README.md) |
+| **LM Evaluation Harness** | Evaluation | LM Evaluation Harness is a unified evaluation framework developed by EleutherAI for testing generative language models on a large number of different evaluation tasks. | [Demo Code](./lm_eval_harness/) |
 | **Milvus** | Vector DB | Milvus is an open-source vector database from Milvus and can easily enable RAG applications. | [Demo code](./milvus) |
 | **Oumi** | LLM framework | Oumi is an open-source platform that streamlines the entire lifecycle of foundation models from data preparation and training to evaluation and deployment. | [Documentation](https://oumi.ai/docs/en/latest/api/oumi.inference.html#oumi.inference.SambanovaInferenceEngine) |
 | **Semantic Kernel** | Agentic-first library | Semantic Kernel is an open-source development tool to build agents and integrate them with the latest AI models into your codebase.  | [Demo code](./semantic_kernel) |
