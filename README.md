@@ -17,6 +17,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 
 | Company/Package | Type | Description | Access |
 | :---- | :---- | :---- | :---- |
+| **AgentOps** | Tracing and observability  | AgentOps offers session replay analytics, time-travel debugging, and API latency tracking, helping developers optimize performance and troubleshoot issues efficiently. | [Demo code](./agentops) |
 | **Agno** | Agentic-first library | Agno is a lightweight framework for building multi-modal AI agents | [Documentation](https://docs.agno.com/models/sambanova)  |
 | **AutoGen** | Agentic-first library | AutoGen is an open-source tool that defines agents, integrates LLMs, and handles task termination.  | [Demo code](./autogen/) |
 | **Browser Use** | Assistant tool | Browser Use is an open-source project enabling AI agents to control web browsers, facilitating tasks like automated web navigation and data extraction. | [Documentation](https://docs.browser-use.com/quickstart) |
@@ -49,6 +50,7 @@ SambaNova AI Starter Kits are a collection of open-source examples and guides de
 ## API Documentation
 
 - Find more information about SambaNova Cloud [here](https://docs.sambanova.ai/cloud/docs/get-started/overview)
+- Find more information about SambaNova Integrations [here](https://docs.sambanova.ai/cloud/docs/integrations)
 
 **Note:** These Integrations code samples are provided "as-is," and are not production-ready or supported code. Bugfix/support will be on a best-effort basis only. Code may use third-party open-source software. You are responsible for performing due diligence per your organization policies for use in your applications.
 

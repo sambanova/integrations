@@ -26,6 +26,7 @@ websocket-client==1.8.0
 websockets==14.1
 
 # AI Frameworks
+agentops==0.4.11
 crewai==0.100.1
 crewai-tools==0.0.1
 langchain-core==0.3.33
@@ -44,6 +45,7 @@ llama-index-program-lmformatenforcer>=0.3.0
 llama-stack==0.2.6
 llama-stack-client==0.2.6
 instructor==1.7.7
+openai==1.66.3
 
 # Utilities & Miscellaneous
 Jinja2>=3.1.6
