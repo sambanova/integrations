@@ -26,6 +26,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Cline** | Assistant tool | Cline is a coding assistant tool that streamlines workflows, offers account management features, and optimizes provider routing for developers. | [Documentation](https://docs.cline.bot/getting-started/getting-started-new-coders) |
 | **Continue** | Assistant tool | Continue is an open-source coding assistant platform to modify and optimize coding within IDE. | [Documentation](./continue) |
 | **CrewAI** | Agentic-first library | CrewAI is an open-source framework for making automated workflows with agents. | [Demo code](./crewai_integration/) |
+| **Dify** | Low code framework | Dify is a low code platform to build and deploy AI applications. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/dify) |
 | **Gradio** | Assistant tool | Gradio is an open-source Python package that allows users to create interactive web apps for machine learning models, APIs, and Python functions.  | [Demo code](https://github.com/gradio-app/sambanova-gradio) |
 | **Haystack** | LLM framework | Haystack is an open-source end-to-end framework that enables modular development of production-ready LLM applications.  | [Demo code](./haystack/) |
 | **Hugging Face**  | LLM framework | Hugging Face is a platform for building, training, and deploying open-source models.  | [Documentation](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/inference_client) |
