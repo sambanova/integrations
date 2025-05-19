@@ -19,6 +19,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | :---- | :---- | :---- | :---- |
 | **AgentOps** | Tracing and observability  | AgentOps offers session replay analytics, time-travel debugging, and API latency tracking, helping developers optimize performance and troubleshoot issues efficiently. | [Demo code](./agentops) |
 | **Agno** | Agentic-first library | Agno is a lightweight framework for building multi-modal AI agents | [Documentation](https://docs.agno.com/models/sambanova)  |
+| **AI Suite** | LLM Framework  | AI Suite simplifies access to multiple large language models through a unified interface. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/aisuite) |
 | **AutoGen** | Agentic-first library | AutoGen is an open-source tool that defines agents, integrates LLMs, and handles task termination.  | [Demo code](./autogen/) |
 | **Browser Use** | Assistant tool | Browser Use is an open-source project enabling AI agents to control web browsers, facilitating tasks like automated web navigation and data extraction. | [Documentation](https://docs.browser-use.com/quickstart) |
 | **Camel** | Agentic-first library | Camel AI is an open-source framework for intelligent agents, and supports building, customizing, and deploying multi-agent systems.   | [Demo code](./camel/) |
