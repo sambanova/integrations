@@ -19,12 +19,14 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | :---- | :---- | :---- | :---- |
 | **AgentOps** | Tracing and observability  | AgentOps offers session replay analytics, time-travel debugging, and API latency tracking, helping developers optimize performance and troubleshoot issues efficiently. | [Demo code](./agentops) |
 | **Agno** | Agentic-first library | Agno is a lightweight framework for building multi-modal AI agents | [Documentation](https://docs.agno.com/models/sambanova)  |
+| **AI Suite** | LLM Framework  | AI Suite simplifies access to multiple large language models through a unified interface. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/aisuite) |
 | **AutoGen** | Agentic-first library | AutoGen is an open-source tool that defines agents, integrates LLMs, and handles task termination.  | [Demo code](./autogen/) |
 | **Browser Use** | Assistant tool | Browser Use is an open-source project enabling AI agents to control web browsers, facilitating tasks like automated web navigation and data extraction. | [Documentation](https://docs.browser-use.com/quickstart) |
 | **Camel** | Agentic-first library | Camel AI is an open-source framework for intelligent agents, and supports building, customizing, and deploying multi-agent systems.   | [Demo code](./camel/) |
 | **Cline** | Assistant tool | Cline is a coding assistant tool that streamlines workflows, offers account management features, and optimizes provider routing for developers. | [Documentation](https://docs.cline.bot/getting-started/getting-started-new-coders) |
 | **Continue** | Assistant tool | Continue is an open-source coding assistant platform to modify and optimize coding within IDE. | [Documentation](./continue) |
 | **CrewAI** | Agentic-first library | CrewAI is an open-source framework for making automated workflows with agents. | [Demo code](./crewai_integration/) |
+| **Dify** | Low code framework | Dify is a low code platform to build and deploy AI applications. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/dify) |
 | **Gradio** | Assistant tool | Gradio is an open-source Python package that allows users to create interactive web apps for machine learning models, APIs, and Python functions.  | [Demo code](https://github.com/gradio-app/sambanova-gradio) |
 | **Haystack** | LLM framework | Haystack is an open-source end-to-end framework that enables modular development of production-ready LLM applications.  | [Demo code](./haystack/) |
 | **Hugging Face**  | LLM framework | Hugging Face is a platform for building, training, and deploying open-source models.  | [Documentation](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/inference_client) |
