@@ -102,7 +102,7 @@ And will add `Meta-Llama-3.1-8B-Instruct` as tab autocompletion model.
 
 ### Add SambaStudio models
 
-If you want to use models deployed in your SambaStudio environment you should set the ***Continue*** config.yaml file. press ⌘+l this will open a new ***Continue*** session, CClick in the models button and click on config file, the yaml file will open, replace the contents of this file with the contents of the [config.yaml](config.ymal) provided file, then replace the content of models list for the following model definition:
+If you want to use models deployed in your SambaStudio environment you should set the ***Continue*** config.yaml file. press ⌘+l this will open a new ***Continue*** session, Click in the models button and click on config file, the yaml file will open, replace the contents of this file with the contents of the [config.yaml](config.ymal) provided file, then replace the content of models list for the following model definition:
 
 ```yaml
 models:
