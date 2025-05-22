@@ -8,8 +8,6 @@ This repository contains an agentic AI workflow built with [SambaNova Cloud](htt
 * It enables users to manage household expenses through low-code automation and natural language interaction.
 * It’s especially suitable for beginners exploring agentic AI and for showcasing the real-world value of agentic workflows without writing any code.
 
-<img src="images/n8n_workflow.png" alt="Workflow Overview" width="700" />
-
 ## 🔧 Requirements
 
 * [n8n](https://n8n.io/) (cloud or self-hosted)
@@ -46,6 +44,8 @@ Follow the steps below to import and run the workflow in your own n8n environmen
 * In your n8n dashboard, click **"Create Workflow"**.
 * Click the **three-dot menu (⋯)** in the top-right corner and select **"Import from File..."**.
 * Upload the file `household_budgeting_agent.json`.
+
+<img src="images/n8n_workflow.png" alt="Workflow Overview" width="700" />
 
 ### 3. Set up Chat Model nodes
 
