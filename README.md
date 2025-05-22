@@ -26,20 +26,20 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Cline** | Assistant tool | Cline is a coding assistant tool that streamlines workflows, offers account management features, and optimizes provider routing for developers. | [Documentation](https://docs.cline.bot/getting-started/getting-started-new-coders) |
 | **Continue** | Assistant tool | Continue is an open-source coding assistant platform to modify and optimize coding within IDE. | [Documentation](./continue) |
 | **CrewAI** | Agentic-first library | CrewAI is an open-source framework for making automated workflows with agents. | [Demo code](./crewai_integration/) |
-| **Dify** | Low code framework | Dify is a low code platform to build and deploy AI applications. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/dify) |
+| **Dify** | Low-code framework | Dify is a low-code platform to build and deploy AI applications. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/dify) |
 | **Gradio** | Assistant tool | Gradio is an open-source Python package that allows users to create interactive web apps for machine learning models, APIs, and Python functions.  | [Demo code](https://github.com/gradio-app/sambanova-gradio) |
 | **Haystack** | LLM framework | Haystack is an open-source end-to-end framework that enables modular development of production-ready LLM applications.  | [Demo code](./haystack/) |
 | **Hugging Face**  | LLM framework | Hugging Face is a platform for building, training, and deploying open-source models.  | [Documentation](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/inference_client) |
 | **Instructor** | LLM framework | Instructor enhances LLM interactions by enabling structured data extraction, multi-language compatibility, and parallel tool calling. | [Demo code](./instructor/) |
 | **LangChain** | LLM framework | Langchain implements a standard interface for LLMs to simplify development, productization, and deployment. | [Documentation](https://python.langchain.com/docs/integrations/providers/sambanova/) |
-| **Langflow** | Low code framework | Langflow is a visual framework for building multi-agent and RAG applications. | [Documentation](https://docs.langflow.org/components-models#sambanova) |
+| **Langflow** | Low-code framework | Langflow is a visual framework for building multi-agent and RAG applications. | [Documentation](https://docs.langflow.org/components-models#sambanova) |
 | **LlamaIndex** | LLM framework | LlamaIndex is an orchestration framework to rapidly deploy LLM applications. | [Demo code](./llamaindex) |
 | **LiteLLM** | LLM framework | LiteLLM is an open-source Python library that provides a unified interface for accessing LLMs, translating inputs and mapping exceptions. | [Documentation](https://docs.litellm.ai/docs/providers/sambanova) |
 | **Llama Stack** | LLM framework  | Llama Stack standardizes the core building blocks that simplify AI application development. It codifies best practices across the Llama ecosystem. | [Demo code](./llama_stack/README.md) |
 | **LM Evaluation Harness** | Evaluation | LM Evaluation Harness is a unified evaluation framework developed by EleutherAI for testing generative language models on a large number of different evaluation tasks. | [Demo Code](./lm_eval_harness/) |
 | **MCP Server** | MCP | The Model Context Protocol allows applications to provide context for LLMs in a standardized way, separating the concerns of providing context from the actual LLM interaction. | [Demo code](./mcp) |
 | **Milvus** | Vector DB | Milvus is an open-source vector database from Milvus and can easily enable RAG applications. | [Demo code](./milvus) |
-| **n8n** | Low code framework | n8n is a low code workflow automation framework. | [Demo code](./n8n) |
+| **n8n** | Low-code framework | n8n is a low-code workflow automation framework. | [Demo code](./n8n) |
 | **Oumi** | LLM framework | Oumi is an open-source platform that streamlines the entire lifecycle of foundation models from data preparation and training to evaluation and deployment. | [Documentation](https://oumi.ai/docs/en/latest/api/oumi.inference.html#oumi.inference.SambanovaInferenceEngine) |
 | **Semantic Kernel** | Agentic-first library | Semantic Kernel is an open-source development tool to build agents and integrate them with the latest AI models into your codebase.  | [Demo code](./semantic_kernel) |
 | **Vercel** | LLM framework | Vercel is a platform for deploying and hosting web applications, which developers can use to easily manage their websites and serverless functions. | [Documentation](https://sdk.vercel.ai/providers/community-providers/sambanova) |
