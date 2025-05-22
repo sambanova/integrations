@@ -1,0 +1,96 @@
+name: Continue Config
+version: 0.0.1
+models:
+  - name: Llama4 Scout SambaNovaCloud
+    provider: sambanova
+    model: Llama-4-Scout-17B-16E-Instruct
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: Llama4 Maverick SambaNovaCloud
+    provider: sambanova
+    model: Llama-4-Maverick-17B-128E-Instruct
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: DeepSeek V3 SambaNovaCloud
+    provider: sambanova
+    model: DeepSeek-V3-0324
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: DeepSeek R1 SambaNovaCloud
+    provider: sambanova
+    model: DeepSeek-R1
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: DeepSeek R1 Distill Llama 70B SambaNovaCloud
+    provider: sambanova
+    model: DeepSeek-R1-Distill-Llama-70B
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: Llama3.1 8B SambaNovaCloud
+    provider: sambanova
+    model: Meta-Llama-3.1-8B-Instruct
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: Llama3.1 405B SambaNovaCloud
+    provider: sambanova
+    model: Meta-Llama-3.1-405B-Instruct
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: Llama3.2 3B SambaNovaCloud
+    provider: sambanova
+    model: Meta-Llama-3.2-3B-Instruct
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: Llama3.2 1B SambaNovaCloud
+    provider: sambanova
+    model: Meta-Llama-3.2-1B-Instruct
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: QWQ 32B SambaNovaCloud
+    provider: sambanova
+    model: QwQ-32B
+    apiKey: <Your API Key>
+    roles:
+      - chat
+  - name: Llama3.1 8B SambaNovaCloud
+    provider: sambanova
+    model: Meta-Llama-3.1-8B-Instruct
+    apiKey: <Your API Key>
+    roles:
+      - autocomplete
+context:
+  - uses: continuedev/code-context
+    with: {}
+  - uses: continuedev/docs-context
+    with: {}
+  - uses: continuedev/diff-context
+    with: {}
+  - uses: continuedev/terminal-context
+    with: {}
+  - uses: continuedev/problems-context
+    with: {}
+  - uses: continuedev/folder-context
+    with: {}
+  - uses: continuedev/codebase-context
+    with: {}
+prompts:
+  - name: test
+    description: "Write unit tests for highlighted code "
+    prompt: >-
+      {{{ input }}}
+
+
+      Write a comprehensive set of unit tests for the selected code. It should
+      setup, run tests that check for correctness including important edge
+      cases, and teardown. Ensure that the tests are complete and sophisticated.
+      Give the tests just as chat output, don't edit any file.
+allowAnonymousTelemetry: false
