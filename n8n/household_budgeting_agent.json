@@ -1,0 +1,469 @@
+{
+  "name": "SambaNova - Household Budgeting Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Instructions  \nYou will structure the receipt information inputted by the user (which may be messy) into a predefined Google Sheets household budgeting format. \nThe user may input information from multiple receipts at once.  \n\nThe format of the ledger is as follows. Create **one row per receipt**:  \nColumns (from left to right): **Purchase Date**, **Item**, **Amount (USD)**, **Store**, **Category**.  \n\nFor **Category**, always choose from the predefined list below. Do not allow arbitrary or user-defined categories. \nIf the user does not specify a category, automatically assign the most appropriate one.  \n\nIf any of the required information (item, amount, or store) is missing in the user input, clearly notify the user which specific field is incomplete and prompt them to provide the missing information. \nThis confirmation process continues until all fields are fully specified.\n\nDo not assume or infer missing price or amount values. If any price/amount information is missing or unclear, do not make up or estimate the value. Instead, politely ask the user to confirm or provide the correct amount.\n\nOutput the structured receipt data in a tabular format.  \nWhen there are multiple purchased items, **insert two line breaks between each item** when showing the table in plain text.  \n\nAfter displaying the table, always include a brief confirmation message such as:  \n\"Just to confirm, is this information correct?\"\n\nIf the user responds that it is correct, output the information in the JSON format defined below for debugging purposes.  \n\n---\n\n# JSON Output After Confirmation  \nUse the following format once the user has confirmed the correctness of the structured data.  \n**Important**: Prepend an apostrophe `'` to the date to ensure Google Sheets correctly interprets it as a date.\n\n```json\n{\n  \"data_confirmation\": \"TRUE\",\n  \"data\": [\n    {\n      \"purchase_date\": \"'2025-04-04\",\n      \"item\": \"Book\",\n      \"amount_usd\": 15,\n      \"store\": \"Maruzen\",\n      \"category\": \"Books\"\n    },\n    {\n      \"purchase_date\": \"'2025-04-05\",\n      \"item\": \"Lunch\",\n      \"amount_usd\": 35,\n      \"store\": \"Sushiro\",\n      \"category\": \"Dining Out\"\n    },\n    {\n      \"purchase_date\": \"'2025-04-07\",\n      \"item\": \"Souvenir\",\n      \"amount_usd\": 90,\n      \"store\": \"Dinosaur Museum\",\n      \"category\": \"Hobbies\"\n    }\n  ]\n}\n```\n\n---\n\n# Predefined Category List  \n- Medical  \n- Hobby  \n- Daily Essentials  \n- Groceries  \n- Dining Out  \n- Subscription  \n- Books  \n- Transportation  \n- Clothing  \n- Beauty  \n- Work  \n- Other\n\n---\n\n# Category Assignment Examples  \n- All books → “Books”  \n- Haircuts or perms → “Beauty”  \n- Gifts or souvenirs for others → “Hobby”  \n- Eating at restaurants, food courts, or bottled tea from convenience stores → “Dining Out” (if unspecified by the user)  \n- General groceries not classified as dining out → “Groceries”  \n- Parking fees, gas, train fares, day passes, rental cars → “Transportation”  \n- Acupuncture, cold medicine, patches, or herbal remedies → “Medical” \n\n---\n\n# Rules for Item Names  \n(Apply replacements or completions as needed, but do NOT report the replacement logic in the chat)\n\n- If store name is something like \"acpuncture clinic\" → default to “Acupuncture”\n- If store name is something like ENT clinic, dermatology clinic, internist clinic, etc. → default to “Medical consultation”\n- If store name is something like \"drug store\" → default to “Medicine”\n- if item name expression is something like foods / foods / grocery → unify to “Groceries”\n\n---\n\n# Store Name Normalization  \n(Apply replacements as needed, but do NOT report them to the user)\n\n- Starbucks coffee, Starbucks → \"Starbucks\"  \n- seven-eleven, 7-11, 7-eleven → \"7-Eleven\"  \n- FamilyMart, familymart, family mart → \"Family Mart\"  \n\n---\n\n# Notes on Purchase Date  \nIf the user inputs relative dates such as “today” or “yesterday,” resolve them to absolute date values using the current date `{{$today}}`.\n\n---\n\n# Additional Input Handling Rules  \n- If the item or store name is written in crude alphabet (e.g., birthdaycake, drybattery, entclinic, seveneleven), normalize to appropriate expression (e.g., birthday cake, dry battery, ENT clinic, 7-Eleven).\n\n---\n\n# Household Ledger Table Format Example  \n\n```\n'2025-04-04\tBook\t15\tMaruzen\tBooks  \n'2025-04-05\tLunch\t35\tSushiro\tDining Out  \n'2025-04-07\tSouvenir\t90\tDinosaur Museum\tHobbies\n```\n\n{When outputting the table, add a simple confirmation message after the table. Do not include any explanation about replacements or assumptions made.}\n\n---\n\n# Notes on Table Output Format  \n- Use TAB characters to separate columns  \n- Always add a leading apostrophe (`'`) to the date  \n- Output only the table itself when presenting structured results — do NOT add any extra explanation like \"Here is the household ledger.\" (Exception: it’s fine to include such phrasing during interactive dialogue)\n\n---\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        140,
+        260
+      ],
+      "id": "bae11cb5-dd26-4485-a095-c1c55d4a1e42",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "mode": "=hostedChat",
+        "authentication": "n8nUserAuth",
+        "initialMessages": "Hi there! I’m your household budgeting assistant. Could you enter the details of your receipt?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        260
+      ],
+      "id": "72b79513-f4db-4fb2-8180-691bd8ff1086",
+      "name": "When chat message received",
+      "webhookId": "35abfbef-533e-4158-a7f1-87ff2fc1797a"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        288,
+        480
+      ],
+      "id": "ade892c5-9602-4f3c-8bc3-c1f8333caafd",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.output }}",
+        "schemaType": "fromJson",
+        "jsonSchemaExample": "{\n  \"data_confirmation\": \"TRUE\",\n  \"data\": [\n    {\n      \"purchase_date\": \"'2025-04-04\",\n      \"item\": \"Book\",\n      \"amount_usd\": 15,\n      \"store\": \"Maruzen\",\n      \"category\": \"Books\"\n    },\n    {\n      \"purchase_date\": \"'2025-04-05\",\n      \"item\": \"Lunch\",\n      \"amount_usd\": 35,\n      \"store\": \"Sushiro\",\n      \"category\": \"Dining Out\"\n    },\n    {\n      \"purchase_date\": \"'2025-04-07\",\n      \"item\": \"Souvenir\",\n      \"amount_usd\": 90,\n      \"store\": \"Dinosaur Museum\",\n      \"category\": \"Hobbies\"\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1,
+      "position": [
+        736,
+        -140
+      ],
+      "id": "33169d3c-97e1-4baa-ac17-80c6b6b582e8",
+      "name": "JSON reformatter"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5aed8700-dd46-4326-882a-bcb77d4fdc34",
+              "name": "output",
+              "value": "=Got it! I’ll log this entry ✍",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        814,
+        260
+      ],
+      "id": "cde4c5cc-87a5-4cb2-be6d-8ab05cc7e05a",
+      "name": "True-case chat output"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "383282b5-07e7-4ae9-9f45-58f038730ed0",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        814,
+        460
+      ],
+      "id": "e0463db6-21ea-4599-a65c-e98b311e7a15",
+      "name": "False-case chat output (just a placeholder)"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1NSchBFfnLscqaqmLiXLWacjB7SBcm9Kw4inrklQC12w",
+          "mode": "list",
+          "cachedResultName": "sharing household budgeting sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NSchBFfnLscqaqmLiXLWacjB7SBcm9Kw4inrklQC12w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "data_en",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NSchBFfnLscqaqmLiXLWacjB7SBcm9Kw4inrklQC12w/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Purchase Date": "={{ $json.purchase_date.startsWith(\"'\") ? $json.purchase_date : \"'\" + $json.purchase_date }}",
+            "Item": "={{ $json.item }}",
+            "Amount (USD)": "={{ $json.amount_usd }}",
+            "Store": "={{ $json.store }}",
+            "Category": "={{ $json.category }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Purchase Date",
+              "displayName": "Purchase Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Item",
+              "displayName": "Item",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Amount (USD)",
+              "displayName": "Amount (USD)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Store",
+              "displayName": "Store",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1560,
+        -40
+      ],
+      "id": "ef4ffc23-b202-45b7-8777-73fe52725872",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "V0ljbzlgnaOF1gRm",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1332,
+        -40
+      ],
+      "id": "ef208ff8-e14c-4a8b-8adb-22196c6aad5e",
+      "name": "Split out multiple JSON items"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9a6598c2-c9f3-409e-9f25-1a147b156fb9",
+              "name": "output",
+              "value": "={{ $json.output.data }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {
+          "ignoreConversionErrors": true
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1112,
+        -40
+      ],
+      "id": "d150fccb-6894-42ef-bfd6-b6a298b7d62e",
+      "name": "Extract purchase data as JSON"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "Llama-4-Maverick-17B-128E-Instruct",
+          "mode": "list",
+          "cachedResultName": "Llama-4-Maverick-17B-128E-Instruct"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        824,
+        80
+      ],
+      "id": "0462b0a0-7fee-40b7-9a4c-98fcf5084f5d",
+      "name": "Chat model for JSON reformatter",
+      "notesInFlow": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "8SYPXaTJr54xomuL",
+          "name": "SambaNova Cloud"
+        }
+      },
+      "notes": "SambaNova Cloud"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "Llama-4-Maverick-17B-128E-Instruct",
+          "mode": "list",
+          "cachedResultName": "Llama-4-Maverick-17B-128E-Instruct"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        168,
+        480
+      ],
+      "id": "2f776ccd-26c6-42dd-a2a0-0cfdd064cee5",
+      "name": "Chat model",
+      "notesInFlow": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "8SYPXaTJr54xomuL",
+          "name": "SambaNova Cloud"
+        }
+      },
+      "notes": "SambaNova Cloud"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e838d248-a650-4033-9e01-1e84c942a14c",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "TRUE",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        516,
+        260
+      ],
+      "id": "384896f6-ebf8-4b8c-ad9c-60c235498131",
+      "name": "User Approved"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "User Approved",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON reformatter": {
+      "main": [
+        [
+          {
+            "node": "Extract purchase data as JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "True-case chat output": {
+      "main": [
+        []
+      ]
+    },
+    "Split out multiple JSON items": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract purchase data as JSON": {
+      "main": [
+        [
+          {
+            "node": "Split out multiple JSON items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat model for JSON reformatter": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "JSON reformatter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Approved": {
+      "main": [
+        [
+          {
+            "node": "True-case chat output",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "JSON reformatter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "False-case chat output (just a placeholder)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "False-case chat output (just a placeholder)": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f954484d-deb2-4a7f-8de5-47f228861678",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0553f6e5f88c880b96cedfb48b485a8bf2ad51625846b85a2ef65bf9a361a35e"
+  },
+  "id": "ptSKXkyNtquX6Hu8",
+  "tags": []
+}
