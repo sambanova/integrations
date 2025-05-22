@@ -4,4 +4,4 @@ lib/
 .env
 .lock
 .venv
-financial_agent_crewai/cache/*
+financial_agent/cache/*
