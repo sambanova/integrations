@@ -1,0 +1,24 @@
+What was the research and development spending trend for Google in 2024
+Response: The total research and development spending is 197135000000. However, please note that the provided data does not contain any information about the year, so we cannot confirm if this spending is for 2024 or another year.
+
+<begin data tables>
+
+## income_stmt
+| Date | Research And Development |
+| --- | --- |
+| 2020-12-31 |  |
+| 2021-12-31 | 31.56B |
+| 2022-12-31 | 39.50B |
+| 2023-12-31 | 45.43B |
+| 2024-12-31 | 49.33B |
+
+## quarterly_income_stmt
+| Date | Research And Development |
+| --- | --- |
+| 2024-03-31 | 11.90B |
+| 2024-06-30 | 11.86B |
+| 2024-09-30 | 12.45B |
+| 2024-12-31 | 13.12B |
+| 2025-03-31 | 13.56B |
+
+<end data tables>

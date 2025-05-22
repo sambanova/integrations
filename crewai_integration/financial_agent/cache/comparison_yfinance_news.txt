@@ -1,0 +1,4 @@
+<start>---
+Google
+Google's R&D spending in 2024 was $49,326 million. This represents a 14% of revenues.
+<end>---
