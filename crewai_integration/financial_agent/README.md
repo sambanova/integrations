@@ -17,11 +17,9 @@ Table of Contents:
 - [1. Overview](#overview)
 - [2. Setup](#setup)
 - [3. Installation](#installation)
-  - [3.1 Using UV and the CrewAI commands](#uv-crewai-commands)
-  - [3.2 Using pip and venv](#pip-venv)
-  - [3.3 The Streamlit app](#streamlit)
-- [4. Customization](#customization)
-- [5. Understanding and monitoring your crews](#understanding-monitoring)
+- [4. The Streamlit app](#streamlit)
+- [5. Customization](#customization)
+- [6. Understanding and monitoring your crews](#understanding-monitoring)
 
 ## 1. Overview
 
@@ -92,7 +90,7 @@ This command initializes the `FinancialFLow` Flow, assembling the agents and ass
 This example, unmodified, will generate a `report.md` file and a `report.pdf` file
 as the outputs of a financial research and analyais in the `cache` folder.
 
-### 3.3 The `Streamlit` app
+## 4. The `Streamlit` app
 After building your virtual environment, either using `uv` or using `pip`,
 you can run our `streamlit` app for an interactive interface and monitoring.
 
@@ -113,7 +111,7 @@ You can now enter your query and select which data sources you want to use among
 3. Yahoo Finance News.
 4. Yahoo Finance Stocks.
 
-## 4. Customization
+## 5. Customization
 You can modify the following hyperparameters of the flow and of the crews,
 as well as the corresponding agents and tasks of the latter,
 in the `config.py` file.
@@ -133,24 +131,24 @@ in the `config.py` file.
   3. Yahoo Finance News: `SOURCE_YFINANCE_NEWS`.
   4. Yahoo Finance News: `SOURCE_YFINANCE_STOCK`.
 
-- User query:
+- User query.
   `USER_QUERY`
 
-- Number of documents to use for RAG
+- Number of documents to use for RAG.
   `NUM_RAG_SOURCES`
 
-- Maximum number of urls in generic Google web search or Yahoo Finance web search
+- Maximum number of urls in generic Google web search or Yahoo Finance web search.
   `MAX_NEWS`
 
-- Maximum news per ticker symbol
+- Maximum news per ticker symbol.
   `MAX_NEWS_PER_TICKER`
 
-- LLMs by crew
+- LLMs by crew.
 
-- LLM temperature
+- LLM temperature.
   `TEMPERATURE`
 
-## 5. Understanding and monitoring your crews
+## 6. Understanding and monitoring your crews
 
 The `FinancialFlow`, defined in `main.py`, is a `crewai.flow.flow.Flow` pipeline orchestrating several crews.
 
