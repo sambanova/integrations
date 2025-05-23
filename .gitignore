@@ -200,3 +200,6 @@ wandb/
 
 # all .db files
 *.db
+
+# All cache folders
+crewai_integration/financial_agent/cache/*
