@@ -7,8 +7,8 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import SerperDevTool
 from dotenv import load_dotenv
 
-from financial_agent_crewai.src.financial_agent_flow.config import CACHE_DIR, MAX_NEWS
-from financial_agent_crewai.utils.utilities import create_log_path
+from src.financial_agent_flow.config import CACHE_DIR, MAX_NEWS
+from utils.utilities import create_log_path
 
 load_dotenv()
 

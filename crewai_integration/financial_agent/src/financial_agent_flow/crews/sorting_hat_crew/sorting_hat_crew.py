@@ -5,8 +5,8 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from dotenv import load_dotenv
 
-from financial_agent_crewai.src.financial_agent_flow.tools.sorting_hat_tools import FilingsInputsList
-from financial_agent_crewai.utils.utilities import create_log_path
+from src.financial_agent_flow.tools.sorting_hat_tools import FilingsInputsList
+from utils.utilities import create_log_path
 
 load_dotenv()
 from crewai import LLM

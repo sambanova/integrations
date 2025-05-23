@@ -5,10 +5,10 @@ from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from dotenv import load_dotenv
 
-from financial_agent_crewai.src.financial_agent_flow.tools.general_tools import FilenameOutput
-from financial_agent_crewai.src.financial_agent_flow.tools.sec_edgar_tools import SecEdgarFilingRetriever
-from financial_agent_crewai.src.financial_agent_flow.tools.sorting_hat_tools import FilingsInput
-from financial_agent_crewai.utils.utilities import create_log_path
+from src.financial_agent_flow.tools.general_tools import FilenameOutput
+from src.financial_agent_flow.tools.sec_edgar_tools import SecEdgarFilingRetriever
+from src.financial_agent_flow.tools.sorting_hat_tools import FilingsInput
+from utils.utilities import create_log_path
 
 load_dotenv()
 

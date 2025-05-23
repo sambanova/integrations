@@ -17,9 +17,12 @@ from pandas.api.types import is_datetime64_any_dtype
 from pandasai import Agent  # type: ignore
 from pydantic import BaseModel, Field
 
-from financial_agent_crewai.src.financial_agent_flow.config import *
-from financial_agent_crewai.src.financial_agent_flow.tools.general_tools import FilenameOutput, FilenameOutputList
-from financial_agent_crewai.utils.utilities import create_yfinance_stock_dir
+from src.financial_agent_flow.config import *
+from src.financial_agent_flow.tools.general_tools import (
+    FilenameOutput,
+    FilenameOutputList,
+)
+from utils.utilities import create_yfinance_stock_dir
 
 logger = logging.getLogger(__name__)
 load_dotenv()

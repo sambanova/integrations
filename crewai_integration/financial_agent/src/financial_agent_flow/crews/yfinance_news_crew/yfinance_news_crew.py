@@ -5,9 +5,9 @@ from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from dotenv import load_dotenv
 
-from financial_agent_crewai.src.financial_agent_flow.tools.general_tools import FilenameOutput
-from financial_agent_crewai.src.financial_agent_flow.tools.yfinance_news_tools import YahooFinanceNewsTool
-from financial_agent_crewai.utils.utilities import create_log_path
+from src.financial_agent_flow.tools.general_tools import FilenameOutput
+from src.financial_agent_flow.tools.yfinance_news_tools import YahooFinanceNewsTool
+from utils.utilities import create_log_path
 
 load_dotenv()
 

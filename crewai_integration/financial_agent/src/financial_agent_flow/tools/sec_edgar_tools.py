@@ -9,8 +9,11 @@ from crewai.tools import BaseTool
 from sec_downloader import Downloader
 from sec_downloader.types import RequestedFilings
 
-from financial_agent_crewai.src.financial_agent_flow.tools.general_tools import FilenameOutput, get_html_text
-from financial_agent_crewai.src.financial_agent_flow.tools.sorting_hat_tools import FilingsInput
+from src.financial_agent_flow.tools.general_tools import (
+    FilenameOutput,
+    get_html_text,
+)
+from src.financial_agent_flow.tools.sorting_hat_tools import FilingsInput
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +37,10 @@ class SecEdgarFilingRetriever(BaseTool):  # type: ignore
         try:
             downloader = Downloader(os.getenv('SEC_API_ORGANIZATION'), os.getenv('SEC_API_EMAIL'))
         except requests.exceptions.HTTPError:
-            raise Exception('Please submit your SEC EDGAR details (organization and email) in the sidebar first.')
+            raise Exception(
+                'Please submit your SEC EDGAR details (organization and email) '
+                'as the environment variables SEC_API_ORGANIZATION and SEC_API_EMAIL.'
+            )
 
         # Extract today's year
         current_year = datetime.datetime.now().date().year

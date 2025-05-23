@@ -8,6 +8,7 @@ generation, and result display.
 
 import base64
 import os
+import sys
 import time
 from typing import Any
 from uuid import uuid4
@@ -15,9 +16,17 @@ from uuid import uuid4
 import streamlit
 from dotenv import load_dotenv
 
-from financial_agent_crewai.src.financial_agent_flow.config import *
-from financial_agent_crewai.src.financial_agent_flow.main import FinancialFlow
-from financial_agent_crewai.utils.utilities import *
+
+# Main directories
+current_dir = os.path.dirname(os.path.abspath(__file__))
+financial_agent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+crewai_integration_dr = os.path.abspath(os.path.join(financial_agent_dir, '..'))
+repo_dir = os.path.abspath(os.path.join(crewai_integration_dr, '..'))
+sys.path.append(financial_agent_dir)
+
+from src.financial_agent_flow.config import *
+from src.financial_agent_flow.main import FinancialFlow
+from utils.utilities import *
 
 # Load environment variables
 load_dotenv()

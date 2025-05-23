@@ -7,9 +7,9 @@ from crewai.project import CrewBase, agent, crew, task
 from dotenv import load_dotenv
 from langchain_core.language_models.chat_models import BaseChatModel
 
-from financial_agent_crewai.src.financial_agent_flow.tools.general_tools import FilenameOutputList
-from financial_agent_crewai.src.financial_agent_flow.tools.yfinance_stocks_tools import YFinanceStocksTool
-from financial_agent_crewai.utils.utilities import create_log_path
+from src.financial_agent_flow.tools.general_tools import FilenameOutputList
+from src.financial_agent_flow.tools.yfinance_stocks_tools import YFinanceStocksTool
+from utils.utilities import create_log_path
 
 load_dotenv()
 

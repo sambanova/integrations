@@ -5,8 +5,10 @@ from pathlib import Path
 VERBOSE = False
 
 # Specify the directory and file path
-if Path(os.getcwd()).name == 'ai-starter-kit':
-    CACHE_DIR = Path('financial_agent_crewai') / 'cache/'
+if Path(os.getcwd()).name == 'integrations':
+    CACHE_DIR = Path('crewai_integration') / 'financial_agent' / 'cache'
+elif Path(os.getcwd()).name == 'crewai_integration':
+    CACHE_DIR = Path('financial_agent') / 'cache'
 else:
     CACHE_DIR = Path('cache')
 
