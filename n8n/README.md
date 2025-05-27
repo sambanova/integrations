@@ -50,7 +50,7 @@ Follow the steps below to import and run the workflow in your own n8n environmen
 ### 3. Set up Chat Model nodes
 
 * Open each **Chat Model** node in the workflow.
-* Open the Credential menu and add your SambaNova Cloud `API key` and `Base URL`. (Note that SambaNova Cloud supports OpenAI-compatible APIs.)
+* Open the Credential menu and add your SambaNova Cloud `API key` and `Base URL` https://api.sambanova.ai/v1. (Note that SambaNova Cloud supports OpenAI-compatible APIs.)
 * In the `Model` list, select an appropriate model, e.g., `Llama-4-Maverick-17B-128E-Instruct`.
 
 #### Example: Chat Model configuration
