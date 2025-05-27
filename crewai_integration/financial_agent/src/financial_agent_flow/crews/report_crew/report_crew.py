@@ -4,7 +4,6 @@ from typing import Any, Dict, List
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from dotenv import load_dotenv
-
 from utils.utilities import create_log_path
 
 load_dotenv()

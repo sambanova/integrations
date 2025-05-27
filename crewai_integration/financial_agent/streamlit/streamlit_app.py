@@ -16,7 +16,6 @@ from uuid import uuid4
 import streamlit
 from dotenv import load_dotenv
 
-
 # Main directories
 current_dir = os.path.dirname(os.path.abspath(__file__))
 financial_agent_dir = os.path.abspath(os.path.join(current_dir, '..'))

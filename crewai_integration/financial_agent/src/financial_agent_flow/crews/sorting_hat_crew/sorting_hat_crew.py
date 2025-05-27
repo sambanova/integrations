@@ -4,7 +4,6 @@ from typing import Any, Dict, List
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from dotenv import load_dotenv
-
 from src.financial_agent_flow.tools.sorting_hat_tools import FilingsInputsList
 from utils.utilities import create_log_path
 

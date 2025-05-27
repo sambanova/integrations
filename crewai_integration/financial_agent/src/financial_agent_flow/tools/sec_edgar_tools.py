@@ -8,7 +8,6 @@ import requests
 from crewai.tools import BaseTool
 from sec_downloader import Downloader
 from sec_downloader.types import RequestedFilings
-
 from src.financial_agent_flow.tools.general_tools import (
     FilenameOutput,
     get_html_text,

@@ -16,7 +16,6 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from pandas.api.types import is_datetime64_any_dtype
 from pandasai import Agent  # type: ignore
 from pydantic import BaseModel, Field
-
 from src.financial_agent_flow.config import *
 from src.financial_agent_flow.tools.general_tools import (
     FilenameOutput,
