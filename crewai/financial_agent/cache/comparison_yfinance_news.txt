@@ -1,0 +1,4 @@
+<start>---
+Google
+Google's R&D expenses for 2024 were $49,326 million. This represents an increase of $3.9 billion from 2023, and accounts for 14% of revenues.
+<end>---
