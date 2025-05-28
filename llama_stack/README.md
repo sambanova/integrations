@@ -90,7 +90,7 @@ Example Output:
 
 ``` bash
 REPOSITORY                        TAG       IMAGE ID       CREATED          SIZE
-distribution-sambanova            0.2.6     4f70c8f71a21   5 minutes ago    2.4GB
+distribution-sambanova            0.2.8     4f70c8f71a21   5 minutes ago    2.4GB
 ```
 
 ### Build with venv
@@ -128,7 +128,7 @@ To deploy using Docker, run:
 docker run -it \
   -p $LLAMA_STACK_PORT:$LLAMA_STACK_PORT \
   -v ~/.llama:/root/.llama \
-  distribution-sambanova:0.2.6 \  # Change this to match the tag of your built image
+  distribution-sambanova:0.2.8 \  # Change this to match the tag of your built image
   --port $LLAMA_STACK_PORT \
   --env SAMBANOVA_API_KEY=$SAMBANOVA_API_KEY
 ```
