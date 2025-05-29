@@ -203,3 +203,6 @@ wandb/
 
 # All cache folders
 crewai_integration/financial_agent/cache/*
+
+#temp logos
+images/SambaNova*
