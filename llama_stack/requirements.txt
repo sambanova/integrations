@@ -1,4 +1,4 @@
-llama-stack==0.2.6
-llama-stack-client==0.2.6
+llama-stack==0.2.8
+llama-stack-client==0.2.8
 python-dotenv==1.0.1
 uv==0.6.6
