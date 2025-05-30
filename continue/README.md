@@ -81,7 +81,7 @@ After installing Continue you will need to do the basic setup
 
 ## Add SambaNovaCloud default models
 
-You should set the ***Continue*** config.json file. press ⌘+l this will open a new ***Continue*** session, Click in the gear ⚙ top right button, the the json file will open, replace the contents of this file with the contents of the [config.json](config.json) provided file, and update the `apiKey` model fields with your SambaNovaCloud API Key
+You should set the ***Continue*** config.yaml file. press ⌘+l this will open a new ***Continue*** session, Click in the models button and click on config file, the yaml file will open, replace the contents of this file with the contents of the [config.yaml](config.yaml) provided file, and update the `apiKey` model fields with your SambaNovaCloud API Key
 
 This will add to ***Continue*** the following models
 
@@ -102,18 +102,18 @@ And will add `Meta-Llama-3.1-8B-Instruct` as tab autocompletion model.
 
 ### Add SambaStudio models
 
-If you want to use models deployed in your SambaStudio environment you should set the ***Continue*** config.json file. press ⌘+l this will open a new ***Continue*** session, Click in the gear ⚙ top right button, the the json file will open, replace the contents of this file with the contents of the [config.json](config.json) provided file, then replace the content of models list for the following model definition:
+If you want to use models deployed in your SambaStudio environment you should set the ***Continue*** config.yaml file. press ⌘+l this will open a new ***Continue*** session, Click in the models button and click on config file, the yaml file will open, replace the contents of this file with the contents of the [config.yaml](config.ymal) provided file, then replace the content of models list for the following model definition:
 
-```json
-"models": [
-    {
-      "provider": "sambanova",
-      "title": "<model name> SambaStudio",
-      "model": "<model name>",
-      "apiBase": "https://<your sambanova environment>/openai/v1/<project_id>/<endpoint_id>/chat/completions",
-      "apiKey": "<Your API Key>"
-    }
-]
+```yaml
+models:
+  - name: <model name> SambaStudio
+    provider: sambanova
+    model: <model name>
+    apiBase": https://<your sambanova environment>/openai/v1/<project_id>/<endpoint_id>/chat/completions
+    apiKey: <Your API Key>
+    roles:
+      - chat
+      - autocomplete
 ```
 
 update the values to match your environment and deployed endpoint.
@@ -154,16 +154,17 @@ The example template can be further customized based on the use case.
 
 ## Add custom actions
 
-You can add your custom commands adding them to the [config.json file](config.json)
+You can add your custom commands adding them to the prompts section in the [config.yaml file](config.yaml)
  
 A custom command should have the following structure
 
-```json
-{
-  "name": "yourCommand",
-  "prompt": "{{{ input }}} \n\n custom prompt",
-  "description": "Description of your custom action"
-}
+```yaml
+  - name: yourCommand
+    description: Description of your custom action
+    prompt: >-
+      {{{ input }}}
+      
+      custom prompt
 ```
 
 # Acknowledgments
