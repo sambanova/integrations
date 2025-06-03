@@ -28,7 +28,7 @@ USER_QUERY = 'What was the research and development spending trend for Google in
 COMPARISON_QUERY = (
     'Please compare the provided contexts, focusing specifically on the user query: '
     f'{USER_QUERY}.\n'
-    f'Do not exceed {MAX_SECTION_WORDS/2} words.'
+    f'Do not exceed {MAX_SECTION_WORDS / 2} words.'
 )
 # Number of documents to use for RAG
 NUM_RAG_SOURCES = 10

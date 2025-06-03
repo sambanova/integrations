@@ -6,6 +6,7 @@ the SambaNova AI models and CrewAI framework. It handles user input, content
 generation, and result display.
 """
 
+import base64
 import os
 import re
 import sys
@@ -24,6 +25,7 @@ else:
 # Quick fix: Add parent directory to Python path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(current_dir))
+integrations_dir = os.path.join(parent_dir, '..', '..')
 sys.path.append(parent_dir)
 
 try:
@@ -116,9 +118,9 @@ def run_edu_flow(
     provider_config = PROVIDER_CONFIGS[provider]
     api_key = os.getenv(provider_config['api_key_env'])
     if not api_key:
-        raise ValueError(f"Missing API key for {provider_config['display_name']}")
+        raise ValueError(f'Missing API key for {provider_config["display_name"]}')
 
-    model_name = f"{provider_config['model_prefix']}{model}"
+    model_name = f'{provider_config["model_prefix"]}{model}'
 
     LLM_CONFIG.clear()
     LLM_CONFIG.update(
@@ -268,15 +270,19 @@ def main() -> None:
     )
 
     # Logos + Title
+    logo_path = os.path.join(integrations_dir, 'images', 'SambaNova-dark-logo-1.png')
+    with open(logo_path, 'rb') as img_file:
+        encoded = base64.b64encode(img_file.read()).decode()
     st.markdown(
-        """
+        f"""
         <div class="logo-container">
-            <img src="https://s3.amazonaws.com/media.ventureloop.com/images/SambaNovaSystems_paint.png" 
-                 alt="SambaNova Logo">
+            <img src="data:image/png;base64,{encoded}"
+                 alt="SambaNova Logo"
+                 style="width: 350px">
             <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*Ulg1BjUIxIdmOw63J5gF1Q.png" 
                  alt="CrewAI Logo">
         </div>
-        <h2 style='text-align: center; color: #1f3d7a; margin: 0.5rem 0;'>
+        <h2 style='text-align: center; color: #250E36; margin: 0.5rem 0;'>
             SambaNova & CrewAI: Research Agent Crew
         </h2>
         """,

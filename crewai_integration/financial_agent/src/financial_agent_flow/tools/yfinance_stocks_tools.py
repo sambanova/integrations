@@ -322,8 +322,7 @@ def extract_yfinance_data(
         # Series
         data = company.dividends
         description = (
-            'This data source shows the dividend distribution history, indexed by date. '
-            f'Columns: {get_columns(data)}.'
+            f'This data source shows the dividend distribution history, indexed by date. Columns: {get_columns(data)}.'
         )
         company_dict['dividends'] = (data, description)
     except Exception:
@@ -479,8 +478,7 @@ def extract_yfinance_data(
         # DataFrame
         data = company.insider_transactions
         description = (
-            "This data source shows the insider transactions for the company's stocks. "
-            f'Columns: {get_columns(data)}.'
+            f"This data source shows the insider transactions for the company's stocks. Columns: {get_columns(data)}."
         )
         company_dict['insider_transactions'] = (data, description)
     except Exception:
@@ -523,7 +521,7 @@ def extract_yfinance_data(
     try:
         # DataFrame
         data = company.recommendations
-        description = 'This data source shows broker recommendations for the company. ' f'Columns: {get_columns(data)}.'
+        description = f'This data source shows broker recommendations for the company. Columns: {get_columns(data)}.'
         company_dict['recommendations'] = (data, description)
     except Exception:
         logger.warning('Could not retrieve the `recommendations` dataframe.')
