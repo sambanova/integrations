@@ -1,0 +1,4 @@
+langchain-sambanova==0.1.5
+langchain-tavily==0.2.0
+langchain==0.3.24
+langgraph==0.2.28

@@ -45,7 +45,6 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Vercel** | LLM frameworks | Vercel is a platform for deploying and hosting web applications, which developers can use to easily manage their websites and serverless functions. | [Documentation](https://sdk.vercel.ai/providers/community-providers/sambanova) |
 | **Weave** | LLM frameworks | Weave is a platform that provides tools for training, fine-tuning, and deploying machine learning models. | [Demo Code](./weave/) |
 
-
 ## AI Starter kits
 
 SambaNova AI Starter Kits are a collection of open-source examples and guides designed to facilitate the deployment of AI-driven use cases for both developers and enterprises. check the available kits [here](https://github.com/sambanova/ai-starter-kit)
