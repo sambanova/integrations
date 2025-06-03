@@ -32,6 +32,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Instructor** | Tool and Browser Use | Instructor enhances LLM interactions by enabling structured data extraction, multi-language compatibility, and parallel tool calling. | [Demo code](./instructor/) |
 | **LangChain** | LLM frameworks | Langchain implements a standard interface for LLMs to simplify development, productization, and deployment. | [Documentation](https://python.langchain.com/docs/integrations/providers/sambanova/) |
 | **Langflow** | Low-code platforms | Langflow is a visual framework for building multi-agent and RAG applications. | [Documentation](https://docs.langflow.org/components-models#sambanova) |
+| **LangGraph** | LLM frameworks | LangGraph provides low-level supporting infrastructure for any long-running, stateful workflow or agent. | [Demo code](./langgraph) |
 | **LlamaIndex** | LLM frameworks | LlamaIndex is an orchestration framework to rapidly deploy LLM applications. | [Demo code](./llamaindex) |
 | **LiteLLM** | LLM frameworks | LiteLLM is an open-source Python library that provides a unified interface for accessing LLMs, translating inputs and mapping exceptions. | [Documentation](https://docs.litellm.ai/docs/providers/sambanova) |
 | **Llama Stack** | LLM frameworks  | Llama Stack standardizes the core building blocks that simplify AI application development. It codifies best practices across the Llama ecosystem. | [Demo code](./llama_stack/README.md) |
