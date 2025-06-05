@@ -43,6 +43,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Oumi** | LLM frameworks | Oumi is an open-source platform that streamlines the entire lifecycle of foundation models from data preparation and training to evaluation and deployment. | [Documentation](https://oumi.ai/docs/en/latest/api/oumi.inference.html#oumi.inference.SambanovaInferenceEngine) |
 | **Semantic Kernel** | Agent building and orchestration | Semantic Kernel is an open-source development tool to build agents and integrate them with the latest AI models into your codebase.  | [Demo code](./semantic_kernel) |
 | **Vercel** | LLM frameworks | Vercel is a platform for deploying and hosting web applications, which developers can use to easily manage their websites and serverless functions. | [Documentation](https://sdk.vercel.ai/providers/community-providers/sambanova) |
+| **VS Code AI Toolkit** | Coding assistants | VS code AI toolkit is an extension within the IDE to develop and optimize AI agents within the code editor. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/vscode) |
 | **Weave** | LLM frameworks | Weave is a platform that provides tools for training, fine-tuning, and deploying machine learning models. | [Demo Code](./weave/) |
 
 ## AI Starter kits
