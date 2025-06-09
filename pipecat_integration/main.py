@@ -4,12 +4,15 @@
 # SPDX-License-Identifier: BSD 2-Clause License
 #
 
+# General
 import argparse
 import os
 from typing import Any
 
 from dotenv import load_dotenv
 from loguru import logger
+
+# Pipecat
 from pipecat.adapters.schemas.function_schema import FunctionSchema
 from pipecat.adapters.schemas.tools_schema import ToolsSchema
 from pipecat.audio.vad.silero import SileroVADAnalyzer
@@ -18,19 +21,31 @@ from pipecat.pipeline.pipeline import Pipeline
 from pipecat.pipeline.runner import PipelineRunner
 from pipecat.pipeline.task import PipelineParams, PipelineTask
 from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
-from pipecat.services.deepgram.tts import DeepgramTTSService
+
+# If using Cartesia for TTS
+from pipecat.services.cartesia.tts import CartesiaTTSService
+
+# If using DeepGram for TTS
+# from pipecat.services.deepgram.tts import DeepgramTTSService
+# For function calling
 from pipecat.services.llm_service import FunctionCallParams
+
+# Transport
 from pipecat.transports.base_transport import BaseTransport, TransportParams
 from pipecat.transports.network.fastapi_websocket import FastAPIWebsocketParams
 from pipecat.transports.services.daily import DailyParams
 
+# SambaNova LLM and STT
 from pipecat_integration.llm import SambaNovaLLMService
 from pipecat_integration.stt import SambaNovaSTTService
 
+# Environment variables
 load_dotenv(override=True)
 
 
 async def fetch_weather_from_api(params: FunctionCallParams) -> Any:
+    """Mock function that fetches the weather forcast from an API."""
+
     await params.result_callback({'conditions': 'nice', 'temperature': '20 Degrees Celsius'})
 
 
@@ -64,15 +79,14 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
         api_key=os.getenv('SAMBANOVA_API_KEY'),
     )
 
-    # # Text-to-speech service
-    # from pipecat.services.cartesia.tts import CartesiaTTSService
-    # tts = CartesiaTTSService(
-    #     api_key=os.getenv('CARTESIA_API_KEY'),
-    #     voice_id='71a7ad14-091c-4e8e-a314-022ece01c121',  # British Reading Lady
-    # )
-
     # Text-to-speech service
-    tts = DeepgramTTSService(api_key=os.getenv('DEEPGRAM_API_KEY'), voice='aura-2-thalia-en', sample_rate=24000)
+    tts = CartesiaTTSService(
+        api_key=os.getenv('CARTESIA_API_KEY'),
+        voice_id='71a7ad14-091c-4e8e-a314-022ece01c121',  # British Reading Lady
+    )
+
+    # Text-to-speech service (alternative)
+    # tts = DeepgramTTSService(api_key=os.getenv('DEEPGRAM_API_KEY'), voice='aura-2-thalia-en', sample_rate=24000)
 
     # LLM service
     sambanova_api_key = os.getenv('SAMBANOVA_API_KEY')
