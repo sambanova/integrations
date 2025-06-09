@@ -43,7 +43,8 @@ from pipecat_integration.stt import SambaNovaSTTService
 load_dotenv(override=True)
 
 
-async def fetch_weather_from_api(params: FunctionCallParams) -> Any:
+# Define function to call
+async def fetch_weather(params: FunctionCallParams) -> Any:
     """Mock function that fetches the weather forcast from an API."""
 
     await params.result_callback({'conditions': 'nice', 'temperature': '20 Degrees Celsius'})
@@ -100,14 +101,14 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
         raise ValueError('SAMBANOVA_API_KEY is not defined.')
 
     # You can also register a function_name of None to get all functions
-    # sent to the same callback with an additional function_name parameter.
-    llm.register_function('get_current_weather', fetch_weather_from_api)
+    # sent to the same callback with an additional function_name parameter
+    llm.register_function('get_current_weather', fetch_weather)
 
     @llm.event_handler('on_function_calls_started')  # type: ignore
     async def on_function_calls_started(service, function_calls):  # noqa
         await tts.queue_frame(TTSSpeakFrame('Let me check on that.'))
 
-    # Weather function
+    # Define weather function using standardized schema
     weather_function = FunctionSchema(
         name='get_current_weather',
         description='Get the current weather',
@@ -124,7 +125,11 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
         },
         required=['location', 'format'],
     )
+
+    # Create tools schema
     tools = ToolsSchema(standard_tools=[weather_function])
+
+    # Define system message
     messages = [
         {
             'role': 'system',
@@ -137,13 +142,13 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
         },
     ]
 
-    # OpenAI LLM context
+    # Create context with system message and tools
     context = OpenAILLMContext(messages, tools)
 
     # Context aggregator
     context_aggregator = llm.create_context_aggregator(context)
 
-    # Pipeline
+    # Set up pipeline
     pipeline = Pipeline(
         [
             transport.input(),
@@ -156,7 +161,7 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
         ]
     )
 
-    # Pipeline task
+    # Create and configure task
     task = PipelineTask(
         pipeline,
         params=PipelineParams(
