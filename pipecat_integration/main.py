@@ -6,10 +6,10 @@
 
 import argparse
 import os
+from typing import Any
 
 from dotenv import load_dotenv
 from loguru import logger
-
 from pipecat.adapters.schemas.function_schema import FunctionSchema
 from pipecat.adapters.schemas.tools_schema import ToolsSchema
 from pipecat.audio.vad.silero import SileroVADAnalyzer
@@ -18,24 +18,24 @@ from pipecat.pipeline.pipeline import Pipeline
 from pipecat.pipeline.runner import PipelineRunner
 from pipecat.pipeline.task import PipelineParams, PipelineTask
 from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
-from pipecat.services.cartesia.tts import CartesiaTTSService
+from pipecat.services.deepgram.tts import DeepgramTTSService
 from pipecat.services.llm_service import FunctionCallParams
 from pipecat.transports.base_transport import BaseTransport, TransportParams
 from pipecat.transports.network.fastapi_websocket import FastAPIWebsocketParams
 from pipecat.transports.services.daily import DailyParams
-from stt import SambaNovaSTTService
-from llm import SambaNovaLLMService
+
+from pipecat_integration.llm import SambaNovaLLMService
+from pipecat_integration.stt import SambaNovaSTTService
 
 load_dotenv(override=True)
 
 
-async def fetch_weather_from_api(params: FunctionCallParams):
-    await params.result_callback({'conditions': 'nice', 'temperature': '75'})
+async def fetch_weather_from_api(params: FunctionCallParams) -> Any:
+    await params.result_callback({'conditions': 'nice', 'temperature': '20 Degrees Celsius'})
 
 
-# We store functions so objects (e.g. SileroVADAnalyzer) don't get
-# instantiated. The function will be called when the desired transport gets
-# selected.
+# We store functions so objects (e.g. SileroVADAnalyzer) don't get instantiated.
+# The function will be called when the desired transport gets selected.
 transport_params = {
     'daily': lambda: DailyParams(
         audio_in_enabled=True,
@@ -55,7 +55,7 @@ transport_params = {
 }
 
 
-async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_sigint: bool):
+async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_sigint: bool) -> None:
     logger.info(f'Starting bot')
 
     # Speach-to-text service
@@ -64,25 +64,33 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
         api_key=os.getenv('SAMBANOVA_API_KEY'),
     )
 
+    # # Text-to-speech service
+    # from pipecat.services.cartesia.tts import CartesiaTTSService
+    # tts = CartesiaTTSService(
+    #     api_key=os.getenv('CARTESIA_API_KEY'),
+    #     voice_id='71a7ad14-091c-4e8e-a314-022ece01c121',  # British Reading Lady
+    # )
+
     # Text-to-speech service
-    tts = CartesiaTTSService(
-        api_key=os.getenv('CARTESIA_API_KEY'),
-        voice_id='71a7ad14-091c-4e8e-a314-022ece01c121',  # British Reading Lady
-    )
+    tts = DeepgramTTSService(api_key=os.getenv('DEEPGRAM_API_KEY'), voice='aura-2-thalia-en', sample_rate=24000)
 
     # LLM service
-    llm = SambaNovaLLMService(
-        api_key=os.getenv('SAMBANOVA_API_KEY'),
-        model='Meta-Llama-3.3-70B-Instruct',
-        params=SambaNovaLLMService.InputParams(temperature=0.7, max_tokens=1024),
-    )
+    sambanova_api_key = os.getenv('SAMBANOVA_API_KEY')
+    if isinstance(sambanova_api_key, str):
+        llm = SambaNovaLLMService(
+            api_key=sambanova_api_key,
+            model='Meta-Llama-3.3-70B-Instruct',
+            params=SambaNovaLLMService.InputParams(temperature=0.7, max_tokens=1024),
+        )
+    else:
+        raise ValueError('SAMBANOVA_API_KEY is not defined.')
 
     # You can also register a function_name of None to get all functions
     # sent to the same callback with an additional function_name parameter.
     llm.register_function('get_current_weather', fetch_weather_from_api)
 
-    @llm.event_handler('on_function_calls_started')
-    async def on_function_calls_started(service, function_calls):
+    @llm.event_handler('on_function_calls_started')  # type: ignore
+    async def on_function_calls_started(service, function_calls):  # noqa
         await tts.queue_frame(TTSSpeakFrame('Let me check on that.'))
 
     # Weather function
@@ -92,7 +100,7 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
         properties={
             'location': {
                 'type': 'string',
-                'description': 'The city and state, e.g. San Francisco, CA',
+                'description': 'The city and state.',
             },
             'format': {
                 'type': 'string',
@@ -108,9 +116,10 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
             'role': 'system',
             'content': 'You are a helpful LLM in a WebRTC call. '
             'Your goal is to demonstrate your capabilities of weather forcasting in a succinct way. '
-            'Elaborate your output into a conversational answer in a creative and helpful way.'
+            'Introduce yourself to the user and then wait for their question. '
+            'Elaborate your response into a conversational answer in a creative and helpful way. '
             'Your output will be converted to audio so do not include special characters in your answer. '
-            'Once the final answer has been provided, please stop, unless the user asks another question.',
+            'Once the final answer has been provided, please stop, unless the user asks another question. ',
         },
     ]
 
@@ -143,14 +152,14 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
         ),
     )
 
-    @transport.event_handler('on_client_connected')
-    async def on_client_connected(transport, client):
+    @transport.event_handler('on_client_connected')  # type: ignore
+    async def on_client_connected(transport, client):  # noqa
         logger.info(f'Client connected')
         # Kick off the conversation.
         await task.queue_frames([context_aggregator.user().get_context_frame()])
 
-    @transport.event_handler('on_client_disconnected')
-    async def on_client_disconnected(transport, client):
+    @transport.event_handler('on_client_disconnected')  # type: ignore
+    async def on_client_disconnected(transport, client):  # noqa
         logger.info(f'Client disconnected')
         await task.cancel()
 

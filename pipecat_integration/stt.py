@@ -4,13 +4,13 @@
 # SPDX-License-Identifier: BSD 2-Clause License
 #
 
-from typing import Optional
+from typing import Any, Optional
 
 from pipecat.services.whisper.base_stt import BaseWhisperSTTService, Transcription
 from pipecat.transcriptions.language import Language
 
 
-class SambaNovaSTTService(BaseWhisperSTTService):
+class SambaNovaSTTService(BaseWhisperSTTService):  # type: ignore
     """SambaNova Whisper speech-to-text service.
 
     Uses SambaNova's Whisper API to convert audio to text.
@@ -23,7 +23,7 @@ class SambaNovaSTTService(BaseWhisperSTTService):
         language: Language of the audio input. Defaults to English.
         prompt: Optional text to guide the model's style or continue a previous segment.
         temperature: Optional sampling temperature between 0 and 1. Defaults to 0.0.
-        **kwargs: Additional arguments passed to BaseWhisperSTTService.
+        **kwargs: Additional arguments passed to `pipecat.services.whisper.base_stt.BaseWhisperSTTService`.
     """
 
     def __init__(
@@ -35,8 +35,8 @@ class SambaNovaSTTService(BaseWhisperSTTService):
         language: Optional[Language] = Language.EN,
         prompt: Optional[str] = None,
         temperature: Optional[float] = None,
-        **kwargs,
-    ):
+        **kwargs: Any,
+    ) -> None:
         super().__init__(
             model=model,
             api_key=api_key,

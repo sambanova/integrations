@@ -4,20 +4,20 @@
 # SPDX-License-Identifier: BSD 2-Clause License
 #
 
+import json
 from typing import Any, Dict, List, Optional
 
-from loguru import logger  # type: ignore
+from loguru import logger
 from openai import AsyncStream
 from openai.types.chat import ChatCompletionChunk, ChatCompletionMessageParam
-from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext  # type: ignore
-from pipecat.services.openai.llm import OpenAILLMService  # type: ignore
-from pipecat.services.llm_service import FunctionCallFromLLM
-from pipecat.utils.tracing.service_decorators import traced_llm
 from pipecat.frames.frames import (
     LLMTextFrame,
 )
 from pipecat.metrics.metrics import LLMTokenUsage
-import json
+from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
+from pipecat.services.llm_service import FunctionCallFromLLM
+from pipecat.services.openai.llm import OpenAILLMService
+from pipecat.utils.tracing.service_decorators import traced_llm
 
 
 class SambaNovaLLMService(OpenAILLMService):  # type: ignore
@@ -51,9 +51,7 @@ class SambaNovaLLMService(OpenAILLMService):  # type: ignore
         logger.debug(f'Creating SambaNova client with API {base_url}')
         return super().create_client(api_key, base_url, **kwargs)
 
-    async def get_chat_completions(
-        self, context: OpenAILLMContext, messages: List[ChatCompletionMessageParam]
-    ) -> AsyncStream[ChatCompletionChunk]:
+    async def get_chat_completions(self, context: OpenAILLMContext, messages: List[ChatCompletionMessageParam]) -> Any:
         """Get chat completions from SambaNova API endpoint."""
 
         params = {
@@ -74,8 +72,8 @@ class SambaNovaLLMService(OpenAILLMService):  # type: ignore
         chunks = await self._client.chat.completions.create(**params)
         return chunks
 
-    @traced_llm
-    async def _process_context(self, context: OpenAILLMContext):
+    @traced_llm  # type: ignore
+    async def _process_context(self, context: OpenAILLMContext) -> AsyncStream[ChatCompletionChunk]:
         """Redefine this method until SambaNova API introduces indexing in tool calls."""
 
         functions_list = []
@@ -130,7 +128,7 @@ class SambaNovaLLMService(OpenAILLMService):  # type: ignore
                     func_idx += 1
                 if tool_call.function and tool_call.function.name:
                     function_name += tool_call.function.name
-                    tool_call_id = tool_call.id
+                    tool_call_id = tool_call.id  # type: ignore
                 if tool_call.function and tool_call.function.arguments:
                     # Keep iterating through the response to collect all the argument fragments
                     arguments += tool_call.function.arguments
@@ -156,7 +154,7 @@ class SambaNovaLLMService(OpenAILLMService):  # type: ignore
 
             for function_name, arguments, tool_id in zip(functions_list, arguments_list, tool_id_list):
                 # This allows compatibility until SambaNova API introduces indexing in tool calls.
-                if len(argument) < 1:
+                if len(arguments) < 1:
                     continue
 
                 arguments = json.loads(arguments)
