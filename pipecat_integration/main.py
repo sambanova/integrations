@@ -134,7 +134,7 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
         {
             'role': 'system',
             'content': (
-                'You are a helpful Large Language Model participating in a WebRTC call. '
+                'You are a helpful Large Language Model assistant participating in a WebRTC call. '
                 'You are an expert in meteorology and weather forecasting. '
                 'Your goal is to demonstrate your weather forecasting capabilities in a succinct and clear manner. '
                 'Please introduce yourself to the user, and invite them '
