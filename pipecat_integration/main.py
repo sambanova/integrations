@@ -133,15 +133,20 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
     messages = [
         {
             'role': 'system',
-            'content': 'You are a helpful LLM in a WebRTC call. '
-            'Your goal is to demonstrate your capabilities of weather forcasting in a succinct way. '
-            'Introduce yourself to the user and then wait for their question. '
-            'Elaborate your response into a conversational answer in a creative and helpful way. '
-            'Your output will be converted to audio so do not include special characters in your answer. '
-            'Once the final answer has been provided, please stop, unless the user asks another question. ',
+            'content': (
+                'You are a helpful Large Language Model participating in a WebRTC call. '
+                'You are an expert in meteorology and weather forecasting. '
+                'Your goal is to demonstrate your weather forecasting capabilities in a succinct and clear manner. '
+                'Please introduce yourself to the user, and invite them '
+                'to ask about the weather in any city and country, '
+                'as well as their preferred temperature unit, Celsius or Fahrenheit. '
+                'Then wait for their question. '
+                'When responding, elaborate in a conversational, creative, and helpful way. '
+                'Your output will be converted to audio, so do not include any special characters in your answers. '
+                'Once you have given your final answer, please stop unless the user asks another question.'
+            ),
         },
     ]
-
     # Create context with system message and tools
     context = OpenAILLMContext(messages, tools)
 
