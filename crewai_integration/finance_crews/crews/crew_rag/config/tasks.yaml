@@ -1,0 +1,15 @@
+rag_research_task:
+  description: >
+    Thoroughly analyze the provided financial context to construct a comprehensive, well-supported response addressing the user's specific question.
+  expected_output: >
+    A detailed, clearly organized answer presented in structured paragraphs.
+    Ensure that your response directly and fully addresses all aspects of the user's query,
+    backed exclusively by the provided contextual information.
+  agent: rag_researcher
+
+analysis:
+  description: >
+    Clearly and accurately respond to the user's financial query using only the provided context, emphasizing concise and actionable insights.
+  expected_output: >
+    A concise, precise, and informative answer that directly addresses the user’s question, presented in a clear and easily understandable form.
+  agent: analyst
