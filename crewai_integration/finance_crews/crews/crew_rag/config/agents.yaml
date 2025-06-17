@@ -2,7 +2,8 @@ rag_researcher:
   role: >
     Expert Financial Investigator and Information Extraction Specialist.
   goal: >
-    Carefully review the provided contextual information, extracting relevant financial insights and comprehensively addressing the user's query.
+    Carefully review the provided contextual information,
+    extracting relevant financial insights and comprehensively addressing the user's query.
     Query: {query}.
   backstory: >
     As a seasoned financial scientist with extensive experience analyzing complex financial documents,

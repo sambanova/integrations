@@ -112,11 +112,11 @@ class RAGCrew:
                 # Check word count
                 word_count = len(result.split())
 
-                if word_count > 10000:
+                if word_count > 1000:
                     return (
                         False,
                         {
-                            'error': 'Answer exceeds 10000 words',
+                            'error': 'Answer exceeds 1000 words',
                             'code': 'WORD_COUNT_ERROR',
                             'context': {'word_count': word_count},
                         },
@@ -148,8 +148,6 @@ class RAGCrew:
             tasks=self.tasks,
             process=Process.sequential,
             verbose=self.verbose,
-            knowledge_sources=[self.pdf_source],
-            knowledge_config=self.knowledge_config,
         )
 
 
