@@ -12,4 +12,5 @@ analysis:
     Clearly and accurately respond to the user's financial query using only the provided context, emphasizing concise and actionable insights.
   expected_output: >
     A concise, precise, and informative answer that directly addresses the user’s question, presented in a clear and easily understandable form.
+    Please ensure that your answer is short and does not exceed 1000 words.
   agent: analyst

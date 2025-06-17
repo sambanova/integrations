@@ -18,7 +18,7 @@ from utils.utilities import clean_markdown_content, convert_html_to_pdf, st_capt
 load_dotenv()
 
 # Define cache directory
-CACHE_DIR = Path(__file__).parent.parent.name + 'results/app_web_search'
+CACHE_DIR = 'results/app_web_search'
 # Create cache directory
 os.makedirs(CACHE_DIR, exist_ok=True)
 # Output file for the report

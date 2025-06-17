@@ -181,13 +181,8 @@ def main() -> None:
         with col21:
             uploaded_file = streamlit.file_uploader('Choose a PDF file', type='pdf')
             if uploaded_file is not None:
-                save_path = 'knowledge'
-                # Create directory if it doesn't exist
-                if not os.path.exists(save_path):
-                    os.makedirs(save_path)
-
                 # Define the path to save the PDF file
-                filename = os.path.join(save_path, uploaded_file.name)
+                filename = os.path.join(CACHE_DIR, uploaded_file.name)
 
                 # Save the uploaded file locally
                 with open(filename, 'wb') as f:

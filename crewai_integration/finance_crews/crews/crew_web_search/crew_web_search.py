@@ -33,7 +33,7 @@ class WebSearchCrew:
     def __init__(
         self,
         llm: LLM,
-        output_file: str = 'results/report.md',
+        output_file: str = 'results/app_web_search/report.md',
         verbose: bool = True,
     ) -> None:
         """Initialize the RAGCrew crew."""

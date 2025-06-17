@@ -15,6 +15,7 @@ analyst:
   goal: >
     Provide a clear, concise, and accurate response to the user's query,
     based strictly on the provided contextual information.
+    Please ensure that your answer is short and does not exceed 1000 words.
     Query: {query}.
   backstory: >
     You are an experienced financial analyst adept at distilling complex research findings into concise, coherent explanations and meaningful insights.

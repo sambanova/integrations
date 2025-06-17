@@ -18,10 +18,9 @@ load_dotenv()
 # Initialize Weave with your project name
 weave.init(project_name='finance_rag')
 
-# # Store knowledge in project directory
-# project_root = Path(__file__).parent.parent.parent
-# knowledge_dir = project_root
-# os.environ['CREWAI_STORAGE_DIR'] = str(knowledge_dir)
+# Store knowledge in project directory
+project_root = Path(__file__).parent.parent.parent
+os.environ['CREWAI_STORAGE_DIR'] = str(project_root)
 
 load_dotenv()
 
@@ -39,7 +38,7 @@ class RAGCrew:
         self,
         llm: LLM,
         filename: str,
-        output_file: str = 'results/report.md',
+        output_file: str = '/results/app_rag/report.md',
         verbose: bool = True,
     ) -> None:
         """Initialize the RAGCrew crew."""
@@ -67,7 +66,7 @@ class RAGCrew:
         """Add the RAG Agent."""
 
         # Create a PDF knowledge source
-        self.pdf_source = PDFKnowledgeSource(file_paths=[Path(self.filename).name], collection_name='pdf_knowledge')
+        self.pdf_source = PDFKnowledgeSource(file_paths=[Path(self.filename)], collection_name='pdf_knowledge')
         self.knowledge_config = KnowledgeConfig(results_limit=10, score_threshold=0.5)
 
         return Agent(
@@ -113,11 +112,11 @@ class RAGCrew:
                 # Check word count
                 word_count = len(result.split())
 
-                if word_count > 1000:
+                if word_count > 10000:
                     return (
                         False,
                         {
-                            'error': 'Answer exceeds 1000 words',
+                            'error': 'Answer exceeds 10000 words',
                             'code': 'WORD_COUNT_ERROR',
                             'context': {'word_count': word_count},
                         },
@@ -151,7 +150,6 @@ class RAGCrew:
             verbose=self.verbose,
             knowledge_sources=[self.pdf_source],
             knowledge_config=self.knowledge_config,
-            embedder=self.embedder,
         )
 
 
@@ -163,7 +161,7 @@ if __name__ == '__main__':
             base_url=os.getenv('SAMBANOVA_URL'),
             api_key=os.getenv('SAMBANOVA_API_KEY'),
         ),
-        filename='article.pdf',
+        filename=project_root / 'streamlit' / 'article.pdf',
     )
     rag_crew_results = rag_crew.crew().kickoff(inputs={'query': 'What are the conclusion of this article?'})
     print(rag_crew_results)
