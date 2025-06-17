@@ -1,12 +1,13 @@
 import base64
 import os
-import time
-from typing import Any
 import sys
+import time
+from pathlib import Path
+from typing import Any
+
 import streamlit
 from crewai import LLM
 from dotenv import load_dotenv
-from pathlib import Path
 
 # Main directories
 sys.path.append(str(Path(__file__).parent.parent))

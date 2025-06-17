@@ -37,7 +37,7 @@ class RAGCrew:
     def __init__(
         self,
         llm: LLM,
-        filename: str,
+        filename: str | Path,
         output_file: str = '/results/app_rag/report.md',
         verbose: bool = True,
     ) -> None:
