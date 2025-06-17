@@ -18,7 +18,7 @@ search_tool = SerperDevTool(n_results=10)
 
 
 # Initialize Weave with your project name
-weave.init(project_name='finance_web_search_demo')
+weave.init(project_name='finance_web_search')
 
 
 @CrewBase
@@ -33,6 +33,7 @@ class WebSearchCrew:
     def __init__(
         self,
         llm: LLM,
+        output_file: str = 'results/report.md',
         verbose: bool = True,
     ) -> None:
         """Initialize the RAGCrew crew."""
@@ -43,6 +44,7 @@ class WebSearchCrew:
         self.agents = list()
         self.tasks = list()
         self.llm = llm
+        self.output_file = output_file
         self.verbose = verbose
 
     @agent  # type: ignore
@@ -113,7 +115,7 @@ class WebSearchCrew:
 
         return Task(
             config=self.tasks_config['writing_task'],
-            output_file='output/report.md',
+            output_file=self.output_file,
             guardrail=validate_report,
         )
 

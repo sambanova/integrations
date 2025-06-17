@@ -2,18 +2,27 @@ import base64
 import os
 import time
 from typing import Any
-
+import sys
 import streamlit
 from crewai import LLM
 from dotenv import load_dotenv
+from pathlib import Path
 
-from .crews.crew_web_search.crew_web_search import WebSearchCrew
-from .utilities.utilities import clean_markdown_content, convert_html_to_pdf, st_capture
+# Main directories
+sys.path.append(str(Path(__file__).parent.parent))
+
+from crews.crew_rag.crew_rag import RAGCrew  # type: ignore
+from utils.utilities import clean_markdown_content, convert_html_to_pdf, st_capture  # type: ignore
 
 # Load environment variables
 load_dotenv()
 
-CACHE_DIR = 'results'
+# Define cache directory
+CACHE_DIR = 'results/app_rag'
+# Create cache directory
+os.makedirs(CACHE_DIR, exist_ok=True)
+# Output file for the report
+output_file = CACHE_DIR + f'/report.md'
 
 
 def main() -> None:
@@ -22,7 +31,7 @@ def main() -> None:
 
     # Page config
     streamlit.set_page_config(
-        page_title='Financial Assistant - Web Search',
+        page_title='Financial Assistant - PDF RAG',
         page_icon='💸',
         layout='wide',
         initial_sidebar_state='collapsed',
@@ -150,7 +159,7 @@ def main() -> None:
         <div class="logo-container">
             <img src="https://sambanova.ai/hubfs/logotype_sambanova_orange.png" 
                 alt="SambaNova Logo">
-            <h2>Financial Assistant - Web Search</h2>
+            <h2>Financial Assistant - PDF RAG</h2>
         </div>
         """,
         unsafe_allow_html=True,
@@ -161,22 +170,40 @@ def main() -> None:
         streamlit.write('**User query**')
         query = streamlit.text_input(
             label='Enter research topic (hidden)',
-            placeholder='E.g., How can AI be used in finance?',
+            placeholder='E.g., What are the conclusions of this article?',
             help='Enter the main subject for content generation',
             key='compact_topic',
             label_visibility='collapsed',
         )
 
-        # Create a select box in the sidebar with several options
-        with streamlit.expander('LLM'):
-            model_name = streamlit.selectbox(
-                'Select an option:',
-                [
-                    'Meta-Llama-3.3-8B-Instruct',
-                    'Meta-Llama-3.3-70B-Instruct',
-                    'Meta-Llama-3.1-405B-Instruct',
-                ],
-            )
+        col21, col22 = streamlit.columns([0.5, 0.5], vertical_alignment='center')
+
+        with col21:
+            uploaded_file = streamlit.file_uploader('Choose a PDF file', type='pdf')
+            if uploaded_file is not None:
+                save_path = 'knowledge'
+                # Create directory if it doesn't exist
+                if not os.path.exists(save_path):
+                    os.makedirs(save_path)
+
+                # Define the path to save the PDF file
+                filename = os.path.join(save_path, uploaded_file.name)
+
+                # Save the uploaded file locally
+                with open(filename, 'wb') as f:
+                    f.write(uploaded_file.getbuffer())
+
+        with col22:
+            # Create a select box in the sidebar with several options
+            with streamlit.expander('LLM'):
+                model_name = streamlit.selectbox(
+                    'Select an option:',
+                    [
+                        'Meta-Llama-3.1-8B-Instruct',
+                        'Meta-Llama-3.3-70B-Instruct',
+                        'Meta-Llama-3.1-405B-Instruct',
+                    ],
+                )
 
         # Generate button
         generate_button = streamlit.form_submit_button(
@@ -220,8 +247,8 @@ def main() -> None:
                             api_key=os.getenv('SAMBANOVA_API_KEY'),
                         )
 
-                        web_search_crew_crew = WebSearchCrew(llm=llm)
-                        results = web_search_crew_crew.crew().kickoff(inputs={'query': query})
+                        rag_crew = RAGCrew(llm=llm, filename=filename, output_file=output_file)
+                        results = rag_crew.crew().kickoff(inputs={'query': query})
 
             end_time = time.time()
             elapsed_time = end_time - start_time
@@ -229,7 +256,6 @@ def main() -> None:
             seconds = int(elapsed_time % 60)
             time_msg = f'⚡ Generated in {minutes}m {seconds}s' if minutes > 0 else f'⚡ Generated in {seconds}s'
 
-            output_file = CACHE_DIR + f'/report.md'
             streamlit.session_state.running = False
             streamlit.session_state.final_content = output_file
             streamlit.success('✨ Content generated successfully!')

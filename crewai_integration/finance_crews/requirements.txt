@@ -1,9 +1,8 @@
-crewai==0.120.1
-crewai-tools==0.45.0
+crewai==0.130.0
+crewai-tools==0.47.1
 Markdown==3.8
 python-dotenv==1.1.0
-ollama==0.4.8
 schedule==1.2.2
 streamlit==1.45.1
 weasyprint==65.1
-weave==0.51.46
+weave==0.51.54
