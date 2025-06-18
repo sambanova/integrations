@@ -10,8 +10,8 @@ import weave
 
 load_dotenv()
 
+# Instantiate the Google Serper Search tool
 search_tool = SerperDevTool(n_results=10)
-
 
 # Initialize Weave with your project name
 weave.init(project_name='finance_web_search')
@@ -88,11 +88,11 @@ class WebSearchCrew:
                 # Check word count
                 word_count = len(result.split())
 
-                if word_count > 10000:
+                if word_count > 1000:
                     return (
                         False,
                         {
-                            'error': 'Blog content exceeds 10000 words',
+                            'error': 'Blog content exceeds 1000 words',
                             'code': 'WORD_COUNT_ERROR',
                             'context': {'word_count': word_count},
                         },

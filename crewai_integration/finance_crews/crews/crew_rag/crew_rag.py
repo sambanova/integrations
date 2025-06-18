@@ -65,6 +65,8 @@ class RAGCrew:
 
         # Create a PDF knowledge source
         self.pdf_source = PDFKnowledgeSource(file_paths=[Path(self.filename)], collection_name='pdf_knowledge')
+
+        # Create a PDF knowledge config
         self.knowledge_config = KnowledgeConfig(results_limit=10, score_threshold=0.5)
 
         return Agent(
