@@ -4,8 +4,6 @@ from typing import Any, Dict, List, Tuple
 
 from crewai import LLM, Agent, Crew, Process, Task, TaskOutput
 from crewai.knowledge.knowledge_config import KnowledgeConfig
-
-# from crewai_tools import PDFSearchTool
 from crewai.knowledge.source.pdf_knowledge_source import PDFKnowledgeSource
 from crewai.project import CrewBase, agent, crew, task
 from dotenv import load_dotenv
@@ -159,7 +157,7 @@ if __name__ == '__main__':
             base_url=os.getenv('SAMBANOVA_URL'),
             api_key=os.getenv('SAMBANOVA_API_KEY'),
         ),
-        filename=project_root / 'streamlit' / 'article.pdf',
+        filename=project_root / 'sources' / 'article.pdf',
     )
     rag_crew_results = rag_crew.crew().kickoff(inputs={'query': 'What are the conclusion of this article?'})
     print(rag_crew_results)

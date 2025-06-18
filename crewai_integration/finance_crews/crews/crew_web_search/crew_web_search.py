@@ -3,11 +3,7 @@ from typing import Any, Dict, List, Tuple
 
 from crewai import LLM, Agent, Crew, Process, Task, TaskOutput
 from crewai.project import CrewBase, agent, crew, task
-
-# Importing crewAI tools
-from crewai_tools import (
-    SerperDevTool,
-)
+from crewai_tools import SerperDevTool
 from dotenv import load_dotenv
 
 import weave
