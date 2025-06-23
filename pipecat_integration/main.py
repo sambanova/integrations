@@ -30,14 +30,14 @@ from pipecat.services.cartesia.tts import CartesiaTTSService
 # For function calling
 from pipecat.services.llm_service import FunctionCallParams
 
+# SambaNova LLM and STT
+from pipecat.services.sambanova.llm import SambaNovaLLMService
+from pipecat.services.sambanova.stt import SambaNovaSTTService
+
 # Transport
 from pipecat.transports.base_transport import BaseTransport, TransportParams
 from pipecat.transports.network.fastapi_websocket import FastAPIWebsocketParams
 from pipecat.transports.services.daily import DailyParams
-
-# SambaNova LLM and STT
-from pipecat.services.sambanova.llm import SambaNovaLLMService
-from pipecat.services.sambanova.stt import SambaNovaSTTService
 
 # Environment variables
 load_dotenv(override=True)
