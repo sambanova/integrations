@@ -36,8 +36,8 @@ from pipecat.transports.network.fastapi_websocket import FastAPIWebsocketParams
 from pipecat.transports.services.daily import DailyParams
 
 # SambaNova LLM and STT
-from pipecat_integration.llm import SambaNovaLLMService
-from pipecat_integration.stt import SambaNovaSTTService
+from pipecat.services.sambanova.llm import SambaNovaLLMService
+from pipecat.services.sambanova.stt import SambaNovaSTTService
 
 # Environment variables
 load_dotenv(override=True)
@@ -94,7 +94,7 @@ async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_si
     if isinstance(sambanova_api_key, str):
         llm = SambaNovaLLMService(
             api_key=sambanova_api_key,
-            model='Meta-Llama-3.3-70B-Instruct',
+            model='Llama-4-Maverick-17B-128E-Instruct',
             params=SambaNovaLLMService.InputParams(temperature=0.7, max_tokens=1024),
         )
     else:

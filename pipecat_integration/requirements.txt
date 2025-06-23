@@ -1,13 +1,5 @@
-aiortc~=1.13.0
-cartesia~=2.0.3
-daily-python~=0.19.1
-deepgram-sdk~=4.1.0
-dotenv~=0.9.9
-fastapi~=0.115.12
-openai~=1.70.0
-opencv-python~=4.11.0.86
-onnxruntime~=1.22.0
-pipecat-ai~=0.0.69
-pipecat-ai-small-webrtc-prebuilt~=0.7.0
-uvicorn~=0.34.3
-websockets~=13.1
+python-dotenv==1.1.0
+fastapi==0.115.13
+uvicorn==0.34.3
+pipecat-ai-small-webrtc-prebuilt==0.7.0
+#pipecat-ai[sambanova, webrtc, cartesia, silero, daily]

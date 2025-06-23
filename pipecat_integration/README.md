@@ -5,10 +5,8 @@
 </picture>
 </a>
 
-# SambaNova Financial Agent using CrewAI (Financial Flow)
-======================
-
-Questions? Just <a href="https://discord.gg/54bNAqRw" target="_blank">message us</a> on Discord <a href="https://discord.gg/54bNAqRw" target="_blank"><img src="https://github.com/sambanova/ai-starter-kit/assets/150964187/aef53b52-1dc0-4cbf-a3be-55048675f583" alt="Discord" width="22"/></a> or <a href="https://github.com/sambanova/ai-starter-kit/issues/new/choose" target="_blank">create an issue</a> in GitHub. We're happy to help live!
+Pipecat SambaNova
+=====================
 
 Welcome to the the Pipecat @SambaNova integration!
 
@@ -19,6 +17,7 @@ Table of Contents:
 - [3. Installation](#installation)
 
 ## 1. Overview
+
 [Pipecat](https://www.pipecat.ai/) is a framework for building voice-enabled, real-time, multimodal AI applications.
 
 Pipecat is an open source Python framework that handles the complex orchestration of AI services, network transport, audio processing, and multimodal interactions. “Multimodal” means you can use any combination of audio, video, images, and/or text in your interactions. And “real-time” means that things are happening quickly enough that it feels conversational - a “back-and-forth” with a bot, not submitting a query and waiting for results.
@@ -44,7 +43,7 @@ For more details, please refer to the following resources:
     Add your `SAMBANOVA_API_KEY` to the `.env` file.
     
     <Tip>
-    Get your SambaNova API key [here](https://cloud.sambanova.ai/apis).
+    Get your SambaNova API key [here](https://cloud.sambanova.ai/?utm_source=pipecat&utm_medium=external&utm_campaign=cloud_signup).
     </Tip>
 
 2. TTS service.
@@ -70,8 +69,7 @@ For more details, please refer to the following resources:
     For production deployments with scale, consider using the `DailyTransport`, as it has global, low-latency infrastructure.
     The `DailyTransport` class provides a WebRTC transport layer using [Daily.co](https://www.daily.co/)’s infrastructure.
     It handles audio/video device management, WebRTC connections, and real-time communication between clients and bots.
-    
-    
+
 ## 3. Installation
 
 Ensure you have Python `>=3.11 <3.13` installed on your system.
@@ -106,5 +104,4 @@ as well as your preferred temperature unit, Celsius or Fahrenheit.
 The bot will then wait for your question, call the relevant weather tool, and provide a conversational answer.
 
 ## 4. References
-For more details, please refer to the [Sambanova @Pipecat docs](xxx).
-TODO: This will point to the SambaNova Pipecat integration docs once they are available.
+For more details, please refer to the [Sambanova @Pipecat llm docs](https://docs.pipecat.ai/server/services/llm/sambanova) and [Sambanova @Pipecat stt docs](https://docs.pipecat.ai/server/services/stt/sambanova).

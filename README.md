@@ -41,6 +41,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Milvus** | Vector DB | Milvus is an open-source vector database from Milvus and can easily enable RAG applications. | [Demo code](./milvus) |
 | **n8n** | Low-code framework | n8n is a low-code workflow automation framework. | [Demo code](./n8n) |
 | **Oumi** | LLM framework | Oumi is an open-source platform that streamlines the entire lifecycle of foundation models from data preparation and training to evaluation and deployment. | [Documentation](https://oumi.ai/docs/en/latest/api/oumi.inference.html#oumi.inference.SambanovaInferenceEngine) |
+| **Pipecat** | LLM framework | Pipecat is an open source Python framework that handles the complex orchestration of AI services, network transport, audio processing, and multimodal interactions. | [Demo code](./pipecat_integration/README.md) |
 | **Semantic Kernel** | Agentic-first library | Semantic Kernel is an open-source development tool to build agents and integrate them with the latest AI models into your codebase.  | [Demo code](./semantic_kernel) |
 | **Vercel** | LLM framework | Vercel is a platform for deploying and hosting web applications, which developers can use to easily manage their websites and serverless functions. | [Documentation](https://sdk.vercel.ai/providers/community-providers/sambanova) |
 | **Weave** | LLM framework | Weave is a platform that provides tools for training, fine-tuning, and deploying machine learning models. | [Demo Code](./weave/) |
@@ -56,4 +57,3 @@ SambaNova AI Starter Kits are a collection of open-source examples and guides de
 - Find more information about SambaNova Integrations [here](https://docs.sambanova.ai/cloud/docs/integrations)
 
 **Note:** These Integrations code samples are provided "as-is," and are not production-ready or supported code. Bugfix/support will be on a best-effort basis only. Code may use third-party open-source software. You are responsible for performing due diligence per your organization policies for use in your applications.
-
