@@ -3,7 +3,7 @@ rag_research_task:
     Thoroughly analyze the provided financial context to construct a comprehensive, well-supported response addressing the user's specific question.
   expected_output: >
     A detailed and clear response.
-    Ensure that your answer directly and fully addresses all aspects of the user's query,
+    Ensure that your answer directly addresses all aspects of the user's query,
     backed exclusively by the provided contextual information.
   agent: rag_researcher
 
