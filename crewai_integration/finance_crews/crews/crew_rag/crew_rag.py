@@ -54,7 +54,7 @@ class RAGCrew:
             provider='openai',
             config=dict(
                 api_key=os.getenv('SAMBANOVA_API_KEY'),
-                api_base=os.getenv('SAMBANOVA_URL'),
+                api_base=os.getenv('SAMBANOVA_URL', 'https://api.sambanova.ai/v1'),
                 model='E5-Mistral-7B-Instruct',
             ),
         )
