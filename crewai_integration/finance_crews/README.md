@@ -21,6 +21,7 @@ Table of Contents:
   - [5.1 The RAG Crew](#51-the-rag-crew)
   - [5.2 The Web Search Crew](#52-the-web-search-crew)
   - [5.3 Monitoring your crews with Weave](#53-monitoring-your-crews-with-weave)
+- [6. Troubleshooting](#6-troubleshooting)
 
 ## 1. Overview
 
@@ -154,3 +155,16 @@ The `WebSearchCrew` is composed of two agents:
 You can monitor your crews with Weave by following the corresponding project links in your terminal.
 For more information on how to monitor your CrewAI crews using Weave,
 please refer to the [Weave @CrewAI docs](https://docs.crewai.com/observability/weave).
+
+## 6. Troubleshooting
+
+If you get this error when running the applications:
+
+`OSError: cannot load library 'libgobject-2.0-0':`
+
+You will need to install the [weasyprint](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation) system dependency running:
+
+```bash 
+brew install weasyprint
+export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_FALLBACK_LIBRARY_PATH
+```
