@@ -1,3 +1,10 @@
+<a href="https://sambanova.ai/">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../images/SambaNova-light-logo-1.png" height="60">
+  <img alt="SambaNova logo" src="../images/SambaNova-dark-logo-1.png" height="60">
+</picture>
+</a>
+
 # Household Budgeting Agentic Workflow (SambaNova Cloud + n8n)
 
 This repository contains an agentic AI workflow built with [SambaNova Cloud](https://cloud.sambanova.ai/) and the low-code framework [n8n](https://n8n.io/), designed to help users manage their household expenses through a conversational interface.
