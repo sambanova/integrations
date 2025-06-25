@@ -6,7 +6,6 @@
 </a>
 
 # SambaNova Financial Agent using CrewAI (Financial Flow)
-======================
 
 Questions? Just <a href="https://discord.gg/54bNAqRw" target="_blank">message us</a> on Discord <a href="https://discord.gg/54bNAqRw" target="_blank"><img src="https://github.com/sambanova/ai-starter-kit/assets/150964187/aef53b52-1dc0-4cbf-a3be-55048675f583" alt="Discord" width="22"/></a> or <a href="https://github.com/sambanova/ai-starter-kit/issues/new/choose" target="_blank">create an issue</a> in GitHub. We're happy to help live!
 
@@ -73,16 +72,16 @@ follow the steps below.
 1. Install and update `pip`.
 
 ```bash
-cd ai-starter-kit/financial_agent_crewai
-python3 -m venv financial_agent_crewai
-source financial_agent_crewai/bin/activate
+cd crewai_integration/financial_agent
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
 2. Run the `main.py` file:
 
 ```bash
-cd ai-starter-kit/financial_agent_crewai
+cd crewai_integration/financial_agent
 python main.py
 ```
 

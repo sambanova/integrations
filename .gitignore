@@ -203,3 +203,9 @@ wandb/
 
 # All cache folders
 crewai_integration/financial_agent/cache/*
+crewai_integration/finance_crews/knowledge/*
+crewai_integration/finance_crews/results/*
+knowledge/*
+results/*
+
+

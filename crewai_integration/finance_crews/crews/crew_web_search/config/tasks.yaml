@@ -1,0 +1,20 @@
+research_task:
+  description: >
+    Conduct a thorough investigation into contemporary financial topics to answer the user’s query.
+  expected_output: >
+    A comprehensive collection of financial information
+    with each main point expanded into its
+    own fully developed section.
+  agent: researcher
+
+writing_task:
+  description: >
+    Review the provided context and expand each topic into a comprehensive report section.
+    Include all key details, maintain a coherent structure, and limit the overall content to 1000 words.
+  expected_output: >
+    Present a detailed report with each main topic developed into smaller sections.
+    Format your answer in Markdown without using triple backticks as follows:
+    • Use one "##" heading for the overall section title.
+    • Use "###" headings for each main topic and subtopic.
+    • Place a blank line ("\n") before and after every "###" heading.
+  agent: writer
