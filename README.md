@@ -41,6 +41,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Milvus** | Vector DB and search | Milvus is an open-source vector database from Milvus and can easily enable RAG applications. | [Demo code](./milvus) |
 | **n8n** | Low-code platforms | n8n is a low-code workflow automation framework. | [Demo code](./n8n) |
 | **Oumi** | LLM frameworks | Oumi is an open-source platform that streamlines the entire lifecycle of foundation models from data preparation and training to evaluation and deployment. | [Documentation](https://oumi.ai/docs/en/latest/api/oumi.inference.html#oumi.inference.SambanovaInferenceEngine) |
+| **Pipecat** | LLM framework | Pipecat is an open source Python framework that handles the complex orchestration of AI services, network transport, audio processing, and multimodal interactions. | [Demo code](./pipecat_integration/README.md) |
 | **Semantic Kernel** | Agent building and orchestration | Semantic Kernel is an open-source development tool to build agents and integrate them with the latest AI models into your codebase.  | [Demo code](./semantic_kernel) |
 | **Vercel** | LLM frameworks | Vercel is a platform for deploying and hosting web applications, which developers can use to easily manage their websites and serverless functions. | [Documentation](https://sdk.vercel.ai/providers/community-providers/sambanova) |
 | **VS Code AI Toolkit** | Coding assistants | VS code AI toolkit is an extension within the IDE to develop and optimize AI agents within the code editor. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/vscode) |
@@ -56,4 +57,3 @@ SambaNova AI Starter Kits are a collection of open-source examples and guides de
 - Visit [SambaNova Cloud docs](https://docs.sambanova.ai/cloud/docs/get-started/overview) for all documentation.
 
 **Note:** These Integrations code samples are provided "as-is," and are not production-ready or supported code. Bugfix/support will be on a best-effort basis only. Code may use third-party open-source software. You are responsible for performing due diligence per your organization policies for use in your applications.
-
