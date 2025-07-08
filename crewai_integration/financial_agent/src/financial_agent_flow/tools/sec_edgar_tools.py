@@ -87,7 +87,7 @@ class SecEdgarFilingRetriever(BaseTool):  # type: ignore
 
         # Create the filename
         filename = self.cache_dir / (
-            f"filing_id_{self.filing_metadata.filing_type.replace('-', '')}_{self.filing_metadata.filing_quarter}_"
+            f'filing_id_{self.filing_metadata.filing_type.replace("-", "")}_{self.filing_metadata.filing_quarter}_'
             + f'{self.filing_metadata.ticker_symbol}_{self.filing_metadata.year}.csv'
         )
 

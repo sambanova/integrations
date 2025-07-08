@@ -52,23 +52,10 @@ def main() -> None:
         .main > div { padding-top: 1rem; }
         .block-container { padding-top: 1rem; }
 
-        /* Logo container styling */
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0.5rem 0;
+        * {
+                font-family: 'Inter', sans-serif !important;
         }
-        .logo-container img {
-            height: 2rem; /* Adjust the height to control the size of the logo */
-            margin-right: 0.5rem;
-        }
-        .logo-container h2 {
-            color: #ee7624;
-            margin: 0;
-            text-align: center;
-        }
-
+        
         /* Bold all text input / select labels, remove extra margin */
         .stTextInput label, .stSelectbox label {
             font-weight: bold !important;
@@ -77,8 +64,13 @@ def main() -> None:
 
         /* Button styling */
         .stButton > button {
-            width: 100%;
-            margin-top: 1.5rem;  /* roughly aligns with input fields if they are short */
+            background-color: #250E36;  /* Button background */
+            color: #FFFFFF;             /* Button text color */
+        }
+        
+        .stButton > button:hover, .stButton > button:focus  {
+            background-color: #4E22EB;  /* Button background */
+            color: #FFFFFF;             /* Button text color */
         }
 
         /* We use .custom-panel to unify both agent and content panels at same height */
@@ -161,14 +153,22 @@ def main() -> None:
     )
 
     # Logos + Title
+    streamlit.divider()
+    col1, col2, col3 = streamlit.columns([4, 1, 4])
+    with col2:
+        streamlit.image(os.path.join(repo_dir, 'images', 'SambaNova-dark-logo-1.png'))
     streamlit.markdown(
         """
-        <div class="logo-container">
-            <img src="https://sambanova.ai/hubfs/logotype_sambanova_orange.png" 
-                alt="SambaNova Logo">
-            <h2>SambaNova Financial Agent</h2>
-        </div>
-        """,
+        <style>
+            .kit-title {
+                text-align: center;
+                color: #250E36 !important;
+                font-size: 3.5em;
+                margin-bottom: 0.5em;
+            }
+        </style>
+        <div class="kit-title">Financial Agent</div>
+    """,
         unsafe_allow_html=True,
     )
 
@@ -231,7 +231,7 @@ def main() -> None:
         # Generate button
         generate_button = streamlit.form_submit_button(
             label='🚀 Generate',
-            type='secondary',
+            type='primary',
             disabled=streamlit.session_state.running,
             help='Click to start generating content',
         )
