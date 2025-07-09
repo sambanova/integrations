@@ -16,27 +16,12 @@ Llama Stack is a framework that standardizes core building blocks to simplify AI
 
 > An adaptor is a provider component in Llama Stack, such as an inference model, a safety guardrails model, or an agent. A distribution is a bundle of multiple adaptors deployed on the server, providing a unified interface for AI workflows.
 
-SambaNova offers its own Llama Stack distribution, which includes the following adaptors:
+SambaNova is included in Llama-stack Starter distribution, which includes the following sambanova adaptors:
 
 - Inference:
     - remote::sambanova
-    - inline::sentence-transformers
-- Vector I/O:
-    - inline::faiss
-    - remote::chromadb
-    - remote::pgvector
 - Safety:
-    - inline::llama-guard
-- Agents:
-    - inline::meta-reference
-- Telemetry:
-    - inline::meta-reference
-- Tool Runtime:
-    - remote::brave-search
-    - remote::tavily-search
-    - inline::rag-runtime
-    - remote::model-context-protocol
-    - remote::wolfram-alpha
+    - remote::sambanova
 
 For more details on Llama Stack, refer to the official [documentation](https://llama-stack.readthedocs.io/en/latest/index.html).
 
@@ -74,10 +59,12 @@ You can build the SambaNova Llama Stack distribution using either a virtual envi
 
 ### Build with Docker (Recommended)
 
-To build the distribution as a Docker container, use the following command:  
+You can skip this step if you want to use the default starter docker images
+
+If you want to  re-build the distribution as a Docker container, use the following command:  
 
 ```bash
-llama stack build --template sambanova --image-type container  
+llama stack build --template starter --image-type container  
 ```
 
 After the build process is complete, verify that the image was created by listing available Docker images:  
@@ -90,7 +77,7 @@ Example Output:
 
 ``` bash
 REPOSITORY                        TAG       IMAGE ID       CREATED          SIZE
-distribution-sambanova            0.2.8     4f70c8f71a21   5 minutes ago    2.4GB
+distribution-starter            0.2.14     4f70c8f71a21   5 minutes ago    2.4GB
 ```
 
 ### Build with venv
@@ -98,7 +85,7 @@ distribution-sambanova            0.2.8     4f70c8f71a21   5 minutes ago    2.4G
 To build the distribution within the currently activated virtual environment, run:
 
 ```bash
-llama stack build --template sambanova --image-type venv
+llama stack build --template starter --image-type venv
 ```
 
 ### Build with conda
@@ -106,7 +93,7 @@ llama stack build --template sambanova --image-type venv
 To build the distribution in a conda environment, run:
 
 ``` bash
-llama stack build --template sambanova --image-type conda
+llama stack build --template starter --image-type conda
 ```
 
 ## Running the SambaNova Distribution
@@ -117,6 +104,7 @@ Before deploying the distribution, set the required environment variables:
 
 ```bash
 export LLAMA_STACK_PORT=8321
+export ENABLE_SAMBANOVA=sambanova
 export SAMBANOVA_API_KEY="12345678abcdef87654321fe"  # Replace with your SambaNova Cloud API key
 ```
 
@@ -128,7 +116,7 @@ To deploy using Docker, run:
 docker run -it \
   -p $LLAMA_STACK_PORT:$LLAMA_STACK_PORT \
   -v ~/.llama:/root/.llama \
-  distribution-sambanova:0.2.8 \  # Change this to match the tag of your built image
+  llamastack/distribution-starter \ # optionally change this to match the tag of your built image
   --port $LLAMA_STACK_PORT \
   --env SAMBANOVA_API_KEY=$SAMBANOVA_API_KEY
 ```
@@ -138,7 +126,7 @@ docker run -it \
 Run the following command to start the distribution using a virtual environment:
 
 ``` bash
-llama stack run --image-type venv ~/.llama/distributions/sambanova/sambanova-run.yaml \
+llama stack run --image-type venv ~/.llama/distributions/starter/starter-run.yaml \
     --port $LLAMA_STACK_PORT \
     --env SAMBANOVA_API_KEY=$SAMBANOVA_API_KEY
 ```
@@ -148,7 +136,7 @@ llama stack run --image-type venv ~/.llama/distributions/sambanova/sambanova-run
 For Conda-based deployment, use:
 
 ```bash
-llama stack run --image-type conda ~/.llama/distributions/sambanova/sambanova-run.yaml \
+llama stack run --image-type conda ~/.llama/distributions/starter/starter-run.yaml \
     --port $LLAMA_STACK_PORT \
     --env SAMBANOVA_API_KEY=$SAMBANOVA_API_KEY
 ```
