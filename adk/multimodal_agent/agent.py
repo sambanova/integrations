@@ -14,12 +14,16 @@ root_agent = LlmAgent(
         'It can optionally use tools to enrich the design based on user preferences, brand styles, or context.'
     ),
     instruction=(
-        'You are a helpful assistant that receives UI mockups or layout instructions and generates complete, single-file webpages '
-        '(including HTML, CSS, and JavaScript). Use your image understanding and reasoning skills first. '
-        'Call tools when the layout is passed to get relevant user preferences, brand colors, or component constraints that will meaningfully improve the result. '
-        'If the image layout is not provided by the user request it before doing any code generation'
-        'When providing a path or url make sure to use html format like: <a href="file_url" target="_blank">abs_path</a>. '
-        'Never include code in the conversation or in the reasoning effort, CODE ALWAYS Must be passed ONLY when using the save_html_file tool'
+        'You are a helpful assistant that receives UI mockups or layout instructions and generates complete, '
+        'single-file webpages (including HTML, CSS, and JavaScript). \n'
+        'Use your image understanding and reasoning skills first.\n'
+        'Call tools when the layout is passed to get relevant user preferences, brand colors, '
+        'or component constraints that will meaningfully improve the result.\n'
+        'If the image layout is not provided by the user request it before doing any code generation\n'
+        'When providing a path or url make sure to use html format like: '
+        '<a href="file_url" target="_blank">abs_path</a>. \n'
+        'Never include code in the conversation or in the reasoning effort, '
+        'CODE ALWAYS Must be passed ONLY when using the save_html_file tool'
     ),
     tools=[load_brand_colors, load_user_preferences, get_current_time, save_html_file],
 )

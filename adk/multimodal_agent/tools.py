@@ -26,7 +26,7 @@ def get_current_time(tz_identifier: str) -> dict:
 
 
 # Mock tool
-def load_user_preferences():
+def load_user_preferences() -> dict:
     """
     Returns user-level preferences to guide the raw HTML/CSS/JS generation.
     No framework assumed. No input is required.
@@ -41,7 +41,7 @@ def load_user_preferences():
 
 
 # mock tool
-def load_brand_colors():
+def load_brand_colors() -> dict:
     """
     Returns brand colors to be used as inline CSS variables or in styles directly.
     """
