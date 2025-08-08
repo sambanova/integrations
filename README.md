@@ -17,6 +17,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 
 | Company/Package | Type | Description | Access |
 | :---- | :---- | :---- | :---- |
+| **ADK** | Agent building and orchestration | The Agent Development Kit (ADK) is a modular, model-agnostic framework developed by Google for building AI agents | [Demo code](./adk/README.md)  |
 | **Agno** | Agent building and orchestration | Agno is a lightweight framework for building multi-modal AI agents | [Documentation](https://docs.agno.com/models/sambanova)  |
 | **AI Suite** | LLM frameworks  | AI Suite simplifies access to multiple large language models through a unified interface. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/aisuite) |
 | **AutoGen** | Agent building and orchestration | AutoGen is an open-source tool that defines agents, integrates LLMs, and handles task termination.  | [Demo code](./autogen/) |
