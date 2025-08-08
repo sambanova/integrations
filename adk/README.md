@@ -20,6 +20,8 @@ To get started, create a virtual environment and install the required dependenci
 1. Create a Virtual Environment
 Run the following commands to set up a virtual environment:
 
+> Use python 3.9 or higher
+
 ``` bash
     python -m venv .venv
     source .venv/bin/activate
