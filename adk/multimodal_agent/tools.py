@@ -1,9 +1,10 @@
 import datetime
 from pathlib import Path
+from typing import Any, Dict
 from zoneinfo import ZoneInfo
 
 
-def get_current_time(tz_identifier: str) -> dict:
+def get_current_time(tz_identifier: str) -> Dict[str, str]:
     """Returns the current time in a specified timezone.
 
     Args:
@@ -26,7 +27,7 @@ def get_current_time(tz_identifier: str) -> dict:
 
 
 # Mock tool
-def load_user_preferences() -> dict:
+def load_user_preferences() -> Dict[str, Any]:
     """
     Returns user-level preferences to guide the raw HTML/CSS/JS generation.
     No framework assumed. No input is required.
@@ -41,7 +42,7 @@ def load_user_preferences() -> dict:
 
 
 # mock tool
-def load_brand_colors() -> dict:
+def load_brand_colors() -> Dict[str, str]:
     """
     Returns brand colors to be used as inline CSS variables or in styles directly.
     """
@@ -54,14 +55,13 @@ def load_brand_colors() -> dict:
     }
 
 
-def save_html_file(content: str, filename: str = 'generated_page.html', output_dir: str = './output') -> str:
+def save_html_file(content: str, filename: str = 'generated_page.html') -> str:
     """
     Saves the generated HTML content to a file.
 
     Args:
         content (str): The full HTML content including inline CSS/JS.
-        filename (str): The name of the output HTML file should include .html.
-        output_dir (str): The directory to save the file in.
+        filename (str): The name of the output HTML file should include .html .
 
     Returns:
         str: Path to the saved HTML file.
