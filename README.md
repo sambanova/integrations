@@ -31,6 +31,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Haystack** | LLM frameworks | Haystack is an open-source end-to-end framework that enables modular development of production-ready LLM applications.  | [Demo code](./haystack/) |
 | **Hugging Face**  | LLM frameworks | Hugging Face is a platform for building, training, and deploying open-source models.  | [Documentation](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/inference_client) |
 | **Instructor** | Tool and Browser Use | Instructor enhances LLM interactions by enabling structured data extraction, multi-language compatibility, and parallel tool calling. | [Demo code](./instructor/) |
+| **Kilocode** | Coding assistants | Kilocode is an AI-powered autonomous assistant for planning, building, and fixing code. It is a superset of Roo, Cline and their own features. | [Documentation](https://kilocode.ai/docs/) |
 | **LangChain** | LLM frameworks | Langchain implements a standard interface for LLMs to simplify development, productization, and deployment. | [Documentation](https://python.langchain.com/docs/integrations/providers/sambanova/) |
 | **Langflow** | Low-code platforms | Langflow is a visual framework for building multi-agent and RAG applications. | [Documentation](https://docs.langflow.org/components-models#sambanova) |
 | **LangGraph** | LLM frameworks | LangGraph provides low-level supporting infrastructure for any long-running, stateful workflow or agent. | [Demo code](./langgraph) |
