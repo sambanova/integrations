@@ -145,9 +145,12 @@ qdrant_storage
 *.snapshot
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.js
+.pnpm
+.next/
+pnpm-lock.yaml
 
 # testing
 /coverage

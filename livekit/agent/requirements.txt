@@ -1,0 +1,8 @@
+livekit-agents[hume, elevenlabs]>=1.0.20
+livekit-plugins-hume==1.0.20
+livekit-plugins-silero==1.0.20
+livekit-plugins-openai==1.0.20
+livekit-plugins-elevenlabs==1.0.20
+python-dotenv==1.1.0
+mcp
+mcp-server-time    

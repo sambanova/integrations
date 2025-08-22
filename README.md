@@ -38,6 +38,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **LangGraph** | LLM frameworks | LangGraph provides low-level supporting infrastructure for any long-running, stateful workflow or agent. | [Demo code](./langgraph) |
 | **LlamaIndex** | LLM frameworks | LlamaIndex is an orchestration framework to rapidly deploy LLM applications. | [Demo code](./llamaindex) |
 | **LiteLLM** | LLM frameworks | LiteLLM is an open-source Python library that provides a unified interface for accessing LLMs, translating inputs and mapping exceptions. | [Documentation](https://docs.litellm.ai/docs/providers/sambanova) |
+| **Livekit** | LLM framework | LiveKit provides scalable, multi-user conferencing based on WebRTC. It allows to build real-time video audio data capabilities | [Demo code](./livekit/README.md) |
 | **Llama Stack** | LLM frameworks  | Llama Stack standardizes the core building blocks that simplify AI application development. It codifies best practices across the Llama ecosystem. | [Demo code](./llama_stack/README.md) |
 | **LM Evaluation Harness** | Eval and observability  | LM Evaluation Harness is a unified evaluation framework developed by EleutherAI for testing generative language models on a large number of different evaluation tasks. | [Demo Code](./lm_eval_harness/) |
 | **MCP Server** | Tool and Browser Use | The Model Context Protocol allows applications to provide context for LLMs in a standardized way, separating the concerns of providing context from the actual LLM interaction. | [Demo code](./mcp) |
