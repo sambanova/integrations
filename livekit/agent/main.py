@@ -7,11 +7,11 @@ from livekit.agents import Agent, AgentSession, AutoSubscribe, JobContext, JobPr
 from livekit.plugins import elevenlabs, hume, openai, silero
 
 load_dotenv()
-SAMBANOVA_URL = os.getenv('SAMBANOVA_URL')
-SAMBANOVA_API_KEY = os.getenv('SAMBANOVA_API_KEY')
-SAMBANOVA_STT_MODEL = os.getenv('SAMBANOVA_STT_MODEL')
-SAMBANOVA_LLM_MODEL = os.getenv('SAMBANOVA_LLM_MODEL')
-TTS_PROVIDER = os.getenv('TTS_PROVIDER')
+SAMBANOVA_URL = os.getenv('SAMBANOVA_URL', '')
+SAMBANOVA_API_KEY = os.getenv('SAMBANOVA_API_KEY', '')
+SAMBANOVA_STT_MODEL = os.getenv('SAMBANOVA_STT_MODEL', '')
+SAMBANOVA_LLM_MODEL = os.getenv('SAMBANOVA_LLM_MODEL', '')
+TTS_PROVIDER = os.getenv('TTS_PROVIDER', '')
 
 
 class Assistant(Agent):
@@ -25,11 +25,11 @@ class Assistant(Agent):
         )
 
 
-def prewarm(proc: JobProcess):
+def prewarm(proc: JobProcess) -> None:
     proc.userdata['vad'] = silero.VAD.load()
 
 
-async def entrypoint(ctx: JobContext):
+async def entrypoint(ctx: JobContext) -> None:
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
     await ctx.wait_for_participant()
 
@@ -39,7 +39,7 @@ async def entrypoint(ctx: JobContext):
             description='The voice exudes calm, serene, and peaceful qualities, like a gentle stream flowing through a quiet forest.',
         )
     elif TTS_PROVIDER.lower() == 'elevenlabs':
-        tts = elevenlabs.TTS(voice_id='ODq5zmih8GrVes37Dizd', model='eleven_multilingual_v2')
+        tts = elevenlabs.TTS(voice_id='ODq5zmih8GrVes37Dizd', model='eleven_multilingual_v2')  # type: ignore[assignment]
     else:
         raise Exception(f'{TTS_PROVIDER} not supported')
 
@@ -49,7 +49,7 @@ async def entrypoint(ctx: JobContext):
         tts=tts,
         vad=ctx.proc.userdata['vad'],
         mcp_servers=[mcp.MCPServerStdio(command='python', args=['-m', 'mcp_server_time'], env={})],
-    )
+    )  # type: ignore[var-annotated]
 
     await session.start(
         room=ctx.room,
