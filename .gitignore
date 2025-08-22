@@ -150,6 +150,7 @@ node_modules/
 .pnp.js
 .pnpm
 .next/
+pnpm-lock.yaml
 
 # testing
 /coverage
