@@ -145,10 +145,11 @@ qdrant_storage
 *.snapshot
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.js
 .pnpm
+.next/
 
 # testing
 /coverage
