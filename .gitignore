@@ -148,6 +148,7 @@ qdrant_storage
 /node_modules
 /.pnp
 .pnp.js
+.pnpm
 
 # testing
 /coverage
