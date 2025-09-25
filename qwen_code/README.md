@@ -49,9 +49,20 @@ MODEL >gpt-oss-120b
 Optionally, you can set up these variables as environment variables as well. Open a new terminal and run the following line-by-line.
 
 ```shell
-export OPENAI_API_KEY="0b66a660-1f0f-4bab-8e16-45fc5122df06"
+export OPENAI_API_KEY="0b66a660-1f0f-4bab-8e16-45fc5122df0"6
 export OPENAI_BASE_URL="https://api.sambanova.ai/v1"
-export OPENAI_MODEL="gpt-oss-120b"
+export OPENAI_MODEL="DeepSeek-V3-0324"
+
+export OPENAI_API_KEY="fw_3ZGJL9eUHcjt4WnYxMHqFqE"o
+export OPENAI_BASE_URL="https://api.fireworks.ai/inference/v1"
+export OPENAI_MODEL="accounts/fireworks/models/qwen3-coder-480b-a35b-instruct"
+export OPENAI_MODEL="accounts/fireworks/models/deepseek-v3-0324"
+
+
+export OPENAI_API_KEY="0a93167064b5bbad28e936be6da892bd7063325f726328f625bb9c339c4c39b"5
+export OPENAI_BASE_URL="https://api.together.xyz/v1"
+export OPENAI_MODEL="Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8"
+export OPENAI_MODEL="deepseek-ai/DeepSeek-V3"
 ```
 
 Once these environment variables are set, click Enter, and you can start experimenting with CLI.
