@@ -1,183 +1,184 @@
+# Qwen Code CLI
 
+__Note__: Adapted from [here.](https://www.datacamp.com/tutorial/qwen-code)
 
-# Step 1: Prerequisites
-Before setting up Qwen Code, ensure you have Node.js (version 20 or higher) installed. You can install Node.js by running:
+Alibaba has released Qwen3-Coder along with the open-source Qwen Code CLI, a command-line interface designed for agentic coding. Built as a fork of Gemini CLI, Qwen Code CLI has been adapted to integrate seamlessly with the Qwen3-Coder model, enabling tasks such as code exploration, refactoring, and beyond.
+
+With Qwen Code, you can:
+
+- Navigate and understand complex codebases
+- Detect and fix coding issues
+- Generate code and unit tests
+- Create documentation and flowcharts
+
+![qwen](./imgs/qwen-main.png)
+
+In this guide, we’ll walk you through setting up and using Qwen Code CLI step by step with SambaNova Cloud models. Together, we’ll dive into codebases, perform refactoring, and unlock a wide range of coding capabilities.
+
+## Step 1: Prerequisites
+
+Before installing Qwen Code, make sure you have Node.js (version 20 or later) available on your system. You can install it by running:
 
 ```shell
 curl -qL https://www.npmjs.com/install.sh | sh
 ```
 
-Then, verify your installation by running the following:
+Once installed, confirm everything is working correctly with:
 
 ```shell
 node -v
 npm -v
 ```
 
-# Step 2: Setting Up Qwen Code
+## Step 2: Setting Up Qwen Code
 
-## Step 2.1: Installation via npm
-With Node.js installed, set up Qwen Code globally and check the installation version as well:
+### Step 2.1: Install with npm
+Once Node.js is installed, you can set up Qwen Code globally and verify the installation with:
 
 ```shell
 npm install -g @qwen-code/qwen-code
 qwen --version
 ```
 
-This code installs the Qwen Code CLI globally using Node.js's package manager. After installation, the qwen --version command checks and displays the installed version of the Qwen CLI to verify that it's correctly set up and ready to use.
+This installs the Qwen Code CLI using npm and confirms the installation by displaying the current version.
 
-Let’s run Qwen Code:
+Now, launch Qwen Code with:
 
 ```shell
 qwen
 ```
 
-Click Enter to select the default theme and apply it to the user settings. Next, we need to set up the authentication.
+![qwen](./imgs/qwen-config.avif)
 
-## Step 2.2: Configuring the environment
+Press Enter to apply the default theme to your user settings. After that, you’ll be prompted to configure authentication.
 
-We can now use the API key within the CLI. Return to the CLI from step 2.1 and click Enter.
 
-Then, pass in the API key from the previous step, followed by the base URL and model name as given below:
+### Step 2.2: Environment Configuration
+
+Next, let’s configure the CLI with your API key. 
+
+Provide the API key, base URL, and model name as shown below:
 
 ```shell
-API_KEY >SAMBANOVA_API_KEY
-BASE_URL >https://api.sambanova.ai/v1
-MODEL >gpt-oss-120b
+API_KEY > $SAMBANOVA_API_KEY
+BASE_URL > https://api.sambanova.ai/v1
+MODEL > DeepSeek-V3-0324
 ```
 
-Optionally, you can set up these variables as environment variables as well. Open a new terminal and run the following line-by-line.
+Alternatively, you can set these values as environment variables. Open a new terminal and run the following commands one by one:
 
 ```shell
-export OPENAI_API_KEY="0b66a660-1f0f-4bab-8e16-45fc5122df0"6
+export OPENAI_API_KEY=$SAMBANOVA_API_KEY
 export OPENAI_BASE_URL="https://api.sambanova.ai/v1"
 export OPENAI_MODEL="DeepSeek-V3-0324"
-
-export OPENAI_API_KEY="fw_3ZGJL9eUHcjt4WnYxMHqFqE"o
-export OPENAI_BASE_URL="https://api.fireworks.ai/inference/v1"
-export OPENAI_MODEL="accounts/fireworks/models/qwen3-coder-480b-a35b-instruct"
-export OPENAI_MODEL="accounts/fireworks/models/deepseek-v3-0324"
-
-
-export OPENAI_API_KEY="0a93167064b5bbad28e936be6da892bd7063325f726328f625bb9c339c4c39b"5
-export OPENAI_BASE_URL="https://api.together.xyz/v1"
-export OPENAI_MODEL="Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8"
-export OPENAI_MODEL="deepseek-ai/DeepSeek-V3"
 ```
 
-Once these environment variables are set, click Enter, and you can start experimenting with CLI.
+Once the environment variables are configured, return to the CLI, press Enter, and you’ll be ready to start experimenting.
 
-# Step 3: Experimenting With Qwen Code CLI
+## Step 3: Experimenting With Qwen Code CLI
 
+In this section, we’ll demonstrate how Qwen Code CLI can work with a real-world GitHub project. With just a few well-structured prompts, Qwen helped to navigate the codebase, optimize performance, extend functionality, automate testing, and streamline documentation.
 
-In this section, I’ll walk through how I used Qwen Code CLI to interact with a real-world GitHub-hosted project. With just a few prompts, Qwen helped me understand the codebase, optimize functions, add new capabilities, automate tests, and maintain documentation.
+Through these prompts, we'll be able to:
 
-Using thoughtfully crafted prompts, I was able to:
+- Analyze the overall architecture of the codebase
+- Optimize functions for improved memory efficiency
+- Automatically generate and execute unit tests
+- Extend functionality by integrating new components
+- Push version-controlled updates directly to GitHub
+- Create a visual flowchart of module interactions
+- Document all updates in a clear, structured changelog
 
-Analyze the codebase architecture
-Optimize specific functions for memory efficiency
-Automatically generate and run unit tests
-Extend functionality by integrating new components
-Push versioned updates to GitHub
-Generate a visual flowchart of module interactions
-Document all changes in a structured changelog format
-Let’s dive into each of these steps.
+Let’s walk through each of these steps in detail.
 
-## Exploring and understanding the codebase
-Let’s begin by asking Qwen Code to explore and explain the architecture of the codebase. But, first clone the repository from GitHub and navigate into the project directory using the following command:
-
-cmd + c to exit 
+### Exploring and understanding the Codebase
+We’ll start by having Qwen Code analyze and explain the project’s architecture. First, clone the repository from GitHub and move into the project directory with the following command:
 
 ```shell
 git clone https://github.com/AashiDutt/Voxtral_with_vLLM.git
 cd Voxtral_with_vLLM
-````
+```
 
+Then, run Qwen Code CLI:
 
 ```shell
 qwen
 ```
 
+Enter your API key or set it as an environment variable.
+
 ```shell
-API_KEY >SAMBANOVA_API_KEY
-BASE_URL >https://api.sambanova.ai/v1
-MODEL >gpt-oss-120b
+API_KEY > $SAMBANOVA_API_KEY
+BASE_URL > https://api.sambanova.ai/v1
+MODEL > DeepSeek-V3-0324
 ```
 
-Here is the prompt I used to understand the cloned repository:
+Enter the following prompt to understand the cloned repository:
 
-Prompt:  Explain the architecture of this codebase.
+```text
+> Explain the architecture of this codebase.
+```
 
----
-output image
-----
+![qwen](./imgs/qwen-code_exploration.png)
 
-Qwen CLI scanned files like app.py, config.py, requirements.txt, and a Colab notebook. It then returned a clear breakdown of the project’s structure along with a high-level summary of its key modules, saving me the time of manually opening and reading each file.
+Qwen CLI automatically scanned files such as app.py, config.py, requirements.txt, and a Colab notebook. It then generated a clear overview of the project’s structure and provided a high-level summary of its key modules—saving me the effort of manually opening and reviewing each file.
 
+### Optimizing and Testing the Code
+After identifying several opportunities for improvement, I focused on one of the most impactful changes: optimizing memory usage in the transcribe_audio function. To target that file, I prompted Qwen CLI:
 
-## Code refactoring and optimization
-After understanding the architecture, I used Qwen Code CLI to analyze potential areas of improvement in the codebase.
+```text
+> Optimize the code in transcribe_audio in @app.py 
+```
 
-Prompt: What parts of this module can be optimized?
+![qwen](./imgs/qwen-code_optimization.png)
 
----
-output image
-----
+Qwen returned a structured set of recommendations covering performance, memory efficiency, maintainability, and user experience. Beyond pointing out issues, it also suggested concrete code modifications.
 
-Qwen returned a structured list of suggestions across multiple dimensions: performance, memory efficiency, maintainability, and user experience. It didn’t just identify issues, it also proposed actionable code changes.
+Applying its guidance, I was able to:
 
-By following its guidance, I was able to:
+1. Stream transcription results directly instead of collecting all chunks upfront, reducing memory usage and improving responsiveness.
 
-Reduce memory and CPU usage
-Strengthen error handling
-Improve user feedback
-Simplify code structure for future development
-In the next step, I’ll show how I applied one of these optimizations (memory usage) and tested it using Qwen CLI itself.
+2. Simplify progress tracking by updating the bar to 100% only once transcription is finished.
 
-## Implementing and testing the code optimization
-After identifying several areas for optimization, I decided to apply one of the most impactful suggestions: improving the memory usage in the transcribe_audio function. So, I prompted Qwen CLI to target that specific file below:
+3. Ensure cleanup of UI elements in error cases so the progress bar and status text are properly cleared.
 
-Prompt: Apply memory usage optimization to the transcribe_audio function in @app.py
+### Adding a New Component
+To expand Voxtral Audio Assistant’s capabilities, I asked Qwen CLI to add support for YouTube videos:
 
----
-output image
-----
+```text
+> Extend the current example to support YouTube videos. When a user provides a YouTube URL, extract the audio from the video and pass it to the Voxtral model for processing. Keep the rest of the pipeline and components unchanged.
+```
 
-Qwen returned a structured list of suggestions across multiple dimensions: performance, memory efficiency, maintainability, and user experience. It didn’t just identify issues, it also proposed actionable code changes.
+![qwen](./imgs/qwen-new_feature.png)
 
-By following its guidance, I was able to:
+Qwen analyzed app.py, config.py, and requirements.txt, noting the need for yt-dlp and pydub, both already included.
 
-Reduce memory and CPU usage
-Strengthen error handling
-Improve user feedback
-Simplify code structure for future development
-In the next step, I’ll show how I applied one of these optimizations (memory usage) and tested it using Qwen CLI itself.
+![qwen](./imgs/qwen-ui_new_feature.png)
 
-## Implementing and testing the code optimization
-After identifying several areas for optimization, I decided to apply one of the most impactful suggestions: improving the memory usage in the transcribe_audio function. So, I prompted Qwen CLI to target that specific file below:
+This led to the creation of a new UI component where users can enter a YouTube URL. Upon submission, the app extracts the audio and runs it through the existing transcription pipeline. However, additional changes to app.py were still required for the feature to run without errors.
 
-Prompt: Apply memory usage optimization to the transcribe_audio function in @app.py
+### Pushing changes to GitHub
+With the transcribe_audio optimization complete, I used Qwen CLI to version and push the updates:
 
----
-output image
-----
+```text
+> Create a new branch on GitHub and commit and push the updated code as a second version with the message: "v2: Optimized transcribe_audio for memory usage".  
+```
 
-Qwen focused exclusively on app.py using its @ syntax for scoped edits. This precise targeting is useful when you want changes applied in isolation without impacting unrelated parts of the codebase. The CLI rewrote the function to:
+![qwen](./imgs/qwen-git_commit.png)
 
-Stream and process audio chunks instead of loading them all into memory
-Reduce UI updates by refreshing the progress bar only every 10 chunks
-Remove the need to precompute the total number of chunks
+Qwen automated the entire Git flow using its WebFlow tool, which compares local and remote files. In a single prompt, it was able to:
 
-## Generating and running tests
-Once the memory usage optimization was applied to the transcribe_audio function, I used Qwen Coder CLI to automatically generate and validate unit tests for the new implementation.
+1. Create a new branch
 
-Prompt: Write a pytest unit test for the recent changes.
+2. Stage and commit the changes
 
-DOESNT WORK
+3. Push the commit
 
-## Implementing a new component
-To extend the functionality of the Voxtral Audio Assistant(codebase), I prompted Qwen Code CLI to integrate support for YouTube videos.
+The optimized version (v2-optimization) was safely isolated and made available for review through a pull request. This streamlined GitHub integration simplified collaboration, version tracking, and change management.
 
-Prompt: Extend the current example to support YouTube videos. When a user provides a YouTube URL, extract the audio from the video and pass it to the Voxtral model for processing. Keep the rest of the pipeline and components unchanged.
+### Documenting the Updates
+Finally, I asked Qwen CLI to generate documentation in a professional format:
 
-DOESNT WORK
+![qwen](./imgs/qwen-documenting_changelog.png)
+
+Qwen used its WriteFile tool to append the entry directly into CHANGELOG.md under version v0.2.0, following semantic versioning best practices. Once initiated, Qwen also avoids redundant updates, saving tokens and ensuring clean, non-repetitive documentation.
