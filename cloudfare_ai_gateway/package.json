@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "tsx cloudfare_ai_gateway_integration.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/cerebras": "^1.0.21",
+    "@ai-sdk/openai": "^2.0.42",
+    "ai-gateway-provider": "^2.0.0",
+    "sambanova-ai-provider": "^1.2.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6"
+  }
+}
