@@ -1,6 +1,6 @@
 import os
 
-from fastapi import FastAPI
+from fastapi import FastAPI # type: ignore
 from google.adk.cli.fast_api import get_fast_api_app
 import uvicorn
 

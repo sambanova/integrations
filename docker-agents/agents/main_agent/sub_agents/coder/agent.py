@@ -66,7 +66,7 @@ def force_string_content(
         )
 
     # add after new_contents construction
-    collapsed: list = []
+    collapsed: list = [] # type: ignore
     for c in new_contents:
         if collapsed and collapsed[-1].role == c.role and c.parts:
             collapsed[-1].parts[0].text += "\n" + (c.parts[0].text or "")
