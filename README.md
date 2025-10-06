@@ -27,6 +27,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Continue** | Coding assistants | Continue is an open-source coding assistant platform to modify and optimize coding within IDE. | [Documentation](./continue) |
 | **CrewAI** | Agent building and orchestration| CrewAI is an open-source framework for making automated workflows with agents. | [Demo code](./crewai_integration/) |
 | **Dify** | Low-code platforms | Dify is a low-code platform to build and deploy AI applications. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/dify) |
+| **Docker Compose for agents** | Agent building and orchestration | Docker Compose facilitate the development, deployment, and management of AI agentic applications | [Demo Code](./docker-compose-for-agents/) |
 | **Gradio** | LLM frameworks | Gradio is an open-source Python package that allows users to create interactive web apps for machine learning models, APIs, and Python functions.  | [Demo code](https://github.com/gradio-app/sambanova-gradio) |
 | **Haystack** | LLM frameworks | Haystack is an open-source end-to-end framework that enables modular development of production-ready LLM applications.  | [Demo code](./haystack/) |
 | **Hugging Face**  | LLM frameworks | Hugging Face is a platform for building, training, and deploying open-source models.  | [Documentation](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/inference_client) |
