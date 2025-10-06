@@ -1,7 +1,0 @@
-/tmp
-__pycache__
-.vscode/*
-.devcontainer/*
-/agents/.env
-.env
-/backup
