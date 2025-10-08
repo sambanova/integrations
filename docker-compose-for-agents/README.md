@@ -1,3 +1,16 @@
+<a href="https://sambanova.ai/">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../images/SambaNova-light-logo-1.png" height="60">
+  <img alt="SambaNova logo" src="../images/SambaNova-dark-logo-1.png" height="60">
+</picture>
+</a>
+
+# SambaNova Docker Compose for Agents Integration
+
+## Overview
+
+Docker Compose for agents is a the extension of Docker Compose's capabilities to facilitate the development, deployment, and management of AI agents and agentic applications. Docker Compose allows developers to define and run complex agent architectures, including AI models, tools, and supporting services, within the same familiar YAML syntax used for microservices.
+
 # Multimodal agents
 
 A multi-agent system multimodal assistance built with Google Agent Development Kit (ADK). This
