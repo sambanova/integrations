@@ -1,0 +1,21 @@
+# To avoid errors during model deployment, ensure these fields are correctly configured for the custom model.
+
+name: sambanova-llm-proxy
+type: inference
+targetType: textgeneration
+
+runtimeParameterDefinitions:
+  - fieldName: SAMBANOVA_API_KEY
+    type: credential
+    description: API key for SambaNova Cloud
+    defaultValue: null
+
+  - fieldName: SAMBANOVA_API_BASE
+    type: string
+    description: Base URL for the SambaNova API
+    defaultValue: https://api.sambanova.ai/v1
+
+  - fieldName: SAMBANOVA_MODEL
+    type: string
+    description: Default model to use for inference
+    defaultValue: gpt-oss-120b
