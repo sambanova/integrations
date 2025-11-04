@@ -29,6 +29,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **DataRobot** | Llm gateway and orchestration| DataRobot is a platform for deploying and orchestrating custom machine learning and LLM workflows with built-in governance and evaluation tools. | [Documentation](./datarobot) |
 | **Dify** | Low-code platforms | Dify is a low-code platform to build and deploy AI applications. | [Documentation](https://docs.sambanova.ai/cloud/docs/integrations/dify) |
 | **Docker Compose for agents** | Agent building and orchestration | Docker Compose facilitate the development, deployment, and management of AI agentic applications | [Demo Code](./docker-compose-for-agents/) |
+| **Google Integration** | Others | App Scripts intended for those with SambaCloud API keys to integrate LLMs into Google Workspaces  | [Documentation](./google_integration/) |
 | **Gradio** | LLM frameworks | Gradio is an open-source Python package that allows users to create interactive web apps for machine learning models, APIs, and Python functions.  | [Demo code](https://github.com/gradio-app/sambanova-gradio) |
 | **Haystack** | LLM frameworks | Haystack is an open-source end-to-end framework that enables modular development of production-ready LLM applications.  | [Demo code](./haystack/) |
 | **Hugging Face**  | LLM frameworks | Hugging Face is a platform for building, training, and deploying open-source models.  | [Documentation](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/inference_client) |
