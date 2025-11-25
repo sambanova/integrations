@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangGraph Visualization - Agentic Graph RAG</title>
+    <link rel="icon" type="image/x-icon" href="https://sambanova.ai/hubfs/sn-new-icon-fav.png">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #A2297D 0%, #4E226B 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #A2297D 0%, #4E226B 100%);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .graph-container {
+            flex: 1;
+            position: relative;
+        }
+
+        #network {
+            width: 100%;
+            height: 100%;
+        }
+
+        .legend {
+            margin-bottom: 20px;
+        }
+
+        .legend h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+            border: 2px solid #666;
+        }
+
+        .legend-line {
+            width: 30px;
+            height: 3px;
+            margin-right: 10px;
+        }
+
+        .info-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .info-section h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .info-section p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .node-list {
+            margin-top: 10px;
+        }
+
+        .node-item {
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            border-left: 3px solid #A2297D;
+        }
+
+        .node-item strong {
+            color: #A2297D;
+        }
+
+        .subgraph-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8eaf6;
+            border-radius: 8px;
+        }
+
+        .subgraph-section h4 {
+            font-size: 14px;
+            color: #5c6bc0;
+            margin-bottom: 8px;
+        }
+
+        .graph-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .control-button {
+            display: block;
+            width: 100%;
+            padding: 8px 15px;
+            margin-bottom: 8px;
+            background: #A2297D;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.3s ease;
+        }
+
+        .control-button:hover {
+            background: #8A2269;
+        }
+
+        .control-button:last-child {
+            margin-bottom: 0;
+        }
+
+        .node-tooltip {
+            position: absolute;
+            background: white;
+            border: 2px solid #A2297D;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            max-width: 350px;
+            display: none;
+            pointer-events: none;
+        }
+
+        .node-tooltip.visible {
+            display: block;
+        }
+
+        .tooltip-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #A2297D;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tooltip-description {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .tooltip-list {
+            margin-top: 8px;
+            padding-left: 20px;
+        }
+
+        .tooltip-list li {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        /* Footer with SambaNova logo */
+        .footer {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer img {
+            height: 25px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .footer img:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>LangGraph Workflow Visualization</h1>
+                <p>Interactive graph showing agent nodes, edges, and routing logic</p>
+            </div>
+            <div class="nav-buttons">
+                <a href="/app" class="nav-button">Back to Chat</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <div class="legend">
+                    <h3>Node Types</h3>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #4CAF50;"></div>
+                        <span>Start/End</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #FF9800;"></div>
+                        <span>LLM</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #9C27B0;"></div>
+                        <span>Tool</span>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <h3>Edge Types</h3>
+                    <div class="legend-item">
+                        <div class="legend-line" style="background: #666;"></div>
+                        <span>Regular Edge</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-line" style="background: #666; height: 2px;" style="border-top: 2px dashed #666; background: transparent;"></div>
+                        <span>Return Edge</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-line" style="background: #FF5722; height: 4px;"></div>
+                        <span>Conditional Edge</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Agent Nodes</h3>
+                    <div class="node-list">
+                        <div class="node-item" style="border-left-color: #FF9800;">
+                            <strong>Validation Agent</strong><br>
+                            Validates query relevance to Synthea database
+                            <div style="margin-top: 8px; padding-left: 12px; border-left: 2px solid #ddd;">
+                                <span style="font-size: 11px; color: #666;">
+                                    <strong>LLM:</strong> <span id="validation-model">Loading...</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="node-item" style="border-left-color: #FF9800;">
+                            <strong>Main Agent</strong><br>
+                            Contains Main LLM (tool selection), all tools, and Synthesis LLM (result synthesis)
+                            <div style="margin-top: 8px; padding-left: 12px; border-left: 2px solid #ddd;">
+                                <span style="font-size: 11px; color: #666;">
+                                    <strong>Main LLM:</strong> <span id="main-agent-model">Loading...</span>
+                                </span><br>
+                                <span style="font-size: 11px; color: #666;">
+                                    <strong>Synthesis LLM:</strong> <span id="synthesis-model">Loading...</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="node-item" style="border-left-color: #E91E63;">
+                            <strong>Cypher Agent</strong><br>
+                            Contains Cypher LLM (query generation) and execute_cypher_query tool
+                            <div style="margin-top: 8px; padding-left: 12px; border-left: 2px solid #ddd;">
+                                <span style="font-size: 11px; color: #666;">
+                                    <strong>LLM:</strong> <span id="cypher-agent-model">Loading...</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Available Tools</h3>
+                    <div class="node-list">
+                        <div class="node-item">
+                            <strong>get_patient_procedures</strong><br>
+                            Retrieves patient procedures
+                        </div>
+                        <div class="node-item">
+                            <strong>get_patient_conditions</strong><br>
+                            Gets patient conditions/diagnoses
+                        </div>
+                        <div class="node-item">
+                            <strong>get_patient_medications</strong><br>
+                            Retrieves prescribed medications
+                        </div>
+                        <div class="node-item">
+                            <strong>get_patient_encounters</strong><br>
+                            Gets healthcare encounters
+                        </div>
+                        <div class="node-item">
+                            <strong>search_patients</strong><br>
+                            Searches for patients by name
+                        </div>
+                        <div class="node-item">
+                            <strong>get_database_schema</strong><br>
+                            Returns database schema info
+                        </div>
+                        <div class="node-item" style="border-left-color: #F44336;">
+                            <strong>execute_custom_query</strong><br>
+                            Custom analytics via Cypher subgraph
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subgraph-section" style="background: #fff3e0; border-left: 4px solid #FF9800;">
+                    <h4 style="color: #FF9800;">Main Agent Components</h4>
+                    <p style="font-size: 12px; color: #666;">
+                        <strong>Main LLM:</strong> Selects appropriate tools<br>
+                        <strong>Tools:</strong> Execute data retrieval operations<br>
+                        <strong>Synthesis LLM:</strong> Synthesizes tool results into natural language
+                    </p>
+                </div>
+
+                <div class="subgraph-section" style="background: #fce4ec; border-left: 4px solid #E91E63;">
+                    <h4 style="color: #E91E63;">Cypher Agent Components</h4>
+                    <p style="font-size: 12px; color: #666;">
+                        <strong>Cypher LLM:</strong> Generates Cypher queries<br>
+                        <strong>execute_cypher_query:</strong> Executes queries and loops back for refinement
+                    </p>
+                </div>
+
+                <div class="info-section">
+                    <h3>About</h3>
+                    <p>This visualization shows the current LangGraph workflow architecture with agent groupings.</p>
+                    <p><strong>Flow:</strong> START → validation → Main LLM → tools → Synthesis LLM → END</p>
+                    <p><strong>Conditional edges</strong> (thick, orange) represent dynamic routing decisions.</p>
+                    <p><strong>Regular edges</strong> (thin, solid) represent unconditional transitions.</p>
+                    <p><strong>Dashed boxes</strong> group related components into agents (Main Agent and Cypher Agent).</p>
+                </div>
+            </div>
+
+            <div class="graph-container">
+                <div class="graph-controls">
+                    <button class="control-button" onclick="network.fit()">Fit View</button>
+                    <button class="control-button" onclick="togglePhysics()">Toggle Physics</button>
+                    <button class="control-button" onclick="resetZoom()">Reset Zoom</button>
+                </div>
+                <div id="network"></div>
+                <div class="node-tooltip" id="nodeTooltip">
+                    <div class="tooltip-title" id="tooltipTitle"></div>
+                    <div class="tooltip-description" id="tooltipDescription"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="https://sambanova.ai/" target="_blank" rel="noopener noreferrer">
+                <img src="https://sambanova.ai/hs-fs/hubfs/sn-new-gray-logo.png" alt="SambaNova Systems">
+            </a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Define the graph structure based on the LangGraph implementation
+        const nodes = new vis.DataSet([
+            // Main graph nodes with fixed positions (x increases left to right, y increases top to bottom)
+            { id: 'START', label: 'START', color: '#4CAF50', shape: 'box', font: { color: 'white', size: 16, face: 'monospace' }, x: -600, y: 0, fixed: true },
+            { id: 'validation', label: 'Validation LLM\n(check relevance)', color: '#FF9800', shape: 'box', font: { color: 'white', size: 14 }, x: -300, y: 0, fixed: true },
+            { id: 'agent', label: 'Main LLM\n(tool selection)', color: '#FF9800', shape: 'box', font: { color: 'white', size: 14 }, x: 0, y: 0, fixed: true },
+            { id: 'synthesis_llm', label: 'Synthesis LLM\n(result synthesis)', color: '#FF9800', shape: 'box', font: { color: 'white', size: 14 }, x: 600, y: 0, fixed: true },
+            { id: 'END', label: 'END', color: '#4CAF50', shape: 'box', font: { color: 'white', size: 16, face: 'monospace' }, x: 900, y: 0, fixed: true },
+
+            // Tool nodes (individual tools) - vertically aligned in the middle
+            { id: 'get_patient_procedures', label: 'get_patient_\nprocedures', color: '#9C27B0', shape: 'box', font: { color: 'white', size: 12 }, x: 300, y: -250, fixed: true },
+            { id: 'get_patient_conditions', label: 'get_patient_\nconditions', color: '#9C27B0', shape: 'box', font: { color: 'white', size: 12 }, x: 300, y: -150, fixed: true },
+            { id: 'get_patient_medications', label: 'get_patient_\nmedications', color: '#9C27B0', shape: 'box', font: { color: 'white', size: 12 }, x: 300, y: -50, fixed: true },
+            { id: 'get_patient_encounters', label: 'get_patient_\nencounters', color: '#9C27B0', shape: 'box', font: { color: 'white', size: 12 }, x: 300, y: 50, fixed: true },
+            { id: 'search_patients', label: 'search_patients', color: '#9C27B0', shape: 'box', font: { color: 'white', size: 12 }, x: 300, y: 150, fixed: true },
+            { id: 'get_database_schema', label: 'get_database_\nschema', color: '#9C27B0', shape: 'box', font: { color: 'white', size: 12 }, x: 300, y: 250, fixed: true },
+            { id: 'execute_custom_query', label: 'execute_custom_\nquery', color: '#9C27B0', shape: 'box', font: { color: 'white', size: 12 }, x: 300, y: 350, fixed: true },
+
+            // Cypher subgraph nodes (inside execute_custom_query) - positioned below Main Agent, horizontally aligned
+            { id: 'cypher_agent', label: 'Cypher LLM\n(query generation)', color: '#FF9800', shape: 'box', font: { color: 'white', size: 11 }, x: 200, y: 650, fixed: true },
+            { id: 'execute_cypher', label: 'execute_cypher_\nquery', color: '#9C27B0', shape: 'box', font: { color: 'white', size: 11 }, x: 400, y: 650, fixed: true },
+
+            // Group labels (background boxes for grouping visualization)
+            { id: 'main_agent_group', label: 'Main Agent', color: 'rgba(255,152,0,0.1)', shape: 'box',
+              font: { color: '#FF9800', size: 18, bold: true, vadjust: -380 },
+              x: 300, y: 50, fixed: true, size: 60, borderWidth: 3,
+              shapeProperties: { borderDashes: [10, 10] }, widthConstraint: { minimum: 800 }, heightConstraint: { minimum: 800 } },
+            { id: 'cypher_agent_group', label: 'Cypher Agent', color: 'rgba(233,30,99,0.1)', shape: 'box',
+              font: { color: '#E91E63', size: 16, bold: true, vadjust: -100 },
+              x: 300, y: 650, fixed: true, size: 40, borderWidth: 3,
+              shapeProperties: { borderDashes: [10, 10] }, widthConstraint: { minimum: 300 }, heightConstraint: { minimum: 230 } }
+        ]);
+
+        const edges = new vis.DataSet([
+            // Main graph edges - START to validation
+            { from: 'START', to: 'validation', arrows: 'to', width: 2, color: { color: '#666' } },
+
+            // Conditional edges from validation
+            { from: 'validation', to: 'agent', arrows: 'to', width: 4, color: { color: '#FF5722' },
+              label: 'relevant', font: { align: 'top', size: 11 }, smooth: { type: 'curvedCW', roundness: 0.2 } },
+            { from: 'validation', to: 'END', arrows: 'to', width: 4, color: { color: '#FF5722' },
+              label: 'not relevant', font: { align: 'top', size: 11 }, smooth: { type: 'curvedCW', roundness: -0.5 } },
+
+            // Conditional edges from Main LLM to tools
+            { from: 'agent', to: 'get_patient_procedures', arrows: 'to', width: 4, color: { color: '#FF5722' },
+              smooth: { type: 'curvedCW', roundness: 0.3 } },
+            { from: 'agent', to: 'get_patient_conditions', arrows: 'to', width: 4, color: { color: '#FF5722' },
+              smooth: { type: 'curvedCW', roundness: 0.2 } },
+            { from: 'agent', to: 'get_patient_medications', arrows: 'to', width: 4, color: { color: '#FF5722' },
+              smooth: { type: 'curvedCW', roundness: 0.1 } },
+            { from: 'agent', to: 'get_patient_encounters', arrows: 'to', width: 4, color: { color: '#FF5722' },
+              smooth: { type: 'curvedCW', roundness: 0 } },
+            { from: 'agent', to: 'search_patients', arrows: 'to', width: 4, color: { color: '#FF5722' },
+              smooth: { type: 'curvedCW', roundness: -0.1 } },
+            { from: 'agent', to: 'get_database_schema', arrows: 'to', width: 4, color: { color: '#FF5722' },
+              smooth: { type: 'curvedCW', roundness: -0.2 } },
+            { from: 'agent', to: 'execute_custom_query', arrows: 'to', width: 4, color: { color: '#FF5722' },
+              smooth: { type: 'curvedCW', roundness: -0.3 } },
+
+            // Return edges from tools to Synthesis LLM
+            { from: 'get_patient_procedures', to: 'synthesis_llm', arrows: 'to', width: 2, color: { color: '#666' },
+              smooth: { type: 'curvedCW', roundness: 0.3 } },
+            { from: 'get_patient_conditions', to: 'synthesis_llm', arrows: 'to', width: 2, color: { color: '#666' },
+              smooth: { type: 'curvedCW', roundness: 0.2 } },
+            { from: 'get_patient_medications', to: 'synthesis_llm', arrows: 'to', width: 2, color: { color: '#666' },
+              smooth: { type: 'curvedCW', roundness: 0.1 } },
+            { from: 'get_patient_encounters', to: 'synthesis_llm', arrows: 'to', width: 2, color: { color: '#666' },
+              smooth: { type: 'curvedCW', roundness: 0 } },
+            { from: 'search_patients', to: 'synthesis_llm', arrows: 'to', width: 2, color: { color: '#666' },
+              smooth: { type: 'curvedCW', roundness: -0.1 } },
+            { from: 'get_database_schema', to: 'synthesis_llm', arrows: 'to', width: 2, color: { color: '#666' },
+              smooth: { type: 'curvedCW', roundness: -0.2 } },
+            { from: 'execute_custom_query', to: 'synthesis_llm', arrows: 'to', width: 2, color: { color: '#666' },
+              smooth: { type: 'curvedCW', roundness: -0.3 } },
+
+            // Edge from Synthesis LLM to END
+            { from: 'synthesis_llm', to: 'END', arrows: 'to', width: 2, color: { color: '#666' } },
+
+            // Cypher subgraph edges (within execute_custom_query)
+            { from: 'execute_custom_query', to: 'cypher_agent', arrows: 'to, from', width: 2, color: { color: '#666' },
+              label: 'subgraph', font: { align: 'top', size: 10 }, smooth: { type: 'curvedCW', roundness: -0.5 }, dashes: [5, 5] },
+            { from: 'cypher_agent', to: 'execute_cypher', arrows: 'to', width: 2, color: { color: '#666' } },
+            { from: 'execute_cypher', to: 'cypher_agent', arrows: 'to', width: 2, color: { color: '#666' },
+              label: 'loop', font: { align: 'top', size: 10 }, smooth: { type: 'curvedCW', roundness: 0.5 } }
+        ]);
+
+        // Create the network
+        const container = document.getElementById('network');
+        const data = { nodes: nodes, edges: edges };
+
+        const options = {
+            layout: {
+                hierarchical: {
+                    enabled: false  // Disable hierarchical layout to use fixed positions
+                }
+            },
+            physics: {
+                enabled: false  // Disable physics to keep nodes in fixed positions
+            },
+            interaction: {
+                hover: true,
+                navigationButtons: true,
+                keyboard: true,
+                zoomView: true,
+                dragView: true
+            },
+            nodes: {
+                borderWidth: 2,
+                borderWidthSelected: 4,
+                size: 25,
+                font: {
+                    size: 14,
+                    face: 'arial'
+                },
+                margin: 10
+            },
+            edges: {
+                smooth: {
+                    type: 'cubicBezier',
+                    forceDirection: 'horizontal',  // Changed to horizontal for left-to-right flow
+                    roundness: 0.4
+                },
+                font: {
+                    size: 11,
+                    align: 'middle',
+                    background: 'white',
+                    strokeWidth: 0
+                }
+            }
+        };
+
+        const network = new vis.Network(container, data, options);
+
+        // Tooltip element
+        const tooltip = document.getElementById('nodeTooltip');
+        const tooltipTitle = document.getElementById('tooltipTitle');
+        const tooltipDescription = document.getElementById('tooltipDescription');
+
+        // Add click listener for nodes
+        network.on("click", function(params) {
+            if (params.nodes.length > 0) {
+                const nodeId = params.nodes[0];
+                const nodeInfo = getNodeInfo(nodeId);
+                showTooltip(params.pointer.DOM.x, params.pointer.DOM.y, nodeInfo);
+            } else {
+                hideTooltip();
+            }
+        });
+
+        // Hide tooltip when clicking on canvas
+        network.on("click", function(params) {
+            if (params.nodes.length === 0) {
+                hideTooltip();
+            }
+        });
+
+        // Physics toggle
+        let physicsEnabled = false;
+        function togglePhysics() {
+            physicsEnabled = !physicsEnabled;
+            network.setOptions({ physics: { enabled: physicsEnabled } });
+        }
+
+        function resetZoom() {
+            network.fit({ animation: true });
+        }
+
+        function showTooltip(x, y, nodeInfo) {
+            tooltipTitle.textContent = nodeInfo.title;
+            tooltipDescription.innerHTML = nodeInfo.description;
+
+            // Position tooltip near the click, but keep it in viewport
+            const graphContainer = document.querySelector('.graph-container');
+            const rect = graphContainer.getBoundingClientRect();
+
+            let tooltipX = x + 20;
+            let tooltipY = y + 20;
+
+            // Adjust if tooltip would go off screen
+            if (tooltipX + 350 > rect.width) {
+                tooltipX = x - 370;
+            }
+            if (tooltipY + 200 > rect.height) {
+                tooltipY = y - 220;
+            }
+
+            tooltip.style.left = tooltipX + 'px';
+            tooltip.style.top = tooltipY + 'px';
+            tooltip.classList.add('visible');
+        }
+
+        function hideTooltip() {
+            tooltip.classList.remove('visible');
+        }
+
+        function getNodeInfo(nodeId) {
+            const nodeDescriptions = {
+                'START': {
+                    title: 'START',
+                    description: 'Entry point of the main agent workflow.'
+                },
+                'validation': {
+                    title: 'Validation Node',
+                    description: 'Validates whether the user query is relevant to the Synthea medical database. Routes to Main LLM if relevant, otherwise returns rejection message and ends.'
+                },
+                'agent': {
+                    title: 'Main LLM',
+                    description: 'Main LLM agent responsible for tool selection. Analyzes the user query and selects the appropriate tools to retrieve the necessary data. Part of the Main Agent group.'
+                },
+                'synthesis_llm': {
+                    title: 'Synthesis LLM',
+                    description: 'Dedicated LLM for synthesizing tool results into natural language responses. Takes raw tool outputs and creates user-friendly, conversational answers. Part of the Main Agent group.'
+                },
+                'get_patient_procedures': {
+                    title: 'get_patient_procedures Tool',
+                    description: 'Retrieves procedures performed on a patient, sorted by most recent first. Returns up to 30 results by default.'
+                },
+                'get_patient_conditions': {
+                    title: 'get_patient_conditions Tool',
+                    description: 'Gets medical conditions/diagnoses for a patient, sorted by most recent first.'
+                },
+                'get_patient_medications': {
+                    title: 'get_patient_medications Tool',
+                    description: 'Retrieves medications prescribed to a patient, sorted by most recent first.'
+                },
+                'get_patient_encounters': {
+                    title: 'get_patient_encounters Tool',
+                    description: 'Gets healthcare encounters (visits) for a patient, sorted by most recent first.'
+                },
+                'search_patients': {
+                    title: 'search_patients Tool',
+                    description: 'Searches for patients by name. Returns matching patients sorted by relevance.'
+                },
+                'get_database_schema': {
+                    title: 'get_database_schema Tool',
+                    description: 'Returns information about the database schema and structure.'
+                },
+                'execute_custom_query': {
+                    title: 'execute_custom_query Tool',
+                    description: 'Handles complex analytics queries using a Cypher subgraph. Used for:<ul class="tooltip-list"><li>Aggregations and counts</li><li>Top-N queries</li><li>Time-based analysis</li><li>Multi-entity relationships</li><li>Provider/organization queries</li></ul>'
+                },
+                'cypher_agent': {
+                    title: 'Cypher LLM (Cypher Agent)',
+                    description: 'Specialized LLM for generating Cypher queries for the Synthea database. Has deep knowledge of the database schema and constructs optimized queries. Part of the Cypher Agent group.'
+                },
+                'execute_cypher': {
+                    title: 'execute_cypher_query Tool',
+                    description: 'Executes the generated Cypher query against Neo4j database. Results are returned to the Cypher LLM, which can refine the query if needed (loop back). Part of the Cypher Agent group.'
+                },
+                'main_agent_group': {
+                    title: 'Main Agent',
+                    description: 'Group containing the Main LLM (tool selection), all tool nodes, and the Synthesis LLM (result synthesis). This represents the primary agent workflow.'
+                },
+                'cypher_agent_group': {
+                    title: 'Cypher Agent',
+                    description: 'Group containing the Cypher LLM (query generation) and execute_cypher_query tool. This represents the Cypher subgraph for custom analytics queries.'
+                },
+                'END': {
+                    title: 'END',
+                    description: 'End point - returns final response to user.'
+                }
+            };
+
+            return nodeDescriptions[nodeId] || { title: nodeId, description: 'Node information not available.' };
+        }
+
+        // Initial fit
+        setTimeout(() => network.fit(), 100);
+
+        // Fetch and display model names
+        async function loadModelNames() {
+            try {
+                const response = await fetch('/provider');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch model configuration');
+                }
+
+                const data = await response.json();
+                const models = data.models;
+
+                // Update the model names in the UI
+                document.getElementById('validation-model').textContent = models.validation;
+                document.getElementById('main-agent-model').textContent = models.main_agent;
+                document.getElementById('synthesis-model').textContent = models.synthesis;
+                document.getElementById('cypher-agent-model').textContent = models.cypher_agent;
+            } catch (error) {
+                console.error('Error loading model names:', error);
+                // Update with error message
+                document.getElementById('validation-model').textContent = 'Error loading';
+                document.getElementById('main-agent-model').textContent = 'Error loading';
+                document.getElementById('synthesis-model').textContent = 'Error loading';
+                document.getElementById('cypher-agent-model').textContent = 'Error loading';
+            }
+        }
+
+        // Load model names when page loads
+        loadModelNames();
+    </script>
+</body>
+</html>
