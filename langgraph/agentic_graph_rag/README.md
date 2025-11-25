@@ -1139,23 +1139,6 @@ For more details, see [backend/README_EMBEDDINGS.md](backend/README_EMBEDDINGS.m
 - **Frontend Frameworks**: Replace HTML with React/Vue/Svelte
 - **Deployment**: Docker, Kubernetes, cloud platforms
 
-## Performance & Cost
-
-### Performance Characteristics
-- **Standard Query Response**: 2-5 seconds (depends on LLM)
-- **Complex Query Response**: 3-6 seconds (includes Cypher generation)
-- **Database Queries**: Sub-second (Neo4j graph traversal)
-- **Concurrent Users**: Depends on server resources (FastAPI is async)
-- **Memory Usage**: ~200MB base + conversation histories
-
-### Cost Considerations
-- **Anthropic Claude API**:
-  - Claude Sonnet 4.5: ~$0.003-0.015 per query (main/cypher agents)
-  - Claude Haiku 4.5: ~$0.0001-0.001 per query (router)
-- **SambaNova**: Varies based on model and usage
-- **Neo4j**: Free (Community Edition) or AuraDB pricing
-- **Hosting**: Minimal (can run on small VPS)
-
 ## Testing & Validation
 
 The project includes a comprehensive test suite covering all major components:
