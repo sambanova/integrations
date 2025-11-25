@@ -14,12 +14,9 @@ An AI-powered agentic system that enables natural language queries over the Synt
 - [Agent Tools & Architecture](#agent-tools--architecture)
 - [Cypher Subagent Technical Guide](#cypher-subagent-technical-guide)
 - [Patient Similarity Embeddings](#patient-similarity-embeddings)
-- [Development](#development)
 - [Deployment](#deployment)
 - [What Was Built](#what-was-built)
 - [Testing & Validation](#testing--validation)
-- [Troubleshooting](#troubleshooting)
-- [Technologies Used](#technologies-used)
 
 ## Overview
 
