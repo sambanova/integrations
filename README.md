@@ -45,6 +45,7 @@ If you have any suggestions of integrations or questions, please post on our [Co
 | **Llama Stack** | LLM frameworks  | Llama Stack standardizes the core building blocks that simplify AI application development. It codifies best practices across the Llama ecosystem. | [Demo code](./llama_stack/README.md) |
 | **LM Evaluation Harness** | Eval and observability  | LM Evaluation Harness is a unified evaluation framework developed by EleutherAI for testing generative language models on a large number of different evaluation tasks. | [Demo Code](./lm_eval_harness/) |
 | **MCP Server** | Tool and Browser Use | The Model Context Protocol allows applications to provide context for LLMs in a standardized way, separating the concerns of providing context from the actual LLM interaction. | [Demo code](./mcp) |
+| **Mem0** | Vector DB and search | Mem0 enhances AI assistants and agents with an intelligent memory layer, enabling personalized AI interactions. | [Demo code](./mem0) |
 | **Milvus** | Vector DB and search | Milvus is an open-source vector database from Milvus and can easily enable RAG applications. | [Demo code](./milvus) |
 | **n8n** | Low-code platforms | n8n is a low-code workflow automation framework. | [Demo code](./n8n) |
 | **Open WebUI** | Self-hosted LLM interfaces | Open WebUI is an extensible UI you can host yourself to route prompts to SambaNova’s OpenAI-compatible endpoints while also unlocking optional Ollama, litellm, and local runners, complete with built-in RAG tools. | [Documentation](https://docs.openwebui.com/) |
