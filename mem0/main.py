@@ -1,9 +1,9 @@
 import os
 
-from langchain_sambanova import SambaNovaEmbeddings
-from sambanova import SambaNova
+from langchain_sambanova import SambaNovaEmbeddings # type: ignore
+from sambanova import SambaNova # type: ignore
 
-from mem0 import Memory
+from mem0 import Memory # type: ignore
 
 # --- Environment Variables ---
 os.environ.setdefault('OPENAI_API_KEY', 'your-openai-key')  # Used for vectordb llm
@@ -66,7 +66,7 @@ def chat_with_memories(message: str, user_id: str = 'default_user') -> str:
         user_id=user_id,
     )
 
-    return assistant_reply
+    return assistant_reply # type: ignore
 
 
 def main() -> None:
