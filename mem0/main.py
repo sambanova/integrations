@@ -1,9 +1,9 @@
 import os
 
-from langchain_sambanova import SambaNovaEmbeddings # type: ignore
-from sambanova import SambaNova # type: ignore
+from langchain_sambanova import SambaNovaEmbeddings  # type: ignore
+from sambanova import SambaNova  # type: ignore
 
-from mem0 import Memory # type: ignore
+from mem0 import Memory  # type: ignore
 
 # --- Environment Variables ---
 os.environ.setdefault('OPENAI_API_KEY', 'your-openai-key')  # Used for vectordb llm
