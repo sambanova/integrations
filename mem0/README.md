@@ -9,7 +9,7 @@
 
 ## Overview
 
-[**Mem0**](https://docs.mem0.ai/introduction) is the memory engine that keeps conversations contextual so users never repeat themselves and your agents respond with continuity. Mem0 delivers adaptive memory engine, packaged for teams that need to run everything on their own infrastructure. You own the stack, the data, and the customizations.
+[**Mem0**](https://docs.mem0.ai/introduction) is a memory engine designed to maintain contextual conversations, ensuring users don't have to repeat themselves and that your agents provide consistent, continuous responses. It offers an adaptive memory solution tailored for teams who want to manage everything on their own infrastructure. You retain full control over the stack, data, and customizations.
 
 ## Setting up the Environment
 
@@ -47,3 +47,6 @@ Run the example script with
 ``` bash
     python main.py
 ```
+
+## Customization
+For more example refer to the [official Mem0 documentation](https://docs.mem0.ai/introduction).
