@@ -1,3 +1,5 @@
+![sambanova_logo](../images/SambaNova-dark-logo-1.png)
+
 # Connecting SambaNova as Custom LLM to Vapi
 
 This repository documents how to connect a **SambaNova LLM server** as a custom LLM to **Vapi** using SambaNova’s `Meta-Llama-3.3-70B-Instruct` model. The guide walks you through setting up a local Flask server, exposing it with **Ngrok**, configuring **Vapi Custom LLM**, and understanding the end-to-end communication flow.
