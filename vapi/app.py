@@ -3,8 +3,9 @@ Flask server that exposes an OpenAI-compatible `/chat/completions` endpoint
 backed by the SambaNova API.
 """
 
-from flask import Flask, request, Response
+from flask import Flask, Response, request
 from sambanova import SambaNova
+from typing import Generator, List, Any
 
 app = Flask(__name__)
 
@@ -17,7 +18,7 @@ client = SambaNova(api_key="YOUR_SAMBANOVA_API_KEY")
 # Helper functions
 # ------------------------------------------------------------------------------
 
-def generate_streaming_response(data):
+def generate_streaming_response(data: List[Any]) -> Generator[str, None, None]:
     """
     Converts a streaming response from SambaNova into
     Server-Sent Events (SSE) format.
@@ -43,7 +44,7 @@ def generate_streaming_response(data):
 # ------------------------------------------------------------------------------
 
 @app.route("/chat/completions", methods=["POST"])
-def openai_advanced_custom_llm_route():
+def openai_advanced_custom_llm_route() -> Response:
     """
     OpenAI-compatible Chat Completions endpoint.
     

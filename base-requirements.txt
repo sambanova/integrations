@@ -46,6 +46,7 @@ llama-stack==0.2.6
 llama-stack-client==0.2.6
 instructor>=1.7.7
 openai>=1.66.3
+sambanova>=1.2.0
 livekit-agents[hume, elevenlabs]>=1.0.20
 livekit-plugins-hume==1.0.20
 livekit-plugins-silero==1.0.20
@@ -61,6 +62,7 @@ wrapt==1.17.2
 yfinance==0.2.54
 mcp==1.13.0
 mcp-server-time==2025.8.4  
+flask>=3.1.2
 
 # Type Checking & Enhancements
 ruff==0.12.8
