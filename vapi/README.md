@@ -111,7 +111,7 @@ curl -X POST https://abcd-1234.ngrok-free.dev/chat/completions \
 1. Log in to the **Vapi Dashboard**
 2. Create an **Assistant** with a Blank Template
 2. Navigate to **Model → Provider → Custom LLM**
-3. Introduct the **Model name** you'll use.
+3. Introduct the **Model name** you'll use (`Meta-Llama-3.3-70B-Instruct`)
 4. Paste your **Ngrok URL** into the endpoint URL field
 
    ```
