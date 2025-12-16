@@ -3,9 +3,10 @@ Flask server that exposes an OpenAI-compatible `/chat/completions` endpoint
 backed by the SambaNova API.
 """
 
+from typing import Any, Generator, List
+
 from flask import Flask, Response, request
 from sambanova import SambaNova
-from typing import Generator, List, Any
 
 app = Flask(__name__)
 
