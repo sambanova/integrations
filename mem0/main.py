@@ -1,7 +1,7 @@
 import os
 
 from langchain_sambanova import SambaNovaEmbeddings  # type: ignore
-from sambanova import SambaNova  # type: ignore
+from sambanova import SambaNova
 
 from mem0 import Memory  # type: ignore
 
@@ -54,8 +54,8 @@ def chat_with_memories(message: str, user_id: str = 'default_user') -> str:
     ]
 
     # Generate response
-    response = client.chat.completions.create(model='gpt-oss-120b', messages=messages)
-    assistant_reply = response.choices[0].message.content
+    response = client.chat.completions.create(model='gpt-oss-120b', messages=messages) # type: ignore
+    assistant_reply = response.choices[0].message.content # type: ignore
 
     # Save conversation into memory
     memory.add(
