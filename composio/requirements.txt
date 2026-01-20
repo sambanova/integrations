@@ -1,0 +1,4 @@
+composio-crewai==0.7.19
+composio-openai==0.7.19
+crewai==0.130.0
+openai==1.91.0

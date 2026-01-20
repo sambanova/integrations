@@ -1,0 +1,46 @@
+import os
+from typing import Tuple
+
+import dotenv
+from composio_crewai import App, ComposioToolSet  # type: ignore
+from crewai import LLM, Agent, Crew, Task
+
+dotenv.load_dotenv()
+# Initialize the ComposioToolSet
+toolset = ComposioToolSet()
+
+# Connect your GitHub account
+request = toolset.initiate_connection(app=App.GITHUB)
+print(f'Open this URL to authenticate: {request.redirectUrl}')
+
+# Get the SERPAPI tool from the Composio ToolSet
+tools = toolset.get_tools(apps=[App.SERPAPI, App.GITHUB])
+
+llm = LLM(model='sambanova/Meta-Llama-3.3-70B-Instruct', api_key=os.getenv('SAMBANOVA_API_KEY'))
+
+
+# Create and Execute Agent.
+def run_crew() -> Tuple[str, int]:
+    web_search_agent = Agent(
+        role='Web Search Agent',
+        goal="""You take action on web search using SERPAPI API and actions on github using GITHUB tool""",
+        backstory="""You are an AI agent responsible for taking actions on SERPAPI web search and Github information. 
+        You need to take action on SERPAPI or Github tool. Use correct tools to answer the user question from the given
+        tool-set.""",
+        verbose=True,
+        tools=tools,
+        llm=llm,
+        cache=False,
+    )
+    task = Task(
+        description='Use web search to find information about SambaNova and its new chip called the RDU',
+        agent=web_search_agent,
+        expected_output='If answer is found',
+    )
+    crew = Crew(agents=[web_search_agent], tasks=[task])
+    result = crew.kickoff()
+    print(result)
+    return 'Crew run initiated', 200
+
+
+run_crew()
