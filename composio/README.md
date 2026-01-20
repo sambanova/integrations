@@ -41,7 +41,7 @@ Generate your SambaCloud API key [here](https://cloud.sambanova.ai/apis) and set
 
 ## Running the Composio script
 
-This integration uses CrewAI agents with Composio’s SERPAPI tools to give the SambaNova LLM real-time web search capabilities, enabling it to fetch and reason over up-to-date information.
+This integration uses CrewAI agents with Composio’s SERPAPI and github repositories information tools to give the SambaNova LLM real-time web search capabilities, enabling it to fetch and reason over up-to-date information.
 
 Run the example script with
 
