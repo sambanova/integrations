@@ -9,7 +9,7 @@
 
 ## Overview
 
-[**Composio**](https://docs.composio.dev/docs/welcome) Composio is a developer-oriented integration platform for AI agents and large language model (LLM) applications. It acts as a bridge between AI systems and real-world tools/services (like Slack, GitHub, Gmail, CRMs, productivity apps, etc.), so those agents can authentically interact and take action across apps without you building every integration yourself.
+[**Composio**](https://docs.composio.dev/docs/welcome) Composio is a developer-oriented integration platform for AI agents and large language model (LLM) applications. It acts as a bridge between AI systems and real-world tools/services (like Slack, GitHub, Gmail, CRMs, web search and productivity apps, etc.), so those agents can authentically interact and take action across apps without you building every integration yourself.
 
 ## Setting up the Environment
 
