@@ -2,7 +2,7 @@ import os
 from typing import Tuple
 
 import dotenv
-from composio_crewai import App, ComposioToolSet
+from composio_crewai import App, ComposioToolSet # type: ignore
 from crewai import LLM, Agent, Crew, Task
 
 dotenv.load_dotenv()
