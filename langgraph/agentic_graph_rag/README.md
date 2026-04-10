@@ -66,7 +66,7 @@ uv pip install -r requirements.txt
 4. **Configure Environment**
 ```bash
 # Copy the example file
-cp backend/.env.example backend/.env
+cp .env.example .env
 
 # Edit backend/.env and add your API keys
 # nano backend/.env  # or use your favorite editor
