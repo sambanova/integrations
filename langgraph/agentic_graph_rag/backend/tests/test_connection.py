@@ -2,7 +2,8 @@
 Test script to verify Neo4j connection and basic queries.
 """
 import sys
-sys.path.append('..')
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from neo4j_utils import Neo4jConnection
 
@@ -16,15 +17,15 @@ def test_connection():
 
         # Test a simple query
         print("\nTesting basic query...")
-        result = conn.execute_query("MATCH (p:Patient) RETURN count(p) as patient_count")
-        if result:
-            print(f"✓ Query successful: Found {result[0]['patient_count']} patients")
+        records, _, _ = conn.execute_query("MATCH (p:Patient) RETURN count(p) as patient_count")
+        if records:
+            print(f"✓ Query successful: Found {records[0]['patient_count']} patients")
         else:
             print("✗ Query returned no results")
 
         # Test patient search
         print("\nTesting patient search...")
-        patients = conn.search_patients("Ethan")
+        patients, _, _ = conn.search_patients("Ethan")
         if patients:
             print(f"✓ Found {len(patients)} patients matching 'Ethan'")
             for p in patients[:3]:
@@ -34,7 +35,7 @@ def test_connection():
 
         # Test procedures query
         print("\nTesting procedures query for 'Ethan766'...")
-        procedures = conn.get_patient_procedures("Ethan766")
+        procedures, _, _ = conn.get_patient_procedures("Ethan766")
         if procedures:
             print(f"✓ Found {len(procedures)} procedures")
             print(f"  Sample: {procedures[0]['procedure_description']}")

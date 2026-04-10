@@ -525,14 +525,16 @@ class PatientSimilarityEmbeddings:
         has_space = ' ' in patient_name.strip()
 
         if has_space:
-            # Full name search
-            # Fetch 2x k results to account for bidirectional duplicates
+            # Full name search — undirected match to include both outgoing and incoming edges,
+            # deduplicated in Cypher via max() so bidirectional pairs count only once.
             query = f"""
                 MATCH (p:Patient)
                 WHERE toLower(p.firstName + ' ' + p.lastName) CONTAINS toLower($patient_name)
                 WITH p LIMIT 1
                 MATCH (p)-[sim:{similarity_type}]-(similar:Patient)
-                WHERE id(p) <> id(similar)
+                WITH p,
+                     similar,
+                     max(sim.similarityScore) AS similarity_score
                 RETURN
                     p.firstName + ' ' + p.lastName AS source_patient,
                     similar.firstName + ' ' + similar.lastName AS similar_patient,
@@ -541,20 +543,21 @@ class PatientSimilarityEmbeddings:
                     similar.procedureCount AS procedure_count,
                     similar.drugCount AS drug_count,
                     similar.expenses AS expenses,
-                    sim.similarityScore AS similarity_score
-                ORDER BY sim.similarityScore DESC
+                    similarity_score
+                ORDER BY similarity_score DESC
                 LIMIT $fetch_limit
             """
         else:
-            # Single name search
-            # Fetch 2x k results to account for bidirectional duplicates
+            # Single name search — undirected match, deduplicated in Cypher via max().
             query = f"""
                 MATCH (p:Patient)
                 WHERE toLower(p.firstName) CONTAINS toLower($patient_name)
                    OR toLower(p.lastName) CONTAINS toLower($patient_name)
                 WITH p LIMIT 1
                 MATCH (p)-[sim:{similarity_type}]-(similar:Patient)
-                WHERE id(p) <> id(similar)
+                WITH p,
+                     similar,
+                     max(sim.similarityScore) AS similarity_score
                 RETURN
                     p.firstName + ' ' + p.lastName AS source_patient,
                     similar.firstName + ' ' + similar.lastName AS similar_patient,
@@ -563,27 +566,16 @@ class PatientSimilarityEmbeddings:
                     similar.procedureCount AS procedure_count,
                     similar.drugCount AS drug_count,
                     similar.expenses AS expenses,
-                    sim.similarityScore AS similarity_score
-                ORDER BY sim.similarityScore DESC
+                    similarity_score
+                ORDER BY similarity_score DESC
                 LIMIT $fetch_limit
             """
 
         with self.driver.session(database=self.database) as session:
-            # Fetch 2x k results to account for bidirectional duplicates
-            fetch_limit = k * 2
-            result = session.run(query, {"patient_name": patient_name, "k": k, "fetch_limit": fetch_limit})
+            result = session.run(query, {"patient_name": patient_name, "k": k, "fetch_limit": k})
             records = [dict(record) for record in result]
 
-        # Deduplicate by similar_patient name (in case of bidirectional relationships)
-        seen_patients = set()
-        unique_records = []
-        for record in records:
-            patient_name_key = record['similar_patient']
-            if patient_name_key not in seen_patients:
-                seen_patients.add(patient_name_key)
-                unique_records.append(record)
-                if len(unique_records) >= k:
-                    break
+        unique_records = records
 
         if unique_records:
             logger.info(f"\nFound {len(unique_records)} similar patients:")

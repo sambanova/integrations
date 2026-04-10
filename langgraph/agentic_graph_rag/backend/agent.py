@@ -954,12 +954,32 @@ Classify this query as relevant (True) or irrelevant (False)."""
 
         # Filter messages for LLM: keep only HumanMessage and AIMessage from previous turns
         # Keep ALL message types from the current turn
+        # IMPORTANT: strip tool_calls from previous-turn AIMessages to avoid Anthropic's
+        # requirement that every tool_use be immediately followed by a tool_result.
         filtered_messages = []
         for i, msg in enumerate(messages):
             if i <= (last_human_idx or 0):
                 # For previous turns and the current HumanMessage, keep only Human and AI messages
-                if isinstance(msg, (HumanMessage, AIMessage)):
+                if isinstance(msg, HumanMessage):
                     filtered_messages.append(msg)
+                elif isinstance(msg, AIMessage):
+                    if msg.tool_calls:
+                        # Strip tool_use blocks from content so Anthropic doesn't expect orphaned tool_results.
+                        # langchain-anthropic stores tool_use as dicts inside the content list.
+                        clean_content = msg.content
+                        if isinstance(clean_content, list):
+                            clean_content = [
+                                block for block in clean_content
+                                if not (isinstance(block, dict) and block.get("type") == "tool_use")
+                            ]
+                            if not clean_content:
+                                clean_content = ""
+                        # Only include the message if there is remaining text content
+                        if clean_content:
+                            filtered_messages.append(AIMessage(content=clean_content))
+                        # Otherwise skip — the synthesis AIMessage for this turn carries the answer
+                    else:
+                        filtered_messages.append(msg)
             else:
                 # For current turn after HumanMessage, keep all messages (including ToolMessage)
                 filtered_messages.append(msg)

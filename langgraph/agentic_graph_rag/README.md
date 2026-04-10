@@ -38,13 +38,18 @@ Get up and running in 5 minutes!
 
 - [ ] Python 3.11 or higher installed
 - [ ] Neo4j running with synthea-sample database
+  - Download the synthea sample from [here](https://drive.google.com/file/d/15WQWmEkHTB71H3OZ_3Kbb_OKBvM9tbVz/view?usp=drive_link)
+  - Create a database called "synthea-sample" and load the data from the above `.dump` file
+  - Install the **Graph Data Science (GDS) plugin** in Neo4j (required for patient similarity search)
+    - In Neo4j Desktop: open your project → click the database → go to the **Plugins** tab → install **Graph Data Science Library**
+    - For Neo4j AuraDB: enable GDS from the instance settings in the Aura console
 - [ ] LLM API key (Anthropic or SambaNova)
 
 ### Installation Steps
 
 1. **Navigate to Project Directory**
 ```bash
-cd agentic_graph_rag
+cd agentic_graph_rag/backend
 ```
 
 2. **Create Virtual Environment**
@@ -105,7 +110,7 @@ APP_DEBUG_LOGGING=false
 
 5. **Test Connection**
 ```bash
-python test_connection.py
+python tests/test_connection.py
 ```
 
 You should see:
@@ -117,15 +122,10 @@ You should see:
 
 6. **Start Server**
 
-**Option A: Using the startup script (Linux/Mac)**
+The following script runs tests for required prerequisites and then starts the server.
+
 ```bash
 ./start_server.sh
-```
-
-**Option B: Manual start**
-```bash
-cd backend
-python server.py
 ```
 
 7. **Access the Application**

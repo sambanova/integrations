@@ -43,7 +43,6 @@ If successful, it will return the GDS version number.
 Once GDS is installed, run the script:
 
 ```bash
-cd /Users/varunbk/repo/ai-starter-kit/agentic_graph_rag/backend
 source ../.venv/bin/activate
 python patient_similarity_embeddings.py
 ```

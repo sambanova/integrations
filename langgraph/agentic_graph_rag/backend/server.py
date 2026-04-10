@@ -2,6 +2,7 @@
 FastAPI server for Synthea chatbot application.
 """
 import os
+import traceback
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -167,6 +168,7 @@ async def chat(request: ChatRequest):
         )
 
     except Exception as e:
+        traceback.print_exc()
         raise HTTPException(
             status_code=500,
             detail=f"Error processing chat request: {str(e)}"
