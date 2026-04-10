@@ -1016,126 +1016,6 @@ For more details, see [backend/README_EMBEDDINGS.md](backend/README_EMBEDDINGS.m
 
 **Current State**: ✅ Functional prototype with error handling, session management, and complete documentation
 
-## What Was Built
-
-### Backend Components
-
-#### [backend/neo4j_utils.py](backend/neo4j_utils.py)
-- Neo4j connection management
-- Pre-built query functions for common operations:
-  - `get_patient_procedures()` - Retrieve patient procedures
-  - `get_patient_conditions()` - Retrieve patient conditions
-  - `get_patient_medications()` - Retrieve patient medications
-  - `get_patient_encounters()` - Retrieve patient encounters
-  - `search_patients()` - Search for patients by name
-  - `get_database_schema()` - Get schema information
-  - `execute_custom_cypher()` - Execute custom Cypher queries
-
-#### [backend/patient_similarity_embeddings.py](backend/patient_similarity_embeddings.py)
-- Patient similarity embeddings generator using Neo4j GDS
-- Creates KNN-based similarity relationships between patients
-- Combines encounter, procedure, and drug patterns with demographics
-- Generates 256D embeddings for similarity matching
-- `find_similar_patients()` - Query for similar patients by KNN_SIMILARITY relationship
-
-#### [backend/agent.py](backend/agent.py)
-- Streamlined LangGraph agent architecture
-- Validation node (entry point) for query relevance checking
-- Main agent node with tool-calling and self-synthesis capabilities
-- 8 tools including 7 pre-built patient query tools + execute_custom_query
-  - 6 standard query tools (procedures, conditions, medications, encounters, search, schema)
-  - 1 patient similarity tool (find_similar_patients using KNN embeddings)
-  - 1 custom analytics tool (execute_custom_query with Cypher subgraph)
-- execute_custom_query tool invokes Cypher subgraph for complex analytics
-- Conversation state management with Command pattern and reducers
-- Query tracking via executed_queries state with add_queries reducer
-- Configurable LLM support (Anthropic, SambaNova)
-- Conditional edges for validation routing and tool selection
-- Return edges from tools back to agent for synthesis
-
-#### [backend/cypher_subagent.py](backend/cypher_subagent.py)
-- Specialized Cypher query generator subgraph (invoked by execute_custom_query)
-- Comprehensive Synthea schema knowledge (400+ lines)
-- LLM-powered query construction (uses configured CYPHER_AGENT_MODEL)
-- Internal structure: cypher_generator node → execute_query node (ToolNode)
-- Conditional routing based on tool calls with loop-back for refinement
-- Safe query validation and execution with LIMIT enforcement
-- Returns formatted results to main agent via execute_custom_query tool
-
-#### [backend/server.py](backend/server.py)
-- FastAPI REST API server
-- CORS configuration for frontend
-- Session-based conversation management
-- Health check endpoints
-- Static file serving for frontend
-
-### Frontend
-
-#### [frontend/index.html](frontend/index.html)
-- Single-page application (no framework required)
-- Modern gradient UI design
-- Real-time chat interface
-- Example queries for quick testing
-- Session management
-- Status indicators
-- Responsive design
-- Provider selection dropdown
-
-#### [frontend/graph.html](frontend/graph.html)
-- Interactive LangGraph visualization using vis-network
-- Shows complete architecture: validation, agent, 8 tools, Cypher subgraph
-- Displays conditional edges (thick orange) vs regular edges (thin gray)
-- Return edges (dashed) showing tool → agent flow
-- Expandable Cypher subgraph view showing internal structure
-- Click nodes for detailed tooltips with descriptions
-- Controls: Fit view, toggle physics, reset zoom
-- Accessible at /graph endpoint
-
-### Configuration & Documentation
-
-- **requirements.txt** - All Python dependencies
-- **backend/.env.example** - Environment configuration template
-- **backend/.env** - Environment configuration (not in git)
-- **backend/README_EMBEDDINGS.md** - Patient similarity embeddings setup guide
-- **.gitignore** - Git ignore rules
-- **README.md** - Comprehensive documentation (this file)
-
-### Test Suite
-
-- **backend/tests/test_connection.py** - Neo4j connection testing utility
-- **backend/tests/test_cypher.py** - Cypher query generation tests
-- **backend/tests/test_subgraph.py** - Cypher subgraph integration tests
-- **backend/tests/test_query_tracking.py** - Complete query tracking system tests (8 tools)
-
-## Key Design Decisions
-
-1. **Streamlined LangGraph Architecture**: Validation → Agent → Tools → Synthesis flow
-2. **Validation-First**: Relevance checking before query processing
-3. **Agent Self-Synthesis**: No separate summary node, agent synthesizes own results
-4. **Command Pattern**: Tools return Command objects for state updates with reducers
-5. **Cypher Subgraph**: Isolated within execute_custom_query tool as internal subgraph
-6. **Pure HTML/JS Frontend**: Minimal dependencies, easy to understand and modify
-7. **Session-based Conversations**: Maintains context without database overhead
-8. **FastAPI**: Modern, fast, with automatic API documentation
-9. **Direct Neo4j Queries**: No ORM overhead, optimal for graph traversal
-10. **Environment Variables**: Secure configuration management
-11. **Query Tracking**: All queries tracked via executed_queries state
-12. **Visual Documentation**: Interactive graph visualization at /graph endpoint
-
-## Extensibility
-
-### Easy to Add
-- **New Tools**: Add functions in [agent.py](backend/agent.py) with `@tool` decorator
-- **New Queries**: Add methods to [neo4j_utils.py](backend/neo4j_utils.py)
-- **UI Features**: Modify [frontend/index.html](frontend/index.html)
-- **API Endpoints**: Add routes to [server.py](backend/server.py)
-
-### Integration Points
-- **Authentication**: Add middleware in FastAPI
-- **Additional LLMs**: Swap OpenAI for other providers
-- **Frontend Frameworks**: Replace HTML with React/Vue/Svelte
-- **Deployment**: Docker, Kubernetes, cloud platforms
-
 ## Testing & Validation
 
 The project includes a comprehensive test suite covering all major components:
@@ -1174,12 +1054,12 @@ The project includes a comprehensive test suite covering all major components:
 cd agentic_graph_rag/backend/tests
 
 # Run all tests
-/Users/varunbk/repo/synthea/agentic_graph_rag/.venv/bin/pytest -v
+agentic_graph_rag/.venv/bin/pytest -v
 
 # Run specific test
-/Users/varunbk/repo/synthea/agentic_graph_rag/.venv/bin/pytest test_query_tracking.py::test_get_patient_procedures_tool -v -s
+agentic_graph_rag/.venv/bin/pytest test_query_tracking.py::test_get_patient_procedures_tool -v -s
 
 # Run with debug logging
-export TOOL_DEBUG_LOGGING=true && /Users/varunbk/repo/synthea/agentic_graph_rag/.venv/bin/pytest test_query_tracking.py -v -s
+export TOOL_DEBUG_LOGGING=true && agentic_graph_rag/.venv/bin/pytest test_query_tracking.py -v -s
 ```
 
