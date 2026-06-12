@@ -1,0 +1,4 @@
+ogx==1.0.2
+ogx-client==1.0.2
+python-dotenv==1.0.1
+uv==0.6.6
