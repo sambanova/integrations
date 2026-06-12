@@ -8,7 +8,7 @@ from typing import List
 
 import requests
 from dotenv import load_dotenv
-from ogx_client import Agent, AgentEventLogger, OgxClient
+from ogx_client import Agent, OgxClient
 
 
 class TestOGX(unittest.TestCase):
@@ -28,7 +28,10 @@ class TestOGX(unittest.TestCase):
     def setUpClass(cls) -> None:
         load_dotenv(override=True)
         cls.client = OgxClient(base_url=f'http://localhost:{os.environ["OGX_PORT"]}')
-        cls.text_models = ['sambanova/sambanova/Meta-Llama-3.3-70B-Instruct', 'sambanova/sambanova/Llama-4-Scout-17B-16E-Instruct']
+        cls.text_models = [
+            'sambanova/sambanova/Meta-Llama-3.3-70B-Instruct',
+            'sambanova/sambanova/Llama-4-Scout-17B-16E-Instruct',
+        ]
         cls.vision_models = ['sambanova/sambanova/Llama-4-Maverick-17B-128E-Instruct']
         cls.rag_model = 'sambanova/sambanova/Meta-Llama-3.3-70B-Instruct'
         cls.tool_model = 'sambanova/sambanova/Meta-Llama-3.3-70B-Instruct'

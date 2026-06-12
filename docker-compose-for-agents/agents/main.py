@@ -1,7 +1,7 @@
 import os
 
 import uvicorn
-from fastapi import FastAPI  # type: ignore
+from fastapi import FastAPI
 from google.adk.cli.fast_api import get_fast_api_app
 
 # Get the directory where main.py is located
