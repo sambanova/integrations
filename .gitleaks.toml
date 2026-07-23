@@ -1,0 +1,11 @@
+# Gitleaks config for integrations. Extends the built-in default ruleset.
+title = "integrations gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Documentation example keys"
+paths = [
+  '''.*\.md$''',
+]
