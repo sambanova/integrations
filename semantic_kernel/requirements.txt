@@ -1,3 +1,4 @@
 jupyter
 ipykernel
-semantic-kernel
+python-dotenv
+semantic-kernel>=1.44,<2
