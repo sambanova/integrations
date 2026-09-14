@@ -17,7 +17,7 @@ function SAMBA_AI_QUESTION(input) {
         {"role": "user", "content": input}
         ],
         "stop": ["<|eot_id|>"],
-        "model": "Meta-Llama-3.1-405B-Instruct",
+        "model": "Meta-Llama-3.3-70B-Instruct",
         "stream": true, "stream_options": {"include_usage": true}
     }
 

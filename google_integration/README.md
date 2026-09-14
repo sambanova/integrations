@@ -12,7 +12,7 @@ SambaCloud-Google-Integration
 App Scripts intended for those with SambaCloud API keys to integrate LLMs into Google Workspaces
 
 Getting Started:
-1. Sign up for an API key at <a href="https://cloud.sambanova.ai/apis">SambaNova Cloud</a>. It's free and will give you access to the Llama 3 405B model.
+1. Sign up for an API key at <a href="https://cloud.sambanova.ai/apis">SambaNova Cloud</a>. It's free and will give you access to the Llama 3.3 70B model.
 2. Open your document/sheet and select the menu item Extension > App Script
 3. Copy the respective JS script for your Google application into the App Script window
 4. Replace the 0 in `api_key = 0` with the API key in your email.
