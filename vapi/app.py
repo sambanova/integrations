@@ -3,6 +3,7 @@ Flask server that exposes an OpenAI-compatible `/chat/completions` endpoint
 backed by the SambaNova API.
 """
 
+import os
 from typing import Any, Generator, List
 
 from flask import Flask, Response, request
@@ -10,9 +11,19 @@ from sambanova import SambaNova
 
 app = Flask(__name__)
 
-# Initialize the SambaNova client
-# NOTE: Replace with your real API key or load it from an environment variable
-client = SambaNova(api_key="YOUR_SAMBANOVA_API_KEY")
+# Initialize the SambaNova client from the environment so the key is never
+# committed to source control. Export it before starting the server:
+#     export SAMBANOVA_API_KEY="your-sambanova-api-key"
+api_key = os.environ.get("SAMBANOVA_API_KEY")
+if not api_key:
+    raise SystemExit(
+        "SAMBANOVA_API_KEY is not set.\n"
+        "Export your SambaNova API key before starting the server:\n"
+        '    export SAMBANOVA_API_KEY="your-sambanova-api-key"\n'
+        "Get a key at https://cloud.sambanova.ai/apis"
+    )
+
+client = SambaNova(api_key=api_key)
 
 
 # ------------------------------------------------------------------------------
