@@ -53,8 +53,10 @@ export SAMBANOVA_API_KEY="12345678abcdef87654321fe"  # Replace with your SambaNo
 ### Deploy with uv (Recommended)
 
 ```bash
-uv run ogx run starter --port $OGX_PORT
+uv run ogx run starter --port $OGX_PORT --insecure
 ```
+
+> `--insecure` disables TLS for local development. Without it (or without `tls_certfile`/`tls_keyfile` set in the server config), the server will refuse to start.
 
 ### Deploy with Docker
 
@@ -66,7 +68,7 @@ docker run -it \
   -v ~/.ogx:/root/.ogx \
   -e SAMBANOVA_API_KEY=$SAMBANOVA_API_KEY \
   ogxai/distribution-starter \
-  --port $OGX_PORT
+  --port $OGX_PORT --insecure
 ```
 
 ### Build and deploy with Docker (custom image)
@@ -89,7 +91,7 @@ docker run -it \
   -v ~/.ogx:/root/.ogx \
   -e SAMBANOVA_API_KEY=$SAMBANOVA_API_KEY \
   ogx:starter \
-  --port $OGX_PORT
+  --port $OGX_PORT --insecure
 ```
 
 ## Usage
@@ -113,3 +115,13 @@ We provide a series of [notebooks](./notebooks/) that demonstrate how to use the
 
 5. [Safety](./notebooks/05_Safety.ipynb)
     This notebook shows how to evaluate user query safety and provide safeguards to the LLM response using the safety adapter.
+
+## Troubleshooting
+
+**Server fails to start with `TLS required: set tls_certfile/tls_keyfile in server config or pass '--insecure' to disable.`**
+
+The OGX server requires TLS by default. For local development, pass `--insecure` to disable it, as shown in the run commands above.
+
+**Inference calls fail with `Incorrect API key provided`**
+
+This means `SAMBANOVA_API_KEY` is unset or invalid. Set it to a valid key from [SambaNova Cloud](https://cloud.sambanova.ai/apis) before starting the server.
