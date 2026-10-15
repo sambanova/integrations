@@ -175,14 +175,15 @@ class Voice:
         started = time.perf_counter()
         self._manager = self.client.tts.websocket_connect()
         self._conn = await self._manager.__aenter__()
-        self.last_used = time.perf_counter()
-        return self.last_used - started
+        # Wall-clock time, so a laptop that slept with the app open still counts as idle.
+        self.last_used = time.time()
+        return time.perf_counter() - started
 
     async def context(self) -> Any:
         """A fresh context for one answer: everything pushed into it is spoken as one utterance."""
-        if time.perf_counter() - self.last_used > IDLE_RECONNECT_S:
+        if time.time() - self.last_used > IDLE_RECONNECT_S:
             await self.connect()
-        self.last_used = time.perf_counter()
+        self.last_used = time.time()
         return self._conn.context(
             model_id=self.model,
             voice={'mode': 'id', 'id': self.voice_id},
@@ -207,14 +208,17 @@ async def answer(
     speaking: asyncio.Task[None] | None = None
 
     async def speak() -> None:
-        async for event in ctx.receive():
-            if event.type == 'chunk' and event.audio:
-                if turn.first_sound is None:
-                    turn.first_sound = turn.now()
-                turn.audio_bytes += len(event.audio)
-                speaker.buffer.add(event.audio)
-            elif event.type == 'error':
-                raise RuntimeError(f'Cartesia: {event.message or event.title or "unknown error"}')
+        try:
+            async for event in ctx.receive():
+                if event.type == 'chunk' and event.audio:
+                    if turn.first_sound is None:
+                        turn.first_sound = turn.now()
+                    turn.audio_bytes += len(event.audio)
+                    speaker.buffer.add(event.audio)
+                elif event.type == 'error':
+                    raise RuntimeError(f'Cartesia: {event.message or event.title or "unknown error"}')
+        except TimeoutError:
+            raise RuntimeError(f'Cartesia sent no audio for {AUDIO_TIMEOUT_S} s. Reconnecting for the next question.')
         turn.generated = turn.now()
 
     try:
@@ -242,13 +246,15 @@ async def answer(
         if speaking is not None:
             await ctx.no_more_inputs()
             await speaking
-    except BaseException:
+    except BaseException as exc:
         # Stopped, or something failed: stop Cartesia generating and drop unplayed audio.
         if speaking is not None:
             speaking.cancel()
         with contextlib.suppress(Exception):
             await ctx.cancel()
         speaker.stop()
+        if not isinstance(exc, asyncio.CancelledError):
+            voice.last_used = 0.0  # the socket may be dead: start the next answer on a fresh one
         raise
     return ''.join(reply), turn
 
@@ -270,6 +276,18 @@ async def ask(
     return turn
 
 
+def describe(exc: BaseException) -> str:
+    """An error as one line, never blank: some exceptions carry no message."""
+    return str(exc) or type(exc).__name__
+
+
+async def open_voice(voice: Voice) -> float:
+    try:
+        return await voice.connect()
+    except Exception as exc:
+        raise SystemExit(f'Could not connect to Cartesia: {describe(exc)}') from exc
+
+
 def main() -> None:
     llm = AsyncSambaNova(api_key=require_env('SAMBANOVA_API_KEY'))
     voice = Voice(
@@ -285,7 +303,7 @@ def main() -> None:
     # progress, and the Cartesia websocket stays open between questions.
     with asyncio.Runner() as runner:
         try:
-            took = runner.run(voice.connect())
+            took = runner.run(open_voice(voice))
             print(f'Connected to Cartesia in {ms(took)}. Model: {model}.')
             print('Type a question and press Enter. Ctrl-C stops an answer, "exit" quits.')
             while True:
@@ -308,7 +326,7 @@ def main() -> None:
                     speaker.stop()
                     print('\n  (stopped)')
                 except Exception as exc:
-                    print(f'\n  ! {exc}')
+                    print(f'\n  ! {describe(exc)}')
         finally:
             runner.run(voice.close())
             speaker.close()

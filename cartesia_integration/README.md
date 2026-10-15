@@ -95,8 +95,8 @@ A few details worth knowing:
   In testing, low effort brought the first word from 0.66 s to 0.55 s.
 - **One context per answer.** Everything pushed into a Cartesia context is spoken as one utterance, so the
   voice stays natural across the pieces.
-- **Stopping.** Ctrl-C cancels the context, so Cartesia stops generating as well as the speakers stopping,
-  and the half-answer is left out of the conversation history.
+- **Stopping.** Ctrl-C stops the audio at once. If the answer was still being generated, the Cartesia context is
+  cancelled too, so Cartesia stops generating, and the partial answer is left out of the conversation history.
 
 ## Troubleshooting
 
