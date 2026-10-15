@@ -34,7 +34,7 @@ Open `.env` and add your two keys. The other settings are optional:
 | --- | --- | --- |
 | `SAMBANOVA_API_KEY` | | required |
 | `CARTESIA_API_KEY` | | required |
-| `SAMBANOVA_MODEL` | `gpt-oss-120b` | any [SambaCloud model](https://docs.sambanova.ai/cloud/docs/get-started/supported-models) |
+| `SAMBANOVA_MODEL` | `Meta-Llama-3.3-70B-Instruct` | any [SambaCloud model](https://docs.sambanova.ai/cloud/docs/get-started/supported-models) |
 | `CARTESIA_MODEL` | `sonic-2` | |
 | `CARTESIA_VOICE_ID` | `6ccbfb76-1fc6-48f7-b71d-91ac6298247b` | any voice from the [Cartesia voice library](https://play.cartesia.ai/voices) |
 
@@ -45,16 +45,16 @@ python main.py
 ```
 
 ```text
-Connected to Cartesia in 1125 ms. Model: gpt-oss-120b.
+Connected to Cartesia in 759 ms. Model: Meta-Llama-3.3-70B-Instruct.
 Type a question and press Enter. Ctrl-C stops an answer, "exit" quits.
 
 you > why is the sky blue?
 
-  Because of Rayleigh scattering. Sunlight hits air molecules, and the shorter blue wavelengths bounce around more than reds. That scattered blue light reaches our eyes from every direction, making the sky look blue.
+  The sky is blue because of the way light behaves when it enters our atmosphere. When sunlight comes in, it's made up of all different colors, but our atmosphere scatters the shorter, blue wavelengths more than the others. This scattering effect is what gives the sky its blue color, and it's why it usually looks blue on a sunny day. It's pretty cool how it all works together like that.
 
-  first token   1080 ms   (SambaNova inference: 422 ms)
-  first sound   1370 ms   (Cartesia)
-  audio 12.7 s generated in 4.0 s  (3.2x realtime)
+  first token    662 ms   (SambaNova inference: 160 ms)
+  first sound   1008 ms   (Cartesia)
+  audio 22.4 s generated in 5.2 s  (4.3x realtime)
 ```
 
 - **first token**: when the first word of the answer reached your machine. In brackets is SambaNova's own
@@ -90,9 +90,12 @@ async for event in ctx.receive():     # runs at the same time, in its own task
 
 A few details worth knowing:
 
-- **Reasoning models.** `gpt-oss-120b` thinks before it answers, and that time is silence. The request sets
-  `reasoning_effort='low'` for gpt-oss models, and only the answer itself (`delta.content`) is ever spoken.
-  In testing, low effort brought the first word from 0.66 s to 0.55 s.
+- **Reasoning models.** The default, Llama 3.3, answers straight away. A reasoning model such as `gpt-oss-120b`
+  thinks first, and that time is silence. For gpt-oss models the request sets `reasoning_effort='low'`, and only
+  the answer itself (`delta.content`) is ever spoken, never the reasoning.
+- **English only.** The voice is asked for English (`language='en'` in `main.py`). An answer in another language
+  is still read out, but with an English accent. Cartesia supports other languages: change `language` and pick a
+  voice for it.
 - **One context per answer.** Everything pushed into a Cartesia context is spoken as one utterance, so the
   voice stays natural across the pieces.
 - **Stopping.** Ctrl-C stops the audio at once. If the answer was still being generated, the Cartesia context is
@@ -107,5 +110,5 @@ A few details worth knowing:
 - **`Cartesia: …`**: the message is Cartesia's. A wrong `CARTESIA_VOICE_ID` or a plan without access to
   `CARTESIA_MODEL` are the usual causes.
 - **`You need to install cartesia[websockets]`**: install from `requirements.txt`, which includes that extra.
-- **Silence before the first word**: try a non-reasoning model, for example
-  `SAMBANOVA_MODEL=Meta-Llama-3.3-70B-Instruct`.
+- **Silence before the first word**: if you switched to a reasoning model such as `gpt-oss-120b`, go back to the
+  default, `Meta-Llama-3.3-70B-Instruct`.

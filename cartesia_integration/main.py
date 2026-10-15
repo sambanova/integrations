@@ -30,7 +30,7 @@ load_dotenv()
 SAMPLE_RATE = 44100
 BYTES_PER_SECOND = SAMPLE_RATE * 2  # 16-bit mono
 
-DEFAULT_MODEL = 'gpt-oss-120b'
+DEFAULT_MODEL = 'Meta-Llama-3.3-70B-Instruct'
 DEFAULT_TTS_MODEL = 'sonic-2'
 DEFAULT_VOICE = '6ccbfb76-1fc6-48f7-b71d-91ac6298247b'
 
@@ -240,12 +240,16 @@ async def answer(
                 turn.first_token = turn.now()
                 print('\n  ', end='')
                 speaking = asyncio.create_task(speak())
+            elif speaking.done():
+                speaking.result()  # Cartesia already failed: raise its error now, not after the answer
             print(text, end='', flush=True)
             reply.append(text)
             await ctx.push(text)
         if speaking is not None:
             await ctx.no_more_inputs()
             await speaking
+        else:
+            await ctx.cancel()  # nothing to say: release the context
     except BaseException as exc:
         # Stopped, or something failed: stop Cartesia generating and drop unplayed audio.
         if speaking is not None:
