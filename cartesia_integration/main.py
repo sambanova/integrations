@@ -31,7 +31,7 @@ SAMPLE_RATE = 44100
 BYTES_PER_SECOND = SAMPLE_RATE * 2  # 16-bit mono
 
 DEFAULT_MODEL = 'Meta-Llama-3.3-70B-Instruct'
-DEFAULT_TTS_MODEL = 'sonic-2'
+DEFAULT_TTS_MODEL = 'sonic-3.6'
 DEFAULT_VOICE = '6ccbfb76-1fc6-48f7-b71d-91ac6298247b'
 
 OUTPUT_FORMAT: dict[str, Any] = {'container': 'raw', 'encoding': 'pcm_s16le', 'sample_rate': SAMPLE_RATE}

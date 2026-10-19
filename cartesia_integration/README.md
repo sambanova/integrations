@@ -35,7 +35,7 @@ Open `.env` and add your two keys. The other settings are optional:
 | `SAMBANOVA_API_KEY` | | required |
 | `CARTESIA_API_KEY` | | required |
 | `SAMBANOVA_MODEL` | `Meta-Llama-3.3-70B-Instruct` | any [SambaCloud model](https://docs.sambanova.ai/cloud/docs/get-started/supported-models) |
-| `CARTESIA_MODEL` | `sonic-2` | |
+| `CARTESIA_MODEL` | `sonic-3.6` | |
 | `CARTESIA_VOICE_ID` | `6ccbfb76-1fc6-48f7-b71d-91ac6298247b` | any voice from the [Cartesia voice library](https://play.cartesia.ai/voices) |
 
 ## Run
