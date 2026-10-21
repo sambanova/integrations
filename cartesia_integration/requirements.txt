@@ -1,0 +1,4 @@
+sambanova==1.13.0
+cartesia[websockets]==4.2.0
+sounddevice==0.5.6
+python-dotenv==1.1.0
