@@ -15,8 +15,8 @@ import os
 import sys
 import time
 from dataclasses import dataclass
-from datetime import date
-from typing import Any
+from datetime import date, datetime
+from typing import Annotated
 
 import httpx
 from dotenv import load_dotenv
@@ -33,30 +33,41 @@ FORECAST_URL = 'https://api.open-meteo.com/v1/forecast'
 # Five days, so a question asked on a Thursday about "this weekend" is covered.
 FORECAST_DAYS = 5
 
-# WMO weather interpretation codes, as returned by Open-Meteo. Grouped, so the model gets words, not numbers.
+# WMO weather interpretation codes, the full set Open-Meteo documents, so the model gets words, not numbers.
 WEATHER_CODES = {
     0: 'clear sky',
     1: 'mainly clear',
     2: 'partly cloudy',
     3: 'overcast',
     45: 'fog',
-    48: 'fog',
+    48: 'fog with rime',
     51: 'light drizzle',
     53: 'drizzle',
     55: 'heavy drizzle',
+    56: 'light freezing drizzle',
+    57: 'heavy freezing drizzle',
     61: 'light rain',
     63: 'rain',
     65: 'heavy rain',
+    66: 'light freezing rain',
+    67: 'heavy freezing rain',
     71: 'light snow',
     73: 'snow',
     75: 'heavy snow',
-    80: 'rain showers',
+    77: 'snow grains',
+    80: 'light rain showers',
     81: 'rain showers',
     82: 'violent rain showers',
+    85: 'light snow showers',
+    86: 'heavy snow showers',
     95: 'thunderstorm',
-    96: 'thunderstorm with hail',
-    99: 'thunderstorm with hail',
+    96: 'thunderstorm with light hail',
+    97: 'heavy thunderstorm',
+    99: 'thunderstorm with heavy hail',
 }
+
+# Not strftime('%A'), which follows the locale: the weekday fix below relies on these exact names.
+WEEKDAYS = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
 
 INSTRUCTIONS = (
     'You are a travel assistant. For any question about a place, call find_city first, then get_forecast '
@@ -81,12 +92,23 @@ class City(BaseModel):
 
 
 class DayForecast(BaseModel):
-    date: str
+    day: date
     weekday: str
     conditions: str
     min_c: float
     max_c: float
-    rain_chance_pct: int
+    # Open-Meteo returns null when it has no estimate for a day.
+    rain_chance_pct: Annotated[int, Field(ge=0, le=100)] | None
+
+
+class Forecast(BaseModel):
+    """What get_forecast returns. A typed model, like City, rather than a raw dict."""
+
+    local_time: datetime
+    conditions: str
+    temperature_c: float
+    wind_kmh: float
+    next_days: list[DayForecast]
 
 
 class TripBrief(BaseModel):
@@ -94,19 +116,19 @@ class TripBrief(BaseModel):
 
     city: str
     country: str
-    local_time: str = Field(description='Local date and time at the destination, as reported by get_forecast')
+    local_time: datetime = Field(description='Local date and time at the destination, as reported by get_forecast')
     current_conditions: str
     current_temperature_c: float
     next_days: list[DayForecast]
-    packing_tips: list[str] = Field(description='Two to four short, practical items')
+    # Enforced, not just described: a list of the wrong length goes back to the model as a retry.
+    packing_tips: list[str] = Field(min_length=2, max_length=4, description='Two to four short, practical items')
     answer: str = Field(description='A direct answer to the latest question')
 
 
-def require_env(name: str) -> str:
-    value = os.getenv(name, '').strip()
-    if not value:
+def require_env(name: str) -> None:
+    """Exit with a hint if a required variable is unset. The SambaNova provider reads the value itself."""
+    if not os.getenv(name, '').strip():
         raise SystemExit(f'{name} is not set. Copy .env.example to .env and add your key.')
-    return value
 
 
 async def find_city(ctx: RunContext[Deps], name: str) -> City:
@@ -127,7 +149,7 @@ async def find_city(ctx: RunContext[Deps], name: str) -> City:
     )
 
 
-async def get_forecast(ctx: RunContext[Deps], latitude: float, longitude: float, timezone: str) -> dict[str, Any]:
+async def get_forecast(ctx: RunContext[Deps], latitude: float, longitude: float, timezone: str) -> Forecast:
     """Current weather, local time and a five-day forecast for a location, starting today."""
     params: dict[str, str | float | int] = {
         'latitude': latitude,
@@ -141,25 +163,32 @@ async def get_forecast(ctx: RunContext[Deps], latitude: float, longitude: float,
     response.raise_for_status()
     data = response.json()
     current, daily = data['current'], data['daily']
-    return {
-        'local_time': current['time'],
-        'conditions': WEATHER_CODES.get(current['weather_code'], 'unknown'),
-        'temperature_c': current['temperature_2m'],
-        'wind_kmh': current['wind_speed_10m'],
-        'next_days': [
-            {
-                'date': daily['time'][i],
+    return Forecast(
+        local_time=current['time'],
+        conditions=WEATHER_CODES.get(current['weather_code'], 'unknown'),
+        temperature_c=current['temperature_2m'],
+        wind_kmh=current['wind_speed_10m'],
+        next_days=[
+            DayForecast(
+                day=day,
                 # Given, not left to the model: asked about "this weekend" with bare dates, it guessed
                 # the weekdays and got them wrong.
-                'weekday': date.fromisoformat(daily['time'][i]).strftime('%A'),
-                'conditions': WEATHER_CODES.get(daily['weather_code'][i], 'unknown'),
-                'min_c': daily['temperature_2m_min'][i],
-                'max_c': daily['temperature_2m_max'][i],
-                'rain_chance_pct': daily['precipitation_probability_max'][i],
-            }
-            for i in range(len(daily['time']))
+                weekday=WEEKDAYS[date.fromisoformat(day).weekday()],
+                conditions=WEATHER_CODES.get(code, 'unknown'),
+                min_c=low,
+                max_c=high,
+                rain_chance_pct=rain,
+            )
+            for day, code, low, high, rain in zip(
+                daily['time'],
+                daily['weather_code'],
+                daily['temperature_2m_min'],
+                daily['temperature_2m_max'],
+                daily['precipitation_probability_max'],
+                strict=True,
+            )
         ],
-    }
+    )
 
 
 def build_agent(model: str) -> Agent[Deps, TripBrief]:
@@ -180,11 +209,12 @@ def build_agent(model: str) -> Agent[Deps, TripBrief]:
 
 
 def print_brief(brief: TripBrief, tools_used: list[str], seconds: float) -> None:
-    print(f'\n  {brief.city}, {brief.country}  |  local time {brief.local_time}')
+    print(f'\n  {brief.city}, {brief.country}  |  local time {brief.local_time:%Y-%m-%d %H:%M}')
     print(f'  now: {brief.current_conditions}, {brief.current_temperature_c:.0f}°C')
     for day in brief.next_days:
         temps = f'{day.min_c:.0f} to {day.max_c:.0f}°C'
-        print(f'  {day.weekday[:3]} {day.date}: {day.conditions}, {temps}, rain {day.rain_chance_pct}%')
+        rain = 'n/a' if day.rain_chance_pct is None else f'{day.rain_chance_pct}%'
+        print(f'  {day.weekday[:3]} {day.day}: {day.conditions}, {temps}, rain {rain}')
     print('  pack: ' + '; '.join(brief.packing_tips))
     print(f'\n  {brief.answer}\n')
     print(f'  tools: {", ".join(tools_used) or "none"}  |  {seconds:.1f} s\n')
@@ -207,6 +237,11 @@ async def ask(agent: Agent[Deps, TripBrief], deps: Deps, question: str, history:
     except (ModelHTTPError, UnexpectedModelBehavior) as exc:
         print(f'\n  error: {exc}\n')
         return
+    except httpx.HTTPError as exc:
+        # An Open-Meteo 429/5xx, timeout or dropped connection, raised inside a tool. Report it and keep the
+        # session alive; the question can simply be asked again.
+        print(f'\n  error: weather service request failed: {exc!r}\n')
+        return
     print_brief(result.output, tools_called(result.new_messages()), time.perf_counter() - started)
     # Carry the whole conversation into the next turn, so follow-ups know which city is meant.
     history[:] = result.all_messages()
@@ -214,7 +249,8 @@ async def ask(agent: Agent[Deps, TripBrief], deps: Deps, question: str, history:
 
 async def main() -> None:
     require_env('SAMBANOVA_API_KEY')
-    model = os.getenv('SAMBANOVA_MODEL', DEFAULT_MODEL)
+    # `or`, not a getenv default: a blank `SAMBANOVA_MODEL=` in .env would otherwise give the model string `sambanova:`.
+    model = os.getenv('SAMBANOVA_MODEL', '').strip() or DEFAULT_MODEL
     agent = build_agent(model)
     history: list[ModelMessage] = []
 

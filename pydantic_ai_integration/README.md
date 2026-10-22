@@ -4,9 +4,10 @@ A terminal travel assistant built with [Pydantic AI](https://pydantic.dev/docs/a
 and the agent looks it up, fetches a live forecast, and answers with a validated `TripBrief` object instead of free
 text. Follow-up questions keep the conversation, so "what should I pack?" knows which city you meant.
 
-It puts the pieces the [Pydantic AI integration guide](https://docs.sambanova.ai/docs/en/integrations/pydantic-ai)
-shows one at a time into one app: Pydantic AI's built-in SambaNova provider, structured output, two tools the model
-chains together, dependency injection, retries, and multi-turn history.
+The [Pydantic AI integration guide](https://docs.sambanova.ai/docs/en/integrations/pydantic-ai) covers the basics
+one snippet at a time: Pydantic AI's built-in SambaNova provider, structured output, tool calling and streaming. This
+app builds on the first three and adds what the guide doesn't show: two tools the model chains together, typed tool
+results, dependency injection, retries, and multi-turn history.
 
 ## Prerequisites
 
@@ -47,54 +48,55 @@ Trip briefing on SambaCloud. Model: MiniMax-M3. Type "exit" to quit.
 
 you > I'm flying to Lisbon tomorrow. Do I need an umbrella?
 
-  Lisbon, Portugal  |  local time 2026-10-22T16:00
-  now: mainly clear, 19°C
+  Lisbon, Portugal  |  local time 2026-10-22 17:15
+  now: mainly clear, 18°C
   Thu 2026-10-22: overcast, 8 to 20°C, rain 0%
-  Fri 2026-10-23: overcast, 13 to 22°C, rain 3%
-  Sat 2026-10-24: overcast, 9 to 23°C, rain 0%
-  Sun 2026-10-25: overcast, 11 to 24°C, rain 0%
-  Mon 2026-10-26: fog, 13 to 24°C, rain 0%
-  pack: Light jacket or cardigan for cooler mornings (around 12–13°C); Comfortable walking shoes for cobblestone streets; Sunglasses for breaks in the overcast sky
+  Fri 2026-10-23: overcast, 12 to 22°C, rain 3%
+  Sat 2026-10-24: overcast, 9 to 22°C, rain 0%
+  Sun 2026-10-25: overcast, 11 to 23°C, rain 0%
+  Mon 2026-10-26: fog, 13 to 22°C, rain 0%
+  pack: Light jacket for cool mornings and evenings (9–13 °C); Layers for changing between overcast days and clearer spells; Comfortable walking shoes for Lisbon's hilly streets
 
-  No umbrella needed — Lisbon is overcast but dry tomorrow (Friday), with only a 3% chance of rain and a pleasant high of 22°C. Pack a light layer for the cooler morning low around 13°C.
+  You can probably leave the umbrella at home — Lisbon is overcast but dry over the next few days, with rain chances near 0% and mild temperatures in the low 20s °C. A light jacket for the cooler mornings and evenings (around 9–13 °C) would be more useful than an umbrella.
 
-  tools: find_city, get_forecast  |  21.6 s
+  tools: find_city, get_forecast  |  21.3 s
 
 you > What about Kyoto this weekend?
 
-  Kyoto, Japan  |  local time 2026-10-23T00:00
+  Kyoto, Japan  |  local time 2026-10-23 01:15
   now: overcast, 14°C
-  Fri 2026-10-23: light drizzle, 12 to 21°C, rain 73%
-  Sat 2026-10-24: rain, 18 to 20°C, rain 100%
-  Sun 2026-10-25: rain, 19 to 22°C, rain 73%
-  Mon 2026-10-26: rain showers, 18 to 23°C, rain 76%
-  Tue 2026-10-27: rain showers, 15 to 26°C, rain 71%
-  pack: Compact umbrella and a waterproof jacket; Waterproof shoes for temple gardens and wet streets; Light layers for mild 18–22°C days
+  Fri 2026-10-23: light drizzle, 12 to 21°C, rain 75%
+  Sat 2026-10-24: rain, 18 to 20°C, rain 96%
+  Sun 2026-10-25: rain, 19 to 22°C, rain 77%
+  Mon 2026-10-26: rain showers, 18 to 23°C, rain 73%
+  Tue 2026-10-27: rain showers, 15 to 26°C, rain 73%
+  pack: Compact umbrella — rain is very likely all weekend; Waterproof jacket or raincoat; Waterproof shoes for temple visits and wet streets; Light layers for mild 18–22 °C temperatures
 
-  Yes, definitely pack an umbrella — Kyoto is in for a wet weekend, with rain likely both Saturday (100% chance) and Sunday (73% chance), and highs only around 20–22°C. Bring a waterproof jacket and shoes suitable for rainy temple walks.
+  Yes, definitely pack an umbrella — Kyoto is in for a wet weekend, with rain chances of 96% on Saturday and 77% on Sunday, plus light drizzle starting Friday. Temperatures will sit around 18–22 °C, so a waterproof layer and waterproof shoes are also wise.
 
-  tools: find_city, get_forecast  |  21.0 s
+  tools: find_city, get_forecast  |  20.0 s
 
 you > What should I pack for Kyoto?
 
-  Kyoto, Japan  |  local time 2026-10-23T00:00
+  Kyoto, Japan  |  local time 2026-10-23 01:15
   now: overcast, 14°C
-  Fri 2026-10-23: light drizzle, 12 to 21°C, rain 73%
-  Sat 2026-10-24: rain, 18 to 20°C, rain 100%
-  Sun 2026-10-25: rain, 19 to 22°C, rain 73%
-  Mon 2026-10-26: rain showers, 18 to 23°C, rain 76%
-  Tue 2026-10-27: rain showers, 15 to 26°C, rain 71%
-  pack: Compact umbrella and a waterproof jacket; Waterproof shoes for temple gardens and wet streets; Light layers for mild 18–22°C days; Bag cover or dry sack for electronics and documents
+  Fri 2026-10-23: light drizzle, 12 to 21°C, rain 75%
+  Sat 2026-10-24: rain, 18 to 20°C, rain 96%
+  Sun 2026-10-25: rain, 19 to 22°C, rain 77%
+  Mon 2026-10-26: rain showers, 18 to 23°C, rain 73%
+  Tue 2026-10-27: rain showers, 15 to 26°C, rain 73%
+  pack: Compact umbrella — rain is very likely all weekend; Waterproof jacket or raincoat; Waterproof shoes for temple visits and wet streets; Light layers for mild 18–22 °C temperatures
 
-  Pack a compact umbrella and a waterproof jacket — rain is expected all weekend (100% chance Saturday, 73% Sunday). Bring waterproof shoes for wet temple paths, light layers for mild 18–22°C days, and a small bag cover to protect your belongings.
+  For Kyoto this weekend, pack a compact umbrella and a waterproof jacket — rain is very likely (96% chance Saturday, 77% Sunday). Waterproof shoes are a smart call for temple hopping on wet streets, and bring light layers for mild 18–22 °C temperatures.
 
-  tools: none  |  17.1 s
+  tools: none  |  15.4 s
+
 ```
 
 - **tools**: the tools the model called this turn. The third question needed none: the Kyoto forecast was already
   in the conversation history.
-- Most of each turn's time is `MiniMax-M3` reasoning before it calls a tool. A model without a reasoning phase,
-  such as `Meta-Llama-3.3-70B-Instruct`, answers the same question in a few seconds.
+- Most of each turn's time, typically 15 to 40 seconds, is `MiniMax-M3` reasoning before it calls a tool. A model
+  without a reasoning phase, such as `Meta-Llama-3.3-70B-Instruct`, answers the same question in a few seconds.
 
 ## How it works
 
@@ -108,14 +110,23 @@ question ─► Agent("sambanova:MiniMax-M3") ─► find_city ──► Open-Me
 The core of `main.py`, trimmed:
 
 ```python
+class DayForecast(BaseModel):
+    day: date
+    weekday: str
+    conditions: str
+    min_c: float
+    max_c: float
+    rain_chance_pct: Annotated[int, Field(ge=0, le=100)] | None
+
+
 class TripBrief(BaseModel):
     city: str
     country: str
-    local_time: str
+    local_time: datetime
     current_conditions: str
     current_temperature_c: float
     next_days: list[DayForecast]
-    packing_tips: list[str]
+    packing_tips: list[str] = Field(min_length=2, max_length=4)
     answer: str
 
 
@@ -145,6 +156,10 @@ A few details worth knowing:
 - **The SambaNova provider.** `sambanova:` selects Pydantic AI's built-in
   [SambaNova provider](https://pydantic.dev/docs/ai/models/compatible-apis/#sambanova), which reads
   `SAMBANOVA_API_KEY` and calls `https://api.sambanova.ai/v1`. Nothing is configured by hand.
+- **Validation checks shape, not truth.** `TripBrief` rejects a rain chance outside 0 to 100, a date that isn't a
+  date, or the wrong number of packing tips, and the error goes back to the model as a retry. It cannot check that
+  the numbers the model copied into `TripBrief` match what `get_forecast` returned. Tools return typed models
+  (`City`, `Forecast`) so there is less raw data for the model to re-copy.
 - **Structured output is a tool call.** Pydantic AI sends `TripBrief`'s JSON schema as a tool named
   `final_result` and validates the arguments the model calls it with. That is why the model must support function
   calling, and why `final_result` is left out of the `tools` line.
@@ -162,6 +177,8 @@ A few details worth knowing:
 - **`SAMBANOVA_API_KEY is not set`**: create `.env` from `.env.example` in this folder and add the key.
 - **`error: status_code: 401 ... invalid_api_key`**: the key in `.env` is wrong or revoked. Create a new one in
   [SambaCloud](https://cloud.sambanova.ai/apis).
+- **`error: weather service request failed: ...`**: Open-Meteo was unreachable, timed out or returned an error
+  such as a 429. The session keeps running; ask again.
 - **`error: Tool 'find_city' exceeded max retries count of 2`**: the place doesn't exist in Open-Meteo's geocoder,
   even after the model tried other spellings. Ask with a city name in English.
 - **`UserError: Native structured output is not supported by this model`**: you changed `output_type` to
@@ -169,5 +186,5 @@ A few details worth knowing:
 - **An older `pydantic-ai-slim` was installed**: Pydantic AI 2.59 needs Python 3.11 or later. On Python 3.10, `pip`
   installs an older release without an error. Check with `pip show pydantic-ai-slim` and recreate the virtual
   environment on Python 3.11 or later.
-- **Each answer takes about 20 seconds**: that is `MiniMax-M3` reasoning. Set
+- **Each answer takes 15 to 40 seconds**: that is `MiniMax-M3` reasoning. Set
   `SAMBANOVA_MODEL=Meta-Llama-3.3-70B-Instruct` for faster, shorter answers.
