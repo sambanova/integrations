@@ -37,7 +37,7 @@ def filter_map(text_list: List[str], lat: List[str], lon: List[str]) -> go.Figur
         go.Scattermapbox(lat=lat, lon=lon, mode='markers', marker=go.scattermapbox.Marker(size=11), hovertext=text_list)
     )
 
-    # Update the map by centering it on of the the provided longitude and latitude coordinates
+    # Update the map by centering it on the provided longitude and latitude coordinates
     fig.update_layout(
         mapbox_style='open-street-map',
         hovermode='closest',
@@ -58,7 +58,7 @@ def run(
     budget: int,
 ) -> Tuple[str, go.Figure]:
     """
-    Run the specfied query using Crew AI agents.
+    Run the specified query using Crew AI agents.
 
     Args:
         origin: Origin city of the traveller.

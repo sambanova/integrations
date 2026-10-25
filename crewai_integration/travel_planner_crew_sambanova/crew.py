@@ -6,7 +6,7 @@ from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 
 # Import tools from crewai_tools
-# ScrapWebsiteTool: Extract content of wensite, https://docs.crewai.com/tools/scrapewebsitetool
+# ScrapeWebsiteTool: Extract content of website, https://docs.crewai.com/tools/scrapewebsitetool
 # SerperDevTool: Search Internet, https://docs.crewai.com/tools/serperdevtool
 from crewai_tools import ScrapeWebsiteTool, SerperDevTool
 
@@ -77,7 +77,7 @@ class TravelCrew:
     @agent
     def itinerary_compiler(self) -> Agent:
         """
-        An agent specialized at composing the entire itinirary
+        An agent specialized at composing the entire itinerary
 
         Returns: The agent
         """

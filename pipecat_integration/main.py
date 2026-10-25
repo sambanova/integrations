@@ -45,7 +45,7 @@ load_dotenv(override=True)
 
 # Define function to call
 async def fetch_weather(params: FunctionCallParams) -> Any:
-    """Mock function that fetches the weather forcast from an API."""
+    """Mock function that fetches the weather forecast from an API."""
 
     await params.result_callback({'conditions': 'nice', 'temperature': '20 Degrees Celsius'})
 
@@ -74,7 +74,7 @@ transport_params = {
 async def run_example(transport: BaseTransport, _: argparse.Namespace, handle_sigint: bool) -> None:
     logger.info(f'Starting bot')
 
-    # Speach-to-text service
+    # Speech-to-text service
     stt = SambaNovaSTTService(
         model='Whisper-Large-v3',
         api_key=os.getenv('SAMBANOVA_API_KEY'),
