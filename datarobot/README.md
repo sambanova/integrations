@@ -45,8 +45,8 @@ Before starting, make sure you have access to both SambaCloud (for your models) 
 
 ## Set up your SambaCloud account
 
-1. Create an account at [SambaCloud](https://cloud.sambanova.ai).  
-2. Log in and copy your API key from [cloud.sambanova.ai/apis](https://cloud.sambanova.ai/apis).
+1. Create an account at [SambaCloud](https://cloud.sambanova.ai/apis?utm_source=datarobot&utm_medium=external&utm_campaign=cloud_signup).  
+2. Log in and copy your API key from [cloud.sambanova.ai/apis](https://cloud.sambanova.ai/apis?utm_source=datarobot&utm_medium=external&utm_campaign=cloud_signup).
 
 ## Get your API credentials
 You will need the following environment values:

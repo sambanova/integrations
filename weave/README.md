@@ -17,7 +17,7 @@ This document demonstrates how to use [W&B Weave](https://weave-docs.wandb.ai/) 
 - Evaluation: Use custom or pre-built scorers alongside our comparison tools to systematically assess and enhance application performance.
 - Guardrails: Protect your application with pre- and post-safeguards for content moderation, prompt safety, and more.
 
-In order to use `Weave` @`SambaNova`, you need to set the environment variable `SAMBANOVA_API_KEY`: your API key for accessing the SambaNova Cloud. You can create your API key [here](https://cloud.sambanova.ai/apis).
+In order to use `Weave` @`SambaNova`, you need to set the environment variable `SAMBANOVA_API_KEY`: your API key for accessing the SambaNova Cloud. You can create your API key [here](https://cloud.sambanova.ai/apis?utm_source=weave&utm_medium=external&utm_campaign=cloud_signup).
 
 1. To get started, simply call `weave.init()` at the beginning of your script, with the project name as attribute.
 
@@ -27,7 +27,7 @@ Simply create a function decorated with `@weave.op()` that invokes each completi
 3. By using the `weave.Model` class, you can capture and organize the experimental details of your app like your system prompt or the model that you are using. This helps organize and compare different iterations of your app.
 
 ## Pre-requisites: 
-1. Create a [SambaNova Cloud](https://cloud.sambanova.ai/) account and get an API key.
+1. Create a [SambaNova Cloud](https://cloud.sambanova.ai/apis?utm_source=weave&utm_medium=external&utm_campaign=cloud_signup) account and get an API key.
 
 2. Install the packages recommended in the `requirements.txt` file.
 ```bash

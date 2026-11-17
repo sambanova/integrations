@@ -33,7 +33,7 @@ Once the environment is activated, install the necessary packages:
 ```
 
 3. Set your SambaCloud API Key
-Generate your SambaCloud API key [here](https://cloud.sambanova.ai/apis) and set it in the [`./.env`](./.env) 
+Generate your SambaCloud API key [here](https://cloud.sambanova.ai/apis?utm_source=composio&utm_medium=external&utm_campaign=cloud_signup) and set it in the [`./.env`](./.env) 
 
 ``` bash
     SAMBANOVA_API_KEY=<Your SAMBANOVA api key>

@@ -12,7 +12,7 @@ results, dependency injection, retries, and multi-turn history.
 ## Prerequisites
 
 - Python 3.11 or later
-- A SambaNova API key from [SambaCloud](https://cloud.sambanova.ai/apis)
+- A SambaNova API key from [SambaCloud](https://cloud.sambanova.ai/apis?utm_source=pydanticai&utm_medium=external&utm_campaign=cloud_signup)
 
 Weather and geocoding come from [Open-Meteo](https://open-meteo.com), which needs no API key.
 
@@ -176,7 +176,7 @@ A few details worth knowing:
 
 - **`SAMBANOVA_API_KEY is not set`**: create `.env` from `.env.example` in this folder and add the key.
 - **`error: status_code: 401 ... invalid_api_key`**: the key in `.env` is wrong or revoked. Create a new one in
-  [SambaCloud](https://cloud.sambanova.ai/apis).
+  [SambaCloud](https://cloud.sambanova.ai/apis?utm_source=pydanticai&utm_medium=external&utm_campaign=cloud_signup).
 - **`error: weather service request failed: ...`**: Open-Meteo was unreachable, timed out or returned an error
   such as a 429. The session keeps running; ask again.
 - **`error: Tool 'find_city' exceeded max retries count of 2`**: the place doesn't exist in Open-Meteo's geocoder,

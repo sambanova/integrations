@@ -124,4 +124,4 @@ The OGX server requires TLS by default. For local development, pass `--insecure`
 
 **Inference calls fail with `Incorrect API key provided`**
 
-This means `SAMBANOVA_API_KEY` is unset or invalid. Set it to a valid key from [SambaNova Cloud](https://cloud.sambanova.ai/apis) before starting the server.
+This means `SAMBANOVA_API_KEY` is unset or invalid. Set it to a valid key from [SambaNova Cloud](https://cloud.sambanova.ai/apis?utm_source=ogx&utm_medium=external&utm_campaign=cloud_signup) before starting the server.
