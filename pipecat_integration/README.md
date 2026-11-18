@@ -43,7 +43,7 @@ For more details, please refer to the following resources:
     Add your `SAMBANOVA_API_KEY` to the `.env` file.
     
     <Tip>
-    Get your SambaNova API key [here](https://cloud.sambanova.ai/?utm_source=pipecat&utm_medium=external&utm_campaign=cloud_signup).
+    Get your SambaNova API key [here](https://cloud.sambanova.ai/apis?utm_source=pipecat&utm_medium=external&utm_campaign=cloud_signup).
     </Tip>
 
 2. TTS service.

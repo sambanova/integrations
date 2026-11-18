@@ -67,7 +67,7 @@ The system consists of two main agents orchestrated by Docker Compose, which pla
 
 ### Configuration
 
-1. **You need a SambaNova API Key**: <https://cloud.sambanova.ai/dashboard?utm_source=docker&utm_medium=external&utm_campaign=cloud_signup>
+1. **You need a SambaNova API Key**: <https://cloud.sambanova.ai/apis?utm_source=docker&utm_medium=external&utm_campaign=cloud_signup>
 2. Create a `.env` file with the following content:
 
 ```env
