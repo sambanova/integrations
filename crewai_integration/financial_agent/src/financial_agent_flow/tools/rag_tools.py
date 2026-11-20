@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 RETRIEVAL_QA_PROMPT_TEMPLATE = """
 <|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
-Answer any use questions based solely on the context below:
+Answer any user questions based solely on the context below:
 
 <context>
 
@@ -60,7 +60,7 @@ class TXTSearchTool(BaseTool):  # type: ignore
     def _run(self, query: str) -> Any:
         """Execute the search query and return results"""
 
-        # Extract the datafrane from the txt path
+        # Extract the dataframe from the txt path
         df = pandas.read_csv(self.txt_path.txt)
 
         # Convert the dataframe rows into Document objects
@@ -100,7 +100,7 @@ def get_qa_response(
     if not all(isinstance(doc, Document) for doc in documents):
         raise TypeError(f'All documents must be of type `langchain.schema.Document`.')
 
-    # Get the vectostore registry
+    # Get the vectorstore registry
     vectorstore = get_vectorstore(documents=documents)
 
     # Retrieve the most relevant docs

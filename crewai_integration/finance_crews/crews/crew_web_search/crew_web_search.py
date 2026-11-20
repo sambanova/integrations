@@ -32,7 +32,7 @@ class WebSearchCrew:
         output_file: str = 'results/app_web_search/report.md',
         verbose: bool = True,
     ) -> None:
-        """Initialize the RAGCrew crew."""
+        """Initialize the WebSearchCrew crew."""
 
         super().__init__()
         self.agents_config = dict()
@@ -45,7 +45,7 @@ class WebSearchCrew:
 
     @agent  # type: ignore
     def researcher(self) -> Agent:
-        """Add the RAG Agent."""
+        """Add the Web Search Agent."""
 
         return Agent(
             config=self.agents_config['researcher'],
@@ -57,7 +57,7 @@ class WebSearchCrew:
 
     @task  # type: ignore
     def research_task(self) -> Task:
-        """Add the RAG Research Task."""
+        """Add the Web Search Research Task."""
 
         return Task(
             config=self.tasks_config['research_task'],
@@ -65,7 +65,7 @@ class WebSearchCrew:
 
     @agent  # type: ignore
     def writer(self) -> Task:
-        """Add the Analyst."""
+        """Add the Writer."""
         return Agent(
             config=self.agents_config['writer'],
             verbose=self.verbose,
@@ -83,7 +83,7 @@ class WebSearchCrew:
             # Get raw string result
             result = result.raw
 
-            """Validate blog content meets requirements."""
+            """Validate report content meets requirements."""
             try:
                 # Check word count
                 word_count = len(result.split())
@@ -117,7 +117,7 @@ class WebSearchCrew:
 
     @crew  # type: ignore
     def crew(self) -> Crew:
-        """Create the RAGCrew crew."""
+        """Create the WebSearchCrew crew."""
 
         return Crew(
             agents=self.agents,

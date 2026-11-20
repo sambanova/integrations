@@ -107,7 +107,7 @@ class RAGCrew:
             # Get raw string result
             result = result.raw
 
-            """Validate blog content meets requirements."""
+            """Validate report content meets requirements."""
             try:
                 # Check word count
                 word_count = len(result.split())
@@ -161,5 +161,5 @@ if __name__ == '__main__':
         ),
         filename=project_root / 'sources' / 'article.pdf',
     )
-    rag_crew_results = rag_crew.crew().kickoff(inputs={'query': 'What are the conclusion of this article?'})
+    rag_crew_results = rag_crew.crew().kickoff(inputs={'query': 'What are the conclusions of this article?'})
     print(rag_crew_results)
