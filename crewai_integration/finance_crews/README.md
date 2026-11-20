@@ -35,7 +35,7 @@ and Retrieval Augmented Generation (RAG).
 ## 2. Setup of the `.env` file
 
 1. You need to set the environment variable `SAMBANOVA_API_KEY`: your API key for accessing the SambaNova Cloud.
-You can create your API key [here](https://cloud.sambanova.ai/apis).
+You can create your API key [here](https://cloud.sambanova.ai/apis?utm_source=crewai&utm_medium=partner&utm_campaign=cloud_signup).
 
 2. Add your `SERPER_API_KEY` after signing up at https://serper.dev/ for a free account.
 

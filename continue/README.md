@@ -55,9 +55,9 @@ The next step sets you up to use one of the models available from SambaNova. It 
 
 ### Setup for Sambanova Cloud users 
 
-1. Create a SambaNova Cloud account at [SambaNova Cloud](https://cloud.sambanova.ai).
+1. Create a SambaNova Cloud account at [SambaNova Cloud](https://cloud.sambanova.ai/apis?utm_source=continue&utm_medium=external&utm_campaign=cloud_signup).
 
-2. Get your [SambaNova Cloud API key](https://cloud.sambanova.ai/apis) 
+2. Get your [SambaNova Cloud API key](https://cloud.sambanova.ai/apis?utm_source=continue&utm_medium=external&utm_campaign=cloud_signup) 
 
 ### Setup for SambaStudio users
 

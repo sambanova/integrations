@@ -39,6 +39,8 @@ openai>=1.66.3
 sambanova>=1.2.0
 livekit-agents[hume, elevenlabs]>=1.0.20
 livekit-plugins-hume==1.0.20
+# Every hume release is yanked on PyPI; pip only installs a yanked release when it is pinned with ==
+hume==0.14.1
 livekit-plugins-silero==1.0.20
 livekit-plugins-openai==1.0.20
 livekit-plugins-elevenlabs==1.0.20

@@ -16,7 +16,7 @@ This setup is useful for:
 
 Before starting, make sure you have the following:
 
-* **SambaNova API Key** - Access to SamabaNova's LLMs. For that, please visit the [SambaNova Cloud page](https://cloud.sambanova.ai/apis)
+* **SambaNova API Key** - Access to SamabaNova's LLMs. For that, please visit the [SambaNova Cloud page](https://cloud.sambanova.ai/apis?utm_source=vapi&utm_medium=external&utm_campaign=cloud_signup)
 * **Vapi Account** – Access to the Vapi Dashboard. For that, create a Vapi account [here](https://dashboard.vapi.ai/login) 
 * **Python 3.11+** – Local development environment
 * **Python dependencies**:

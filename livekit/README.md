@@ -40,7 +40,7 @@ The Sambanova Livekit agent has 3 main components:
 - Large language model: SambaCloud LLMs are used here by default `"Llama-4-Maverick-17B-128E-Instruct` is set
 - Text to Speech model: You can use Hume or Elevenlabs
 
-To set and use these models generate your SambaCloud API key [here](https://cloud.sambanova.ai/apis), also get either a [Hume API Key](https://platform.hume.ai/settings/keys) or an [Elevenlabs API Key](https://elevenlabs.io/app/settings/api-keys)
+To set and use these models generate your SambaCloud API key [here](https://cloud.sambanova.ai/apis?utm_source=livekit&utm_medium=external&utm_campaign=cloud_signup), also get either a [Hume API Key](https://platform.hume.ai/settings/keys) or an [Elevenlabs API Key](https://elevenlabs.io/app/settings/api-keys)
 
 To communicate LiveKit creates a room/session using LiveLit Cloud server, and both, the agent and the web client should join to the room, (find more [here](https://docs.livekit.io/agents/#how-agents-connect-to-livekit)), To create and set the LiveKit rooms create a project in [LiveKit Cloud](https://cloud.livekit.io/) then go to the settings panel and click on API Keys and create one.
 

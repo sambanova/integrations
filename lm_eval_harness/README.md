@@ -21,7 +21,7 @@ Features:
 
 ## Pre-requisites:
 
-1. Create a [SambaNova Cloud](https://cloud.sambanova.ai/) account and get an API key.
+1. Create a [SambaNova Cloud](https://cloud.sambanova.ai/apis?utm_source=lmevaluationharness&utm_medium=external&utm_campaign=cloud_signup) account and get an API key.
 
 2. Clone the `lm-evaluation-harness` repo:
 

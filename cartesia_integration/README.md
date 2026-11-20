@@ -12,7 +12,7 @@ do for you, written out in one file so you can see it.
 ## Prerequisites
 
 - Python 3.11 or later
-- A SambaNova API key from [SambaCloud](https://cloud.sambanova.ai/apis)
+- A SambaNova API key from [SambaCloud](https://cloud.sambanova.ai/apis?utm_source=cartesia&utm_medium=external&utm_campaign=cloud_signup)
 - A Cartesia API key from the [Cartesia playground](https://play.cartesia.ai/keys)
 - Speakers or headphones
 - On Debian or Ubuntu, PortAudio: `sudo apt install libportaudio2` (macOS and Windows need nothing extra)

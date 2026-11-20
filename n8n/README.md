@@ -7,7 +7,7 @@
 
 # Household Budgeting Agentic Workflow (SambaNova Cloud + n8n)
 
-This repository contains an agentic AI workflow built with [SambaNova Cloud](https://cloud.sambanova.ai/) and the low-code framework [n8n](https://n8n.io/), designed to help users manage their household expenses through a conversational interface.
+This repository contains an agentic AI workflow built with [SambaNova Cloud](https://cloud.sambanova.ai/apis?utm_source=n8n&utm_medium=external&utm_campaign=cloud_signup) and the low-code framework [n8n](https://n8n.io/), designed to help users manage their household expenses through a conversational interface.
 
 ## ✨ Overview
 
@@ -19,7 +19,7 @@ This repository contains an agentic AI workflow built with [SambaNova Cloud](htt
 
 * [n8n](https://n8n.io/) (cloud or self-hosted)
 * Google account (for Google Sheets integration)
-* [SambaNova Cloud](https://cloud.sambanova.ai) API key
+* [SambaNova Cloud](https://cloud.sambanova.ai/apis?utm_source=n8n&utm_medium=external&utm_campaign=cloud_signup) API key
 
 ## 🚀 How It Works
 
@@ -44,7 +44,7 @@ Follow the steps below to import and run the workflow in your own n8n environmen
 
 * Create an account on [n8n](https://n8n.io/) (cloud or self-hosted).
 * Create a new spreadsheet in Google Sheets using the same column structure as `sample.csv`.
-* Get your API key from [SambaNova Cloud](https://cloud.sambanova.ai).
+* Get your API key from [SambaNova Cloud](https://cloud.sambanova.ai/apis?utm_source=n8n&utm_medium=external&utm_campaign=cloud_signup).
 
 ### 2. Import the workflow
 
